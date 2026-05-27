@@ -1,0 +1,15 @@
+{
+  "name": "docusketch-brand",
+  "description": "DocuSketch design team plugins. Brand design system skills and references, generated from the Brand Design Kit Figma file.",
+  "owner": {
+    "name": "DocuSketch Design",
+    "email": "chris.provins@docusketch.com"
+  },
+  "plugins": [
+    {
+      "name": "ds-brand-design",
+      "source": "./plugins/ds-brand-design",
+      "description": "DocuSketch brand design system: canonical color/type/spacing tokens, components, and best practices, bundled with the always-current reference doc."
+    }
+  ]
+}
