@@ -110,7 +110,7 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 |---|---|---|---|
 | `DS/Color/Neutral 100` | `#F9F9F5` | — | Common background — page / section warm white. Off-spec for Pantone (warm whites have no clean solid-coated match; print as 0/0/3/0 CMYK or use stock paper). *(= `Background/Subtle` + `Text/Inverse` tokens)* |
 | `DS/Color/Neutral 200` | `#F4F3EA` | 9181 C | Common background — testimonial / card / inset surfaces *(= `Background/Default` + `Border/Subtle` tokens)* |
-| `DS/Color/Neutral 300` | `#E2E0D3` | 7527 C | Dividers, image placeholder fills *(= `Border/Default` token)* |
+| `DS/Color/Neutral 300` | `#DFDDC8` | 7527 C *(re-verify)* | Dividers, image placeholder fills, warm-neutral text overlay on dark neutral swatches in dark mode *(= `Border/Default` token)* |
 | `DS/Color/Neutral 400` | `#C0BC90` | **5793 C** | Light sage / warm grey *(= `Brand/Eucalyptus` + `Text/Muted` tokens — note: 1.49:1 vs white, below AA. Reserve `Text/Muted` for non-essential / decorative text only.)* |
 | `DS/Color/Neutral 500` | `#807C5E` | 5777 C | Mid sage / warm grey *(= `Text/Secondary` + `Border/Strong` tokens — note: 4.04:1 vs white, passes AA Large only.)* |
 | `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (10.5:1 vs white). |
@@ -165,7 +165,7 @@ Semantic aliases for the three colours that carry brand identity. Components sho
 | Token | Resolves to | Hex | Used as |
 |---|---|---|---|
 | `DS/Token/Border/Strong` | `Neutral 500` | `#807C5E` | Emphatic dividers, strong borders |
-| `DS/Token/Border/Default` | `Neutral 300` | `#E2E0D3` | Standard dividers, hairlines |
+| `DS/Token/Border/Default` | `Neutral 300` | `#DFDDC8` | Standard dividers, hairlines |
 | `DS/Token/Border/Subtle` | `Neutral 200` | `#F4F3EA` | Inset edges, subtle separations |
 
 ### Gradients
@@ -207,7 +207,7 @@ The Camo pattern is intentionally **non-token** at the CSS level — it ships as
 - **Dark-text test:** if `Text/OnBrand` (#2A2808) clears **AA (≥ 4.5:1)** on the swatch, the background is light enough — use `Text/OnBrand`. (Covers Chartreuse 100–600 and Neutral 100–400.)
 - **Otherwise the background is dark/mid and needs light text, picked by family** so the overlay stays inside that family:
   - **Chartreuse swatches → pale `Chartreuse 100` (#FFFCC4).** Keeps the chartreuse identity and gives clean hue separation on the dark olive steps (700 / 800 / 900), where dark-olive-on-olive reads muddy. Applies to **Chartreuse 700, 800, 900**.
-  - **Neutral swatches → `Neutral 300` (#E2E0D3).** A warm off-white that keeps the neutral overlay inside the warm-neutral family. Stark pure-white text (Neutral 100) on a warm dark neutral swatch reads as "tech-flat," not brand — Neutral 300 carries DocuSketch's warm identity into the contrast. ~13.6:1 on Neutral 700, ~9.0:1 on Neutral 650, ~3.3:1 on the Neutral 500 mid-tone (same AA Large limit as the other mid-tones). Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Ash` surfaces, which are neutral-family).
+  - **Neutral swatches → `Neutral 300` (#DFDDC8).** A warm off-white that keeps the neutral overlay inside the warm-neutral family. Stark pure-white text (Neutral 100) on a warm dark neutral swatch reads as "tech-flat," not brand — Neutral 300 carries DocuSketch's warm identity into the contrast. ~12.85:1 on Neutral 700, ~8.73:1 on Neutral 650, ~3.16:1 on the Neutral 500 mid-tone (same AA Large limit as the other mid-tones — Neutral 500 is the tightest pair, just clearing 3:1). Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Ash` surfaces, which are neutral-family).
 
 The two mid-tone steps near L\*54 — **`Chartreuse 700` (#8A8500)** and **`Neutral 500` (#807C5E)** — can't reach AA with *any* brand text colour (their best lands at AA Large, ~3.7–4.0:1). Treat them as fill / large-display tones, not backgrounds for body-size copy. (The /brand colour page applies this picker automatically and shows the resulting WCAG level on each swatch.)
 
@@ -233,7 +233,7 @@ The previous flat `DS/Color/{Black,White,Warm,Default,Chartreuse[…],Eucalyptus
 - `DS/Color/Eucalyptus 100` *(#C0BC90)* → `Eucalyptus 100` or `Brand/Eucalyptus`
 - `DS/Color/Eucalyptus 200` *(#807C5E)* → `Eucalyptus 200` (unchanged)
 - `DS/Color/Eucalyptus 300` *(#39381B)* → `Eucalyptus 300`
-- `DS/Color/Neutral 300` *(#E2E0D3)* → `Neutral 300` or `Border/Default`
+- `DS/Color/Neutral 300` *(#DFDDC8)* → `Neutral 300` or `Border/Default`
 - `DS/Color/Neutral 500` *(was #908D68)* → renumbered to **`Neutral 500`** (Figma's new `Neutral 400` is `#B8B5A0`)
 - `DS/Color/Neutral 600` *(was #6B6948)* → renumbered to **`Neutral 600`**
 - `DS/Color/Neutral 650` *(was #3D3C2A)* → renumbered to **`Neutral 650`**
@@ -284,7 +284,7 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 | `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
 | `DS/Token/Text/Accent` | Chartreuse 900 (`#2A2808`) | Chartreuse 300 (`#E5DF00`) | Chartreuse-family highlights NOT on a chartreuse fill: breadcrumb current, in-prose links, group headers, "Show more" expanders. |
 | `DS/Token/Border/Strong` | Neutral 500 | Neutral 400 | Lifted off dark bg |
-| `DS/Token/Border/Default` | Neutral 300 (`#E2E0D3`) | Neutral 800 (`#4A4830`) | Dark-mode-only primitive — see below |
+| `DS/Token/Border/Default` | Neutral 300 (`#DFDDC8`) | Neutral 800 (`#4A4830`) | Dark-mode-only primitive — see below |
 | `DS/Token/Border/Subtle` | Neutral 200 | Neutral 650 | Barely lifted from page bg |
 
 **Two new semantic tokens were added when canonizing dark mode** to replace patterns that were widely hardcoding primitives:
@@ -844,7 +844,7 @@ Sticky CTA  (compound component)
 |---|---|---|---|
 | Halo | `rgba(26,25,5,0.5)` (black-tinted) | `rgba(255,250,55,0.25)` (chartreuse-tinted) | `rgba(249,249,245,0.25)` (bg-warm-tinted) |
 | Pill | `Brand/Black` `#1a1905` | `Brand/Chartreuse` `#e5df00` | `Brand/Eucalyptus` `#c0bc90` |
-| Text | `Neutral/300` `#e2e0d3` | `Brand/Black` | `Neutral/500` `#807c5e` |
+| Text | `Neutral/300` `#dfddc8` | `Brand/Black` | `Neutral/500` `#807c5e` |
 | Icon button bg | `Brand/Chartreuse` `#e5df00` *(regular, not the brighter Chartreuse 200)* | `Chartreuse 200` `#fffa37` | `Neutral/500` `#807c5e` |
 | Arrow colour | `#1C1B1F` (≈ Brand/Black) | `#1C1B1F` (unchanged from rest) | `Olive` `#39381b` *(verify against Figma asset)* |
 | Figma node | `25:233` (Figma "hover" variant) | `25:235` (Figma "Default" variant) | `25:597` |
@@ -1115,7 +1115,7 @@ const KEYS = {
   chartDk:   'e2ffcb6a6fe50a91050f1fc54ed0fc12158ae7c7',  // DS/Color/Chartreuse Dark #2a2808
   eucalyptus:'e72d9522dcb925a76af912eb4a61173aabb848be',  // DS/Color/Eucalyptus     #c0bc90
   // Neutrals
-  n300:      '2da31f3779da151d1d45fdc1a86dfc980f2483ad',  // DS/Color/Neutral 300    #e2e0d3
+  n300:      '2da31f3779da151d1d45fdc1a86dfc980f2483ad',  // DS/Color/Neutral 300    #dfddc8 (re-tuned from #e2e0d3 for chroma progression — re-publish the Figma style)
   n400:      'b790aa71fab53fae6a4361aa787bf922ebe69bde',  // DS/Color/Scale/Neutral/400  #c0bc90
   n500:      'df6f1bdac791116d5ae8105c412ea01246a3a607',  // DS/Color/Scale/Neutral/500  #807c5e
   n600:      '0719226c9ad3c8ef20da9e7267f207039e59cc82',  // DS/Color/Scale/Neutral/600  #39381b (→ Neutral 650)
@@ -1310,7 +1310,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-05-04T19:42:12.018544+00:00",
-  "last_skill_sync": "2026-05-28T19:11:03.267605+00:00",
+  "last_skill_sync": "2026-05-28T19:26:03.965367+00:00",
   "figma_last_version": "2349814142447096167"
 }
 ```
