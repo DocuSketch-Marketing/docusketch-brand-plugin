@@ -279,11 +279,18 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 | `DS/Token/Text/Primary` | Neutral 700 | Neutral 100 | Body, headlines |
 | `DS/Token/Text/OnBrand` | Chartreuse 900 (`#2A2808`) | **Chartreuse 900** | Text on chartreuse fills — unchanged |
 | `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 400 (`#C0BC90`) | ~7.6:1 vs Neutral 700 — passes AA for body in dark |
+| `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 10.5:1 (light) / 14:1 (dark) — AAA both. |
 | `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 500 (`#807C5E`) | Same AA Large caveat as light: not for body |
 | `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
+| `DS/Token/Text/Accent` | Chartreuse 900 (`#2A2808`) | Chartreuse 300 (`#E5DF00`) | Chartreuse-family highlights NOT on a chartreuse fill: breadcrumb current, in-prose links, group headers, "Show more" expanders. |
 | `DS/Token/Border/Strong` | Neutral 500 | Neutral 400 | Lifted off dark bg |
 | `DS/Token/Border/Default` | Neutral 300 (`#E2E0D3`) | Neutral 800 (`#4A4830`) | Dark-mode-only primitive — see below |
 | `DS/Token/Border/Subtle` | Neutral 200 | Neutral 650 | Barely lifted from page bg |
+
+**Two new semantic tokens were added when canonizing dark mode** to replace patterns that were widely hardcoding primitives:
+
+- `Text/Strong` — solves the *high-contrast body-supporting copy* role that hardcoded `Neutral 650` (10.5:1 vs white, AAA). In dark, Neutral 650 (`#39381B`) drops to 1.4:1 against the page bg (invisible). `Text/Strong` resolves to Neutral 200 in dark, preserving the role's high-contrast intent.
+- `Text/Accent` — solves the *chartreuse-family highlight on theme bg* role that hardcoded `Text/OnBrand` (Chartreuse 900) for breadcrumbs, in-prose links, and group titles. `Text/OnBrand` is specifically for text ON a chartreuse fill; on the dark page bg it lands at 1.19:1. `Text/Accent` resolves to Chartreuse 300 in dark (12.56:1, AAA).
 
 ### Surface elevation in dark
 
@@ -326,6 +333,48 @@ Where dark mode is exposed (e.g. the `/brand` reference site), the pattern is:
 ```
 
 The CSS pattern duplicates the dark mappings under both selectors so explicit and implicit dark behave identically. The `:root:not([data-theme])` guard prevents the OS preference from overriding an explicit user choice.
+
+### Canonical-surface scoping
+
+Canonical artifacts (logo stages, colour swatches, the menu component, the don'ts gallery, etc.) keep a hardcoded light surface in both themes. Their **descendants must also keep light-mode text colours** — otherwise tokens that flip (`Text/Primary`, `Text/Strong`, `Text/Inverse`) will resolve to light values in dark mode and render invisible on the canonical light background.
+
+The pattern: inside `:root[data-theme="dark"]`, scope the canonical containers and re-bind text tokens to their light-mode primitives:
+
+```css
+:root[data-theme="dark"] .menu-demo,
+:root[data-theme="dark"] .menu-demo *,
+:root[data-theme="dark"] .logo-dont,
+:root[data-theme="dark"] .logo-dont *,
+:root[data-theme="dark"] .colour-item,
+:root[data-theme="dark"] .colour-item * {
+  --ds-text-primary:    #1A1905;   /* Neutral 700 */
+  --ds-text-secondary:  #807C5E;   /* Neutral 500 */
+  --ds-text-strong:     #39381B;   /* Neutral 650 */
+  --ds-text-inverse:    #F9F9F5;   /* Neutral 100 */
+  --ds-text-muted:      #C0BC90;   /* Neutral 400 */
+}
+```
+
+Duplicate the block under `@media (prefers-color-scheme: dark) { :root:not([data-theme]) ... }` so system-preference dark users get the same scoping. Background tokens are not re-bound — the canonical surface either hardcodes its own background (the typical case) or follows the theme via `Background/Default`.
+
+### WCAG verification
+
+Run a programmatic contrast walk on the dark variant of every brand surface. The pairings above hold AA at minimum across every page-chrome combination:
+
+| Pair | Dark ratio | Threshold | Status |
+|---|---|---|---|
+| Text/Primary on Background/Subtle | 16.79:1 | 4.5:1 | AAA |
+| Text/Primary on Background/Default | 11.33:1 | 4.5:1 | AAA |
+| Text/Strong on Background/Subtle | ~14:1 | 4.5:1 | AAA |
+| Text/Secondary on Background/Subtle | 9.14:1 | 4.5:1 | AAA |
+| Text/Secondary on Background/Default | 6.17:1 | 4.5:1 | AA |
+| Text/Muted on Background/Subtle | 4.19:1 | 3:1 (AA Large) | AA Large only — same caveat as light |
+| Text/OnBrand on Background/Brand | 10.59:1 | 4.5:1 | AAA |
+| Text/Accent on Background/Subtle | 12.56:1 | 4.5:1 | AAA |
+| Focus ring (Chartreuse 300) on page | 12.56:1 | 3:1 (non-text) | Pass |
+
+**Known mid-tone exceptions** (canon-documented, not bugs):
+- Text on `Chartreuse 700` / `Neutral 500` swatches lands at ~3.67–4.0:1 — AA Large only. These swatches are documented as "fill / large-display tones, not backgrounds for body-size copy" (see the colour audit notes above). The `/brand` reference renders metadata on these swatches at the canon's recommended sizes; consumers should not put body copy on these fills.
 
 ## Radius Scale
 
@@ -1260,7 +1309,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-05-04T19:42:12.018544+00:00",
-  "last_skill_sync": "2026-05-27T18:11:50.067687+00:00",
+  "last_skill_sync": "2026-05-28T17:55:55.448065+00:00",
   "figma_last_version": "2349814142447096167"
 }
 ```
