@@ -207,7 +207,7 @@ The Camo pattern is intentionally **non-token** at the CSS level — it ships as
 - **Dark-text test:** if `Text/OnBrand` (#2A2808) clears **AA (≥ 4.5:1)** on the swatch, the background is light enough — use `Text/OnBrand`. (Covers Chartreuse 100–600 and Neutral 100–400.)
 - **Otherwise the background is dark/mid and needs light text, picked by family** so the overlay stays inside that family:
   - **Chartreuse swatches → pale `Chartreuse 100` (#FFFCC4).** Keeps the chartreuse identity and gives clean hue separation on the dark olive steps (700 / 800 / 900), where dark-olive-on-olive reads muddy. Applies to **Chartreuse 700, 800, 900**.
-  - **Neutral swatches → `Text/Inverse` (= Neutral 100, #F9F9F5).** Neutrals stay neutral — no chartreuse cast on the grey scale. Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Ash` surfaces, which are neutral-family).
+  - **Neutral swatches → `Neutral 300` (#E2E0D3).** A warm off-white that keeps the neutral overlay inside the warm-neutral family. Stark pure-white text (Neutral 100) on a warm dark neutral swatch reads as "tech-flat," not brand — Neutral 300 carries DocuSketch's warm identity into the contrast. ~13.6:1 on Neutral 700, ~9.0:1 on Neutral 650, ~3.3:1 on the Neutral 500 mid-tone (same AA Large limit as the other mid-tones). Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Ash` surfaces, which are neutral-family).
 
 The two mid-tone steps near L\*54 — **`Chartreuse 700` (#8A8500)** and **`Neutral 500` (#807C5E)** — can't reach AA with *any* brand text colour (their best lands at AA Large, ~3.7–4.0:1). Treat them as fill / large-display tones, not backgrounds for body-size copy. (The /brand colour page applies this picker automatically and shows the resulting WCAG level on each swatch.)
 
@@ -276,11 +276,11 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 | `DS/Token/Background/Inverse` | Neutral 700 (`#1A1905`) | Neutral 100 (`#F9F9F5`) | Flipped — "inverse" relative to current mode |
 | `DS/Token/Background/Default` | Neutral 200 (`#F4F3EA`) | Neutral 650 (`#39381B`) | Card / inset surfaces — one step elevated above page |
 | `DS/Token/Background/Subtle` | Neutral 100 (`#F9F9F5`) | Neutral 700 (`#1A1905`) | Page / section background — deepest surface in each mode |
-| `DS/Token/Text/Primary` | Neutral 700 | Neutral 100 | Body, headlines |
+| `DS/Token/Text/Primary` | Neutral 700 | Neutral 400 (`#C0BC90`) | Body, headlines. Dark primary is **warm sage**, not a stark off-white (9.14:1, AAA). Inverting the warm-neutral identity into a tech-flat white misreads the brand — the warm sage carries forward DocuSketch's identity into the dark theme. |
 | `DS/Token/Text/OnBrand` | Chartreuse 900 (`#2A2808`) | **Chartreuse 900** | Text on chartreuse fills — unchanged |
-| `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 400 (`#C0BC90`) | ~7.6:1 vs Neutral 700 — passes AA for body in dark |
-| `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 10.5:1 (light) / 14:1 (dark) — AAA both. |
-| `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 500 (`#807C5E`) | Same AA Large caveat as light: not for body |
+| `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 500 (`#807C5E`) | 4.0:1 vs Neutral 700 — AA Large only, same caveat both modes |
+| `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 10.5:1 (light) / 14:1 (dark) — AAA both. Escalate to this when Primary's warm sage doesn't carry enough presence for the role. |
+| `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 650 (`#39381B`) | Decorative only — ~1.5:1 in both modes. Same semantic across themes: tertiary, non-load-bearing copy. |
 | `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
 | `DS/Token/Text/Accent` | Chartreuse 900 (`#2A2808`) | Chartreuse 300 (`#E5DF00`) | Chartreuse-family highlights NOT on a chartreuse fill: breadcrumb current, in-prose links, group headers, "Show more" expanders. |
 | `DS/Token/Border/Strong` | Neutral 500 | Neutral 400 | Lifted off dark bg |
@@ -363,15 +363,16 @@ Run a programmatic contrast walk on the dark variant of every brand surface. The
 
 | Pair | Dark ratio | Threshold | Status |
 |---|---|---|---|
-| Text/Primary on Background/Subtle | 16.79:1 | 4.5:1 | AAA |
-| Text/Primary on Background/Default | 11.33:1 | 4.5:1 | AAA |
-| Text/Strong on Background/Subtle | ~14:1 | 4.5:1 | AAA |
-| Text/Secondary on Background/Subtle | 9.14:1 | 4.5:1 | AAA |
-| Text/Secondary on Background/Default | 6.17:1 | 4.5:1 | AA |
-| Text/Muted on Background/Subtle | 4.19:1 | 3:1 (AA Large) | AA Large only — same caveat as light |
+| Text/Primary (Neutral 400) on Background/Subtle | 9.14:1 | 4.5:1 | AAA |
+| Text/Primary on Background/Default | 6.17:1 | 4.5:1 | AA |
+| Text/Strong (Neutral 200) on Background/Subtle | ~14:1 | 4.5:1 | AAA — escalation tier when Primary's warm sage needs reinforcement |
+| Text/Secondary (Neutral 500) on Background/Subtle | 4.0:1 | 3:1 (AA Large) | AA Large only — captions / metadata; same caveat as light mode |
+| Text/Muted on Background/Subtle | ~1.5:1 | (decorative) | Decorative only — non-load-bearing |
 | Text/OnBrand on Background/Brand | 10.59:1 | 4.5:1 | AAA |
-| Text/Accent on Background/Subtle | 12.56:1 | 4.5:1 | AAA |
+| Text/Accent (Chartreuse 300) on Background/Subtle | 12.56:1 | 4.5:1 | AAA |
 | Focus ring (Chartreuse 300) on page | 12.56:1 | 3:1 (non-text) | Pass |
+
+**Why Primary is warm sage, not white-ish.** Inverting the warm-neutral identity (Neutral 700 in light → Neutral 100 in dark) would land at 16.79:1 — AAA, yes, but stark off-white on near-black reads as "tech-flat dark mode," not as DocuSketch. Neutral 400 (warm sage) carries the brand identity into the dark theme. It's still AAA (9.14:1). For places that genuinely need MORE contrast — surfaces where the warm sage doesn't have the gravity the role needs — escalate explicitly to `Text/Strong` (Neutral 200, ~14:1).
 
 **Known mid-tone exceptions** (canon-documented, not bugs):
 - Text on `Chartreuse 700` / `Neutral 500` swatches lands at ~3.67–4.0:1 — AA Large only. These swatches are documented as "fill / large-display tones, not backgrounds for body-size copy" (see the colour audit notes above). The `/brand` reference renders metadata on these swatches at the canon's recommended sizes; consumers should not put body copy on these fills.
@@ -1309,7 +1310,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-05-04T19:42:12.018544+00:00",
-  "last_skill_sync": "2026-05-28T17:55:55.448065+00:00",
+  "last_skill_sync": "2026-05-28T19:11:03.267605+00:00",
   "figma_last_version": "2349814142447096167"
 }
 ```
