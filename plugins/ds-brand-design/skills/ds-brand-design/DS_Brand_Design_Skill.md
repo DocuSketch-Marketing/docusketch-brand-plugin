@@ -116,7 +116,7 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 | `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (10.5:1 vs white). |
 | `DS/Color/Neutral 700` | `#1A1905` | **Black 4 C** | Body text, headlines, icons on light *(= `Brand/Ash`, `Background/Inverse`, `Text/Primary` tokens)* |
 
-*Eucalyptus consolidated into Neutral 400/500/650 (this revision). The former Eucalyptus 100/200/300 (`#C0BC90` / `#807C5E` / `#39381B`) and prior Neutral 400/500/650 (`#B8B5A0` / `#908D68` / `#3D3C2A`) were within ~4 L\* of each other per step — a tonal duplicate scale. Picking the warmer Eucalyptus side as canonical eliminates the redundancy. `Brand/Eucalyptus` token now resolves through `Neutral 400`; the Eucalyptus primitive scale is removed. **Neutral 600** (`#6B6948`) was removed in the same pass — with the new Neutral 500 and 650 in place, the 500 → 650 step is large enough to carry without an intermediate. **Neutral 800** (`#4A4830`) was previously removed for the same monotonicity reason.*
+*Eucalyptus consolidated into Neutral 400/500/650 (this revision). The former Eucalyptus 100/200/300 (`#C0BC90` / `#807C5E` / `#39381B`) and prior Neutral 400/500/650 (`#B8B5A0` / `#908D68` / `#3D3C2A`) were within ~4 L\* of each other per step — a tonal duplicate scale. Picking the warmer Eucalyptus side as canonical eliminates the redundancy. `Brand/Eucalyptus` token now resolves through `Neutral 400`; the Eucalyptus primitive scale is removed. **Neutral 600** (`#6B6948`) was removed in the same pass — with the new Neutral 500 and 650 in place, the 500 → 650 step is large enough to carry without an intermediate. **Neutral 800** (`#4A4830`) is kept out of the light ramp for the same monotonicity reason, but retained in Figma as a Dark-mode-only primitive (it backs `Background/Subtle` and `Border/Default` in Dark mode).*
 
 ### Primitives · Base
 
@@ -257,6 +257,75 @@ When a user drag-selects copy on any DocuSketch surface, the selection reads as 
 ```
 
 The Firefox prefixed pseudo (`::-moz-selection`) needs its own rule — Firefox will not honour a comma-grouped selector mixing both. Inside dark-mode surfaces (or any block where the text colour is already chartreuse), authors may flip the pair for legibility: `background-color: var(--ds-text-on-brand); color: var(--ds-brand-chartreuse);`. The pair *always* uses these two tokens — never substitute a neutral or a secondary brand colour.
+
+## Dark Mode
+
+Dark vs. light is never a default. Run the *scene sentence* before choosing — "who uses this, where, under what ambient light, in what mood." For surfaces where dark mode is desired, DocuSketch maintains a committed mapping that respects three principles:
+
+1. **Only redefine the semantic layer.** Primitives are immutable; tokens swap. A component that binds to `DS/Token/Background/Default` never needs to know whether it is in light or dark mode.
+2. **Depth from surface lightness, not shadow.** Shadows collapse to `none` in dark; elevation is signalled by stepping each surface lighter on the warm-neutral ramp (Neutral 700 → 650 → 800).
+3. **Brand colour stays brand.** `Background/Brand` (Chartreuse 300) and `Text/OnBrand` (Chartreuse 900) do not flip. The brand pair is identity, not chrome.
+
+### Pairings
+
+The full Light / Dark map for every DS semantic token. Light values are unchanged from the Tokens · Background / Text / Border sections above; Dark values are the committed counterparts.
+
+| Token | Light primitive | Dark primitive | Notes |
+|---|---|---|---|
+| `DS/Token/Background/Brand` | Chartreuse 300 (`#E5DF00`) | **Chartreuse 300** | Brand fill — unchanged |
+| `DS/Token/Background/Inverse` | Neutral 700 (`#1A1905`) | Neutral 100 (`#F9F9F5`) | Flipped — "inverse" relative to current mode |
+| `DS/Token/Background/Default` | Neutral 200 (`#F4F3EA`) | Neutral 650 (`#39381B`) | Card / inset surfaces — one step elevated above page |
+| `DS/Token/Background/Subtle` | Neutral 100 (`#F9F9F5`) | Neutral 700 (`#1A1905`) | Page / section background — deepest surface in each mode |
+| `DS/Token/Text/Primary` | Neutral 700 | Neutral 100 | Body, headlines |
+| `DS/Token/Text/OnBrand` | Chartreuse 900 (`#2A2808`) | **Chartreuse 900** | Text on chartreuse fills — unchanged |
+| `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 400 (`#C0BC90`) | ~7.6:1 vs Neutral 700 — passes AA for body in dark |
+| `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 500 (`#807C5E`) | Same AA Large caveat as light: not for body |
+| `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
+| `DS/Token/Border/Strong` | Neutral 500 | Neutral 400 | Lifted off dark bg |
+| `DS/Token/Border/Default` | Neutral 300 (`#E2E0D3`) | Neutral 800 (`#4A4830`) | Dark-mode-only primitive — see below |
+| `DS/Token/Border/Subtle` | Neutral 200 | Neutral 650 | Barely lifted from page bg |
+
+### Surface elevation in dark
+
+Three steps, each lighter than the last (impeccable principle: in dark mode, higher elevation reads lighter, not via shadow):
+
+| Role | Primitive | Hex | Used as |
+|---|---|---|---|
+| Page (lowest) | Neutral 700 | `#1A1905` | Page / section background — `Background/Subtle` |
+| Card (mid) | Neutral 650 | `#39381B` | Cards, insets, panels — `Background/Default` |
+| Raised (highest) | Neutral 800 | `#4A4830` | Chips, hover surfaces, raised insets — bind directly or via `Border/Default` |
+
+**Neutral 800 (`#4A4830`) is a Dark-mode-only primitive.** It is intentionally outside the light ramp (where it would have broken monotonicity between Neutral 650 → 700) and only resolves through the Dark token map — backing `Border/Default` and any "raised on card" surface.
+
+### Shadows
+
+Drop-shadow tokens (`--shadow-sm` … `--shadow-xl`, `--shadow-floating`) all resolve to `none` in dark mode. Light-mode CSS that uses these tokens degrades gracefully without further changes. Components that need to signal elevation in dark must use a lighter surface from the ramp above — never reintroduce a darker-than-bg shadow, which fails the "depth from lightness" principle.
+
+### Component carve-outs
+
+Brand artifacts that *are* the thing being demonstrated stay canonical regardless of theme:
+
+- **Logo lockup stages** — the cream/white plates that frame the wordmark, DS° mark, Pill, and partner logos are part of the canonical presentation. They show light in both themes; the canonical SVG marks stay on their canonical surfaces.
+- **Colour swatches** — show in their actual colour values in both themes. The page chrome around them adapts; the swatch fills don't.
+- **Type specimens** — set on light by default; in a dark-mode brand surface, set the specimen plate to canonical light so the type renders as designed.
+- **Camo pattern, gradient panels, sticky-CTA halo variants** — each is a designed surface with its own internal palette; theming would obscure the artifact.
+
+### Theme switching
+
+Where dark mode is exposed (e.g. the `/brand` reference site), the pattern is:
+
+1. **Default** — respect `prefers-color-scheme: dark` via `@media`. No JavaScript needed for the OS default; a small inline `<script>` in `<head>` only applies a *stored* user preference before paint to avoid FOUC.
+2. **Toggle** — a two-segment Light / Dark pill in a stable surface position (sidebar bottom-left, footer, or settings panel). Once the user clicks, the choice is written to `localStorage` and to `:root[data-theme="light" | "dark"]` and wins from then on.
+3. **Three-state controls are optional** — add a `System` segment only when the surface needs to let the user re-yield to the OS preference after explicit choice; most product surfaces do not.
+
+```css
+:root[data-theme="dark"] { /* explicit override */ }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { /* OS default, only if user hasn't chosen */ }
+}
+```
+
+The CSS pattern duplicates the dark mappings under both selectors so explicit and implicit dark behave identically. The `:root:not([data-theme])` guard prevents the OS preference from overriding an explicit user choice.
 
 ## Radius Scale
 
@@ -725,8 +794,8 @@ Sticky CTA  (compound component)
 |---|---|---|---|
 | Halo | `rgba(26,25,5,0.5)` (black-tinted) | `rgba(255,250,55,0.25)` (chartreuse-tinted) | `rgba(249,249,245,0.25)` (bg-warm-tinted) |
 | Pill | `Brand/Black` `#1a1905` | `Brand/Chartreuse` `#e5df00` | `Brand/Eucalyptus` `#c0bc90` |
-| Text | `Neutral/300` `#e2e0d3` | `Brand/Black` | `Neutral/400` `#908d68` |
-| Icon button bg | `Brand/Chartreuse` `#e5df00` *(regular, not the brighter Chartreuse 200)* | `Chartreuse 200` `#fffa37` | `Neutral/400` `#908d68` |
+| Text | `Neutral/300` `#e2e0d3` | `Brand/Black` | `Neutral/500` `#807c5e` |
+| Icon button bg | `Brand/Chartreuse` `#e5df00` *(regular, not the brighter Chartreuse 200)* | `Chartreuse 200` `#fffa37` | `Neutral/500` `#807c5e` |
 | Arrow colour | `#1C1B1F` (≈ Brand/Black) | `#1C1B1F` (unchanged from rest) | `Olive` `#39381b` *(verify against Figma asset)* |
 | Figma node | `25:233` (Figma "hover" variant) | `25:235` (Figma "Default" variant) | `25:597` |
 
@@ -997,9 +1066,9 @@ const KEYS = {
   eucalyptus:'e72d9522dcb925a76af912eb4a61173aabb848be',  // DS/Color/Eucalyptus     #c0bc90
   // Neutrals
   n300:      '2da31f3779da151d1d45fdc1a86dfc980f2483ad',  // DS/Color/Neutral 300    #e2e0d3
-  n400:      'b790aa71fab53fae6a4361aa787bf922ebe69bde',  // DS/Color/Neutral 400    #908d68
-  n500:      'df6f1bdac791116d5ae8105c412ea01246a3a607',  // DS/Color/Neutral 500    #6b6948
-  n600:      '0719226c9ad3c8ef20da9e7267f207039e59cc82',  // DS/Color/Neutral 600    #3d3c2a
+  n400:      'b790aa71fab53fae6a4361aa787bf922ebe69bde',  // DS/Color/Scale/Neutral/400  #c0bc90
+  n500:      'df6f1bdac791116d5ae8105c412ea01246a3a607',  // DS/Color/Scale/Neutral/500  #807c5e
+  n600:      '0719226c9ad3c8ef20da9e7267f207039e59cc82',  // DS/Color/Scale/Neutral/600  #39381b (→ Neutral 650)
 };
 
 const S = {};  // populated styles cache
@@ -1191,7 +1260,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-05-04T19:42:12.018544+00:00",
-  "last_skill_sync": "2026-05-27T17:26:47.956978+00:00",
+  "last_skill_sync": "2026-05-27T18:11:50.067687+00:00",
   "figma_last_version": "2349814142447096167"
 }
 ```
