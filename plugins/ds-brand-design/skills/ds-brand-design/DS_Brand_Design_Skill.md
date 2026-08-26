@@ -33,6 +33,295 @@
 
 ---
 
+## Naming Convention & Source of Truth — 2026 Unification (canonical)
+
+> **Decision 2026-07-15:** the **DS° Marketing Website 2026** Figma file (`guoAdcJQH5m7hrlyH62OGZ`) is the central source of truth for design-system **naming** — variables and assets. The Brand Design Kit remains the component library; this doc and brand-design-kit.vercel.app are mirrors. Full registry + per-surface impact map: `NAMING_ALIGNMENT.md` in the brand-design-kit repo.
+
+**Grammar.** One canonical token name, `group-role` kebab-case, transformed mechanically per surface:
+
+| Surface | Spelling | Example |
+|---|---|---|
+| Figma variable | `Group/group-role` | `Text/text-strong` |
+| CSS / code | `--ds-` + canonical | `--ds-text-strong` |
+| Figma component | `Category / Name` Title Case, variants `Property=Value` | `Logo / Partner / Paul Davis`, `Color=Black` |
+| Dev handoff alias | kebab, in component *description* only | `logo-bar` |
+
+Variant property vocabulary (closed list): `Color=Black|White|Chartreuse` (marks) · `Mode=Light|Dark` · `Device=Desktop|Mobile` · `Variant=` (everything else). `Brand=` is retired; values are Title Case.
+
+**Semantic re-mappings that supersede the tables below** (the rest of the legacy `DS/Token/*` names remain valid values with legacy spellings until the section-by-section rewrite lands):
+
+| Canonical | Value | Supersedes |
+|---|---|---|
+| `text-strong` | `#1A1905` | `DS/Token/Text/Primary` — the strongest ink is now *strong* |
+| `text-primary` | `#39381B` | body ink is now Neutral 650, **not** `#1A1905` |
+| `text-inverse` | `#FFFFFF` | `DS/Token/Text/Inverse` = `#F9F9F5` |
+| `text-button-on-accent` | `#010101` | `DS/Token/Text/OnBrand` = `#2A2808` for button labels on accent |
+| `background-accent` | `#E5DF00` | `DS/Token/Background/Brand` (rename) |
+| `brand-white` | `#FFFFFF` | white is reinstated as a brand token |
+| `error` | `#FF7575` | any prior signal/negative red |
+
+Ramp primitives (`chartreuse-100…900`, `neutral-100…800`, `black`, `white`) and the Editorial/print system (`DS/Type/Print/*`, Text/Secondary, Border scale) are **extensions**: absent from the website file, retained here in the same grammar, candidates to upstream.
+
+---
+
+## Brand Expressions
+
+Two modes that DocuSketch design lives in. Same brand, two voices — they share wordmark, chartreuse, the plain-zero rule, type families, and grid discipline; they differ in surface, density, imagery, and accent usage. **Choose the mode by the reader's job**, not by which one "looks more designed."
+
+### The two modes
+
+**Campaign mode — attention in a noisy context.**
+
+- Full-bleed `Brand Black` (`#1A1905`) surface, scattered chartreuse "+" mark pattern.
+- Hero imagery — the 3D iso restoration render (imageHash `f5b72c8ae46eb6e827de28ad588e8ef5be746658`) and its siblings.
+- Chartreuse pill tags with IBM Plex Mono caps (`+0.08em` tracking).
+- IBM Plex Sans Medium/SemiBold cream headlines, tight tracking, on dark.
+- Format reference: full-letter with bleed (`840×1080`).
+- Canonical examples in DS Print – One Pagers (`lVyfilyeHp4Vcyc3pq4m1O`) → `DocuSketch 360AI` page: Servpro Vendor Guide (`3361:1003`), Paul Davis Full Page Ad (`3296:429`).
+
+**Editorial mode — honest information in a quiet context.**
+
+- Warm white surface (`Background/Subtle`, `#F9F9F5`).
+- **No hero imagery** unless it informs the reader's task — typography carries the work.
+- 1px `Brand Black` hairlines define the content frame; no shadows, no card borders.
+- **One** deliberate chartreuse accent per page (~5×5 square mark), placed semantically.
+- IBM Plex Sans Medium headlines (modest sizing, 24–28px); IBM Plex Sans Regular body (13/150); IBM Plex Sans Condensed Medium for caps labels (9–10px, `+12%` tracking).
+- **No Plex Mono.** Side benefit: every zero renders plain by default — no manual `ss04` toggle ever needed (cf. BP #17).
+- Format reference: true letter (`816×1056`), 72px page-edge margins.
+- Canonical example: `Product Update` page in DS Print – One Pagers, frame `3965:76`.
+
+### Choice matrix
+
+| Context | Mode |
+|---|---|
+| Trade show, OOH, launch poster, hero ad, demo screen | **Campaign** |
+| Customer letter, product update, beta cohort note, executive memo | **Editorial** |
+| Internal at-a-glance asset (Slack image, status card, dashboard hero) | Campaign (compressed) |
+| Whitepaper, longform PDF, technical brief | **Editorial** |
+| Full-page ad in a trade magazine, conference banner / booth | **Campaign** |
+| In-product release notes, account-facing PDFs | **Editorial** |
+| Investor update, partner-facing note, security disclosure | **Editorial** |
+
+If a brief sits between, the mode is the one whose principles serve the **reader's job**, not the one that looks more designed. When in doubt, pick Editorial — under-designed almost never reads as wrong.
+
+### Editorial — the ten principles
+
+1. **Honest over persuasive.** Say the thing. Don't decorate it.
+2. **Less, but better.** Every element earns its place — if removing it doesn't lose meaning, remove it.
+3. **Typography carries the work.** No imagery unless it informs.
+4. **Hairlines, not borders or shadows.** 1px Brand Black rules define structure; nothing else.
+5. **One deliberate chartreuse accent per page.** A 5×5 square, placed semantically (e.g. next to a section identifier). Never two; never bigger.
+6. **Sans only.** IBM Plex Sans + IBM Plex Sans Condensed for caps labels. Plex Mono belongs to Campaign — its dotted default zero requires a manual `ss04` toggle the Plugin API cannot set. Editorial side-steps the problem entirely.
+7. **Wide margins.** 72px (~0.75 in) from page edge at letter format; scale proportionally for other sizes.
+8. **Two-column grid with metadata sidebar.** At letter format: sidebar `144` + gutter `48` + body `480`. Sidebar holds labelled metadata (FROM / SUBJECT / DATE); body holds the letter. The sidebar may end early — the lower negative space is intentional, not under-filled.
+9. **Numbered lists, not bullets.** Plex Sans Medium numerals in a fixed-width slot (`22px` at letter), `16px` gap, then item text. No icons, no checkmarks, no "+" markers.
+10. **Hierarchy through size and weight, not colour.** Body, signature, labels, footer — all share the ink tone. Differentiation is typographic.
+
+### Tokens an Editorial piece uses
+
+All existing — no new tokens required.
+
+| Role | Token | Hex |
+|---|---|---|
+| Surface | `Background/Subtle` | `#F9F9F5` |
+| Ink (body, headline, signature name) | `Text/Primary` | `#1A1905` |
+| Labels (sidebar metadata, signature title, footer left URL) | `Text/Secondary` | `#807C5E` |
+| Hairlines (top + bottom of content frame) | `Brand/Ash` 1 px | `#1A1905` |
+| Single accent mark (5×5 square) | `Brand/Chartreuse` | `#E5DF00` |
+
+### Editorial type ramp (letter format, `816×1056`)
+
+| Role | Family | Weight | Size | Line height | Tracking |
+|---|---|---|---|---|---|
+| Headline | IBM Plex Sans | Medium | 26 | 124% | −2% |
+| Body | IBM Plex Sans | Regular | 13 | 150% | 0 |
+| Numerals (list) | IBM Plex Sans | Medium | 13 | 150% | 0 |
+| Signature name | IBM Plex Sans | Medium | 14 | 120% | 0 |
+| Signature title, sidebar subvalue | IBM Plex Sans | Regular | 11.5 | 140% | 0 |
+| Sidebar value | IBM Plex Sans | Medium | 12 | 130% | 0 |
+| Caps labels (sidebar, header tag, footer right) | IBM Plex Sans Condensed | Medium | 9–10 | 100% | +12% |
+| URL (footer left) | IBM Plex Sans | Regular | 10 | 100% | 0 |
+
+**Fonts to load (Plugin API):** `IBM Plex Sans` Regular + Medium, `IBM Plex Sans Condensed` Medium. That's the complete font surface — no other family is permitted in Editorial.
+
+### Canonical divider — print sizing rule
+
+The "+" mark in the canonical divider (`Navigation / Footer`, `266:1311`) has **two fixed sizes**:
+
+| Context | Mark size | Frame widths | Used in |
+|---|---|---|---|
+| **Web / native** | `26 × 26` | `1466` (canonical) | Website, full-bleed digital |
+| **Print** | `18 × 18` | `480`, `672` (Editorial) | Letters, one-pagers, PDFs |
+
+**Marks never scale between these two values.** The frame width adapts to the container; the mark size stays fixed.
+
+**Spacing formula** — marks sit at the left edge, geometric center, and right edge of the frame:
+
+```
+left   = 0
+center = (W − S) / 2
+right  = W − S
+```
+
+Where `W` is frame width and `S` is mark size (26 or 18).
+
+**Pre-built Editorial widths** (live in `Document / Divider`):
+
+| Width | Marks (18 × 18) at | Container |
+|---|---|---|
+| `480` | `0 / 231 / 462` | Body column inside Editorial letter |
+| `672` | `0 / 327 / 654` | Letter content area (sidebar + body) |
+| `1466` *(native, 26 × 26)* | `0 / 720 / 1440` | Site / banner / full-bleed |
+
+**Implementation.** Drag the `Document / Divider` variant (`Letter` or `Body`) for print, or the canonical `Navigation / Footer / Mode=Light, Scale=Print` variant for native print. **Never call `instance.resize()` on the canonical alone** — it crops content rather than scaling vectors. For uniform geometry scaling between same-scale widths, use `node.rescale(scale)`; otherwise reposition marks per the spacing formula. The decision is: stay within one scale tier (web 26 → web 26 with rescale, or print 18 → print 18 with reposition). Never mix the two within a single piece.
+
+### Canonical mark placement (immovable)
+
+The brand structural mark (canonical vector `266:1319` inside `Navigation / Footer`, currently a "+" cross) **never appears as scattered individual marks** on a layout. It appears only as a **horizontal row of three**, spanning the available frame width.
+
+**The 3-in-a-row rule.** Marks align by the **vertical centerline** of the "+" symbol (not the outer edge of its bounding box). The centerline coincides with the column-perimeter axes — left padding edge, page horizontal center, right padding edge — so the visual rhythm reads as a true grid alignment rather than a "+" hanging inset from the column.
+
+Given content edges at `x = L` (left padding) and `x = R` (right padding), and mark size `S`:
+
+| Position | Centerline target | Vector left edge (= centerline − S/2) |
+|---|---|---|
+| Left mark | `x = L` | `x = L − S/2` |
+| Center mark | `x = (L + R) / 2` | `x = (L + R)/2 − S/2` |
+| Right mark | `x = R` | `x = R − S/2` |
+
+Where `S` is mark size (`26` web / `18` print — see the sizing rule above). The mark size stays canonical at all widths; the frame holding the row spans `[L − S/2, R + S/2]` so it contains the marks while the centerlines sit on the column edges.
+
+**Implementation in Figma.** Build the row as a HORIZONTAL auto-layout frame with `primaryAxisAlignItems = SPACE_BETWEEN`. With three children at fixed widths `[S, content_width, S]`, the layout engine distributes the remaining space evenly, putting the outer marks at the row's left/right extremes and the middle item (mark or eyebrow pill) at center.
+
+**Top-row exception when an Eyebrow component sits at center.** If the top row contains an Eyebrow pill (page-header label) at its centerline, **omit the center "+"** — the pill semantically replaces the center mark. The pattern becomes `[Left +, Eyebrow pill, Right +]`. The bottom row keeps all three marks since the footer label (`DOCUMENT FOOTER · NN`) sits *below* the row rather than between the marks.
+
+**Vertical placement.** A row may sit at one of three positions to anchor a layout:
+
+- **Top** — frames the upper edge of content
+- **Vertical center** — divides the layout into upper and lower halves
+- **Bottom** — frames the lower edge of content
+
+One row per position. A single layout uses one or more positions (never two rows at the same position).
+
+**Forbidden:**
+
+- Scattered individual marks across the page
+- Marks at corner positions only (e.g., a single mark at top-right)
+- Off-center groupings (marks not anchored to frame left / center / right)
+- Vertical or diagonal rows
+- Rows at arbitrary y positions (other than top, vertical center, bottom)
+
+**Symbol form (immovable).** The canonical mark is the brand "+" — two perpendicular strokes, defined by vector paths on `266:1319` in the Brand Design Kit. **It is the only valid form.** Never substitute a hyphen, dash, em-dash, dot, or any other simplified shape. When placing the mark, use the canonical SVG vector by cloning `266:1319` (or by instancing `Document / Divider` / `Navigation / Footer / Mode=Light, Scale=Print` and detaching) — never redraw the cross from primitives.
+
+### Column layout typography
+
+**Cap-top alignment between adjacent columns.** When two columns sit side-by-side at the same starting `y` and lead with text of different sizes, the larger-text column appears to start LOWER — because its line-height carries more leading-above the cap-top. To visually align the cap-tops of the first glyphs in each column, shift the smaller-text column DOWN by the leading-above difference:
+
+```
+shift = (line_height_larger − font_size_larger) / 2
+      − (line_height_smaller − font_size_smaller) / 2
+```
+
+Example: Body XL (20 / 150% → leading-above = 5) on the left, Overline (11 / 100% → leading-above = 0) on the right at the same starting `y`. Shift the right column DOWN by ~5-6 px so the Overline's first cap-top sits at the same `y` as the Body XL's first cap-top.
+
+This applies to any side-by-side column layout that mixes type sizes at the first line — Campaign hero + sidebar, Editorial metadata + body, marketing two-column copy.
+
+**Container clipping and descenders.** Auto-layout frames in Figma default to `clipsContent = true`. When the frame wraps text whose line-height is at or near 100% (e.g., `DS/Type/H4`, `H3`, `H2`, `H1`, `Display`, `Overline`, `Button`, `Nav`, `Condensed Label`, `Code/*`, `Quote/Mono`), descenders (`g j p q y`) extend past the line-box bottom and get clipped by the parent frame. **For every auto-layout frame that contains text, set `clipsContent = false` explicitly.** The exception is intentional overflow control (marquee, cropped media) where the behavior is wanted.
+
+### Component spacing — internal vs external
+
+A reusable component owns its **internal** spacing (the gaps between its own children); the parent layout owns its **external** spacing (the gaps to its siblings).
+
+- A component should NOT have outer padding on its frame, **unless** it is explicitly a surface / container variant (Card, Pill, Halo wrapper, Sticky CTA shell, etc.). Surfaces own their inner padding because the surface edge is part of their visual identity.
+- An Eyebrow (Overline + Heading + optional Sub) defines its OWN internal `itemSpacing`: 8 px between Overline and Heading, 12 px between Heading and Sub. The Eyebrow does NOT have padding above or below itself — that spacing belongs to whatever places it (e.g., the right column's `itemSpacing`, the body container's gap to siblings).
+- A Letterhead, Metadata Block, Numbered Item, Footer, Divider — same rule. They own their internal layout; the page/parent owns the spacing around them.
+
+**Why:** components with built-in outer padding double up when placed in an auto-layout parent (component padding + parent gap = visible double-space). Designers who hit this often detach the component to fix it, which breaks the link to the source. Keeping outer padding at zero on non-surface components means a single component works cleanly across every context.
+
+This is the same principle behind the spacing scale's two tiers (BP #12). Content tier values (`4·8·12·16·20·24·32·40·48`) live INSIDE components; Layout tier values (`56·64·80·96·128`) live in the parent / page context. Padding *of* the component is its content; padding *between* components is the parent's job.
+
+### Layout patterns (multi-page documents)
+
+Patterns surveyed from the "Your Guide to Remote Estimating" ebook in DS Print – One Pagers (`3141:711`). All pages are **612 × 792** — true 8.5 × 11 at PDF native dimensions (1 px = 1 pt → 8.5 × 11 inches at print). Templates of each pattern live on the `Product Update` page (`3929:504`) for visual reference.
+
+| Pattern | Use case | Distinctive elements | Template |
+|---|---|---|---|
+| **01 — Cover** | Front cover of a multi-page document | Full-bleed dark (`Brand/Ash`) surface, centred chartreuse eyebrow pill, small wordmark, large Display headline, single subtitle line, large hero image filling lower half | `4041:87` |
+| **02 — Image-led content** | Narrative pages where one image carries the story | Centred eyebrow + top "+" row, hero image at top (~⅓ height), single-column title left, body paragraph, chartreuse `THE RESULTS` callout box on right, footer | `4042:85` |
+| **03 — Two-column header + numbered sections** | Body pages with multiple stepped points | Centred eyebrow + top "+" row, 2-col header (title left ⅔ / intro paragraph right ⅓), numbered sections below (`1.` `2.` …) each with subtitle, body, bullets, optional pull-quote with attribution, footer | `4043:85` |
+| **04 — Three-column process grid** | Stepped-process or feature-set pages | Centred eyebrow + top "+" row, 2-col header, sub-section eyebrow + sub-title, three image cards in a row (each with `0X_STEP` numeric overline above an image), three subhead + body columns below the cards, chartreuse outcome callout banner across the full content width, footer | `4044:85` |
+| **05 — Data table** | Metrics, before/after, comparison data | Centred eyebrow + 2-col header, 3-column table below with Mono caps header row (`DS/Type/Overline`-style), Brand Black `Plex Sans Medium` left column (row labels) + `Regular` value columns, 1 px `Neutral 300` hairlines between rows, optional muted footnote paragraph below, footer | `4047:85` |
+| **06 — Stat callouts** | High-impact numbers / outcome summary | Centred eyebrow + 2-col header, 2 × 2 grid of large numbers (56 px Plex Sans Medium, −4% tracking) each paired with a `Condensed Medium` caps label in `Text/Secondary`, thin `Neutral 300` separators between cells, chartreuse outcome banner spanning full content width, footer | `4048:85` |
+| **07 — Quote / testimonial** | Single-page anchor quote | Centred eyebrow + top "+" row, oversized chartreuse opening quote glyph (`Plex Mono Regular` ~96 px), pull quote in `Plex Mono Regular` ~28 px / 130% on Brand Black, attribution row below with circular portrait + name (`Plex Sans Medium`) + role (`Text/Secondary`), footer | `4049:85` |
+
+**Frame and grid for body pages (02–04):**
+
+- Page size: 612 × 792
+- Padding: 48 px on left/right (content edges at `x = 48` and `x = 564`), 36 px above the top header row, equal below
+- "+" centerlines align with column-perimeter axes (`x = 48 / 306 / 564`); the row frame spans `[39, 573]` (width 534) to contain the marks. See *Canonical mark placement* for the formula.
+- Centred page eyebrow: instance of `Document / Page Eyebrow` (`Surface=Dark` on dark covers, `Surface=Light` on warm-white body pages); stroked outline (no fill) with surface-inverted stroke and text — Chartreuse on dark, Black on light. Text bound to `DS/Type/Print/Overline`.
+- 2-col header proportions: title ~⅔ of content width (left), intro paragraph ~⅓ (right)
+- 3-col grid proportions: equal thirds with 6 px gutter (168 + 6 + 168 + 6 + 168 = 516)
+- Footer: centred, `DOCUMENT FOOTER · NN`, `DS/Type/Print/Overline`-style metadata caps in muted Eucalyptus tone
+
+**Header pattern — auto-layout, not absolute positioning.** The top row is a HORIZONTAL auto-layout frame at `x = 39, y = 36, w = 534, h = 18`, with `primaryAxisAlignItems = SPACE_BETWEEN` and three children: `[Left + vector (18 × 18), Document/Page Eyebrow instance, Right + vector (18 × 18)]`. The Eyebrow auto-centers between the marks; the centerlines of left and right marks land exactly on the column-perimeter axes (`x = 48` and `x = 564`).
+
+**Body content uses auto-layout containers, never absolute positioning.** Section content, column content, numbered lists — all wrap in vertical or horizontal auto-layout frames (hug primary axis, fixed counter axis). The reason: when type styles change line-height (e.g., switching between `DS/Type/*` and `DS/Type/Print/*`, or editing a placeholder), absolute-positioned content overflows into siblings, while auto-layout content reflows cleanly. Reserve absolute positioning for perimeter elements only — corner "+" marks (anchored to row frames), header (anchored to top), and the closing-zone element (anchored to the bottom zone, see below).
+
+**3-zone vertical rhythm.** A template page composes three zones:
+
+| Zone | Anchor | Role |
+|---|---|---|
+| **Top** | `y = 100` (below the header row) | Title row — eyebrow + title + optional intro |
+| **Middle** | starts after the title row, hugs its content | Main content (sections, grid, table, stats, quote) |
+| **Bottom** | bottom edge of the closing element sits at `y = 680` (58 px above the bottom "+" row at `y = 738`) | Closing element — outcome banner, footnote, byline |
+
+The space between middle and bottom is intentional editorial breathing — not dead space. A page with no closing element (T1 Cover, T3 Numbered Sections) lets the middle content extend further and accepts negative space at the bottom as rest.
+
+**Editorial vs Campaign in these patterns.** The four ebook patterns above sit closer to Campaign than Editorial — they use the chartreuse eyebrow pill, chartreuse callout boxes, and "+" rows. Editorial expression (warm-white surface, hairlines, single chartreuse accent, sans-only typography) applies to the **letter** family (one-pager letters, executive notes), while these ebook patterns apply to the **document** family (multi-page ebooks, whitepapers, longform reports). Both expressions share the same `Document / *` primitive components (Letterhead, Metadata Block, Numbered Item, Footer, Divider, Eyebrow) — the difference is which canonical elements (hairlines vs `+` rows, accent density, image use) each surface deploys.
+
+### Editorial anti-patterns
+
+Specifically *not* used in Editorial. Each of these is a Campaign primitive trying to leak in:
+
+- Background patterns (plus marks, camo, gradients).
+- Cards with fills, borders, or drop shadows. Cards are a Campaign primitive — Editorial uses hairlines and whitespace to separate content instead.
+- Coloured surface backgrounds (chartreuse fills, dark fills) — Editorial is warm white only.
+- Hero imagery — the iso render and its siblings belong to Campaign.
+- Plex Mono caps labels — use Plex Sans Condensed instead.
+- More than one chartreuse element per page.
+- Bullet markers (`•`, `✓`, `+`) — use numerals.
+- Decorative rules (chartreuse hairlines, dotted lines, double rules) — single 1px Brand Black hairlines only.
+- Drop caps, pull quotes, magazine flourishes — keep it letter-quiet.
+- Coloured text for hierarchy — use size and weight.
+
+### Spacing carve-out: letter margin = 72
+
+The Editorial letter page margin (`72`) is **not** on the documented layout-tier scale (`56·64·80·96·128` — BP #12). For print page-edge margins specifically, `72` (= ¾ in at 96 dpi) is added as a permitted Editorial-only value. If we extend further (A4 portrait at `793×1123`, legal at `816×1344`, postcard editorial, etc.), add those page formats and any new margin values here with a dated rationale.
+
+### What inherits from the rest of the system
+
+Editorial doesn't override the brand — it inherits everything except where this section states otherwise:
+
+- **Wordmark** (BP #15): same component, same uniform-scaling rule. The `Black` variant is the default for Editorial pieces on warm white.
+- **Plain-zero rule** (BP #17): inherited; Editorial satisfies it effortlessly because it uses no Plex Mono.
+- **Spacing scale** (BP #12): use the content tier (`4·8·12·16·20·24·32·40·48`) for internal element gaps; the `72` carve-out above governs page-edge margins only.
+- **Radius scale** (BP #11): Editorial mostly avoids radii — its primitives are hairlines and type, not cards. When a radius is needed, use the scale.
+- **Motion**: not applicable — Editorial is print-first.
+
+### Where the system pieces live
+
+| Artifact | Location | Status |
+|---|---|---|
+| This section | `DS_Brand_Design_Skill.md` (you are here) | **Canonical** |
+| `Document / *` component set — Letterhead, Metadata Block, Numbered Item, Footer, Divider, Eyebrow (content-area), Page Eyebrow (page-header pill) | Brand Design Kit Figma file (`JR35zTngKUblEKMD0myUyD`), `_Library` page | **Built** — Letterhead `1133:459` · Metadata Block `1134:445` · Numbered Item `1138:438` · Footer `1139:438` · Divider `1161:225` · Eyebrow `1170:229` · Page Eyebrow `1183:221` (Surface=Dark `1183:217` / Surface=Light `1183:219`) |
+| `Navigation / Footer` (canonical divider) — `Mode=Light, Scale=Print` variant added | Brand Design Kit (`266:1311`) | **Built** — 2 variants: `Mode=Light, Scale=Web` (26×26) + `Mode=Light, Scale=Print` (18×18) |
+| Editorial Letter — canonical example | DS Print – One Pagers (`lVyfilyeHp4Vcyc3pq4m1O`), `Product Update` page, frame `3965:76` | **Built** |
+| Editorial Letter template (`816×1056` with hairlines, sidebar grid, footer pre-placed) | DS Print – One Pagers, new page | To build |
+| "Two Expressions" reference page (side-by-side examples + choice matrix) | `brand-design-kit.vercel.app` | To build |
+
+---
+
 ## Logo Usage
 
 Five canonical marks, each shipped in three colour variants (`Brand Black` / `White` / `Chartreuse`). All marks live on the `_Library` page of the [Brand Design Kit](https://www.figma.com/design/JR35zTngKUblEKMD0myUyD/Brand-Design-Kit) Figma file under `Logo / *` component sets. Always use the canonical SVG — never typeset, never recolour outside the three approved fills. See **Best Practice #15** for the immovable rule.
@@ -87,6 +376,8 @@ These violations are not permitted on any DocuSketch surface — internal or ext
 
 ## Colour Tokens
 
+> **Legacy dialect notice (2026-07-15):** the `DS/Color/*` and `DS/Token/*` spellings below predate the 2026 naming unification. Values remain authoritative **except** where the *Naming Convention* section above re-maps them (`text-strong`/`text-primary` swap, `text-inverse`, `text-button-on-accent`, `background-accent`, `brand-white`, `error`). New work should use canonical `group-role` names; full registry in `NAMING_ALIGNMENT.md`.
+
 Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour values — the immutable palette. **Tokens** are semantic aliases that reference primitives — what components actually bind to, and what shifts automatically between Light and Dark mode. Never hardcode hex; never reference a primitive directly from a component when a token exists for that role.
 
 ### Primitives · Chartreuse
@@ -114,7 +405,7 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 | `DS/Color/Neutral 400` | `#C0BC90` | **5793 C** | Light sage / warm grey *(= `Brand/Eucalyptus` + `Text/Muted` tokens — note: 1.49:1 vs white, below AA. Reserve `Text/Muted` for non-essential / decorative text only.)* |
 | `DS/Color/Neutral 500` | `#807C5E` | 5777 C | Mid sage / warm grey *(= `Text/Secondary` + `Border/Strong` tokens — note: 4.04:1 vs white, passes AA Large only.)* |
 | `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (10.5:1 vs white). |
-| `DS/Color/Neutral 700` | `#1A1905` | **Black 4 C** | Body text, headlines, icons on light *(= `Brand/Ash`, `Background/Inverse`, `Text/Primary` tokens)* |
+| `DS/Color/Neutral 700` | `#1A1905` | **Black 2 C** | Body text, headlines, icons on light *(= `Brand/Ash`, `Background/Inverse`, `Text/Primary` tokens)* |
 
 *Eucalyptus consolidated into Neutral 400/500/650 (this revision). The former Eucalyptus 100/200/300 (`#C0BC90` / `#807C5E` / `#39381B`) and prior Neutral 400/500/650 (`#B8B5A0` / `#908D68` / `#3D3C2A`) were within ~4 L\* of each other per step — a tonal duplicate scale. Picking the warmer Eucalyptus side as canonical eliminates the redundancy. `Brand/Eucalyptus` token now resolves through `Neutral 400`; the Eucalyptus primitive scale is removed. **Neutral 600** (`#6B6948`) was removed in the same pass — with the new Neutral 500 and 650 in place, the 500 → 650 step is large enough to carry without an intermediate. **Neutral 800** (`#4A4830`) is kept out of the light ramp for the same monotonicity reason, but retained in Figma as a Dark-mode-only primitive (it backs `Background/Subtle` and `Border/Default` in Dark mode).*
 
@@ -129,7 +420,9 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 
 Pantones above are **best-attempt visual approximations** against the [Pantone Solid Coated library](https://www.pantone.com/connect/Pantone+Solid+Coated). Pantone is a printed-ink standard; RGB / hex is on-screen. The two systems don't map perfectly, and individual lighting, paper stock, and ink batch all shift the printed result. Before producing any high-stakes print collateral (signage, packaging, vehicle wraps), verify the match against a physical Pantone chip under the same lighting conditions as the final deliverable. For day-to-day digital work, the hex value is authoritative; use the Pantone column only when the print vendor asks for a spot reference.
 
-The brand-defining matches — `Chartreuse 300 = 396 C`, `Neutral 400 = 5793 C` (the sage formerly known as Eucalyptus 100), `Neutral 700 = Black 4 C` — are the three to pin first if a vendor needs a definitive brand-level reference.
+The brand-defining matches — `Chartreuse 300 = 396 C`, `Neutral 400 = 5793 C` (the sage formerly known as Eucalyptus 100), `Neutral 700 = Black 2 C` — are the three to pin first if a vendor needs a definitive brand-level reference.
+
+> **2026-08-05 — Ash re-pinned to Black 2 C.** `Neutral 700` / `Brand/Ash` (`#1A1905`) was previously listed as Black 4 C; it is now canonically **Pantone Black 2 C**, whose olive/yellow undertone matches Ash's cast (Black 4 C reads brown). `Chartreuse 900` (`#2A2808`) keeps Black 4 C pending its own review. Email precedent for the family: the DS1 packaging warm grey was specced as Pantone 2330 U (Insta360 thread, Nov 2024) — an uncoated production reference, not a brand token.
 
 ### Tokens · Brand
 
@@ -663,6 +956,42 @@ Letter-spacing is part of the type style — set it on the style object, do not 
 
 > **DS/Type/Label has been deleted.** `DS/Type/Overline` now supersedes it as the standard label style for all eyebrows, stat headers, column labels, and section markers. Any file that previously used Label should be rebound to Overline via `figma.importStyleByKeyAsync('fdc61f952a620bf320986e341ed689cc8bfa5c4a')`.
 
+### Print parallel ramp — `DS/Type/Print/*`
+
+Print collateral designed at **PDF-native scale** (1 px = 1 pt, page size `612 × 792` = 8.5 × 11 in) renders type at the same point size on screen as it will print. Web/digital styles (the `DS/Type/*` ramp above) are sized for screen reading and look oversized at print scale; `DS/Type/Print/*` is a parallel ramp at ~60–65% scale that lands as print-realistic body / headline sizing.
+
+**Decision rule:**
+
+- **Web scale page** (96 dpi: `816 × 1056`, `840 × 1080`, web/digital surfaces) → use `DS/Type/*`. Export to PDF at 75% to land at letter.
+- **PDF-native scale page** (72 dpi: `612 × 792`, `552 × 840`, print-native templates) → use `DS/Type/Print/*`. No export scaling; what you see is what prints.
+
+Line-heights and letter-spacing are preserved across both ramps so relative rhythm is identical — only the font size scales.
+
+| Style name | Key | Family | Weight | Size | LH | Tracking |
+|---|---|---|---|---|---|---|
+| `DS/Type/Print/Display` | `bd81e2a5f06e3b401884dbe24f15b5ab963716fe` | IBM Plex Sans | Medium | 42 | 110% | `-0.04em` |
+| `DS/Type/Print/H1` | `fd595c7b624d942e985357ce31b593228ffcbeb2` | IBM Plex Sans | Medium | 36 | 110% | `-0.04em` |
+| `DS/Type/Print/H2 Large` | `6322a0c84c277de86110e8abc0269671103f9603` | IBM Plex Sans | Medium | 30 | 110% | `-0.04em` |
+| `DS/Type/Print/H2` | `83640340c931b1351e15e1b96217486d3cbe3ae6` | IBM Plex Sans | Medium | 22 | 110% | `-0.04em` |
+| `DS/Type/Print/H3` | `788f651db0ce11c6f35196ec834be9c92bf61719` | IBM Plex Sans | Medium | 18 | 110% | `-0.04em` |
+| `DS/Type/Print/H4` | `92c877b15b7f6886193d0bb355a30ebe49438e47` | IBM Plex Sans | Medium | 14 | 100% | `-0.04em` |
+| `DS/Type/Print/Body XL` | `c35f411b1df11ec8e403eaac00b5f8eaaa3fc7e9` | IBM Plex Sans | Regular | 14 | 150% | `0` |
+| `DS/Type/Print/Body LG` | `00bb7a70afd86ae73db44bfd1d0e4de016f5fe76` | IBM Plex Sans | Regular | 12 | 150% | `0` |
+| `DS/Type/Print/Body` | `b1f7dd86a42852c8463514da98a09cac56326142` | IBM Plex Sans | Regular | 11 | 150% | `0` |
+| `DS/Type/Print/Body SM` | `5b39091b3e769456eb07a14f04a90ec001be8fc4` | IBM Plex Sans | Regular | 10 | 150% | `0` |
+| `DS/Type/Print/Caption` | `d1749c1fd7340d91bec429b79b4ddcbcde8c02a0` | IBM Plex Sans | Regular | 8 | 150% | `0` |
+| `DS/Type/Print/Overline` | `657edcfe4792207a68fe087c2b410048b8a35c4c` | IBM Plex Mono | Regular | 8 | 100% | `+0.08em` |
+| `DS/Type/Print/Quote/Mono` | `1ceadb10e8c2a63537c0abb1ef82fe39924a658b` | IBM Plex Mono | Regular | 24 | 110% | `-0.04em` |
+| `DS/Type/Print/Quote/Mono SM` | `5036626409334c4df9bcd75c4c27bca469a137c5` | IBM Plex Mono | Regular | 14 | 130% | `-0.01em` |
+| `DS/Type/Print/Quote/Serif` | `7d6f850f0a8e81f5c1600231cba975431c2aba48` | IBM Plex Serif | Regular | 24 | 110% | `-0.04em` |
+| `DS/Type/Print/Code/MD` | `b776fb0adc5b13ca1485988bc5ad0b8179e86fc7` | IBM Plex Mono | Regular | 9 | 150% | `0` |
+| `DS/Type/Print/Code/SM` | `400296190e44c142c4f5425a3aef3d0a700b0b70` | IBM Plex Mono | Regular | 8 | 150% | `0` |
+| `DS/Type/Print/Button` | `c5757a30e69159997173e8496fa79e9fe1363aac` | IBM Plex Sans | Regular | 11 | 100% | `0` |
+| `DS/Type/Print/Condensed Label` | `fa7df856eb31cf4d66201e97245b5b2f79e8bfab` | IBM Plex Sans Condensed | Medium | 11 | 100% | `0` |
+| `DS/Type/Print/Nav` | `f023c3252752bd87aabf7ecf797360b2877a7eab` | IBM Plex Sans Condensed | Regular | 11 | 100% | `0` |
+
+Same plain-zero rules apply (BP #17): Plex Sans defaults plain, Plex Mono needs `ss04`. `DS/Type/Print/Overline` (Plex Mono) requires the same toggle as the web Overline.
+
 ### IBM Plex — Zero Glyph (plain, not dotted, not slashed)
 
 All three IBM Plex families ship **three** zero glyphs each (`zero` / `zero.alt01` / `zero.alt02`) with the **same OpenType feature tag structure**. The visual design assigned to each glyph **differs per family** — the same feature tag produces different results in each font.
@@ -1069,6 +1398,11 @@ The `Sticky CTA` row below (Set Key `266:997`) references the BDK definition. Th
 - Insta360 Partnership: `5bfbd9acb4246b61a2d6e2c5ca6bc3b3df9294d8`
 
 ### Brand Design Kit (`JR35zTngKUblEKMD0myUyD`)
+
+Document / Page Eyebrow (`_Library` page, set `1183:221`):
+- Surface=Dark (Chartreuse stroke + Chartreuse text): `45e29a8b9f1d7b7b4db64b5a2818abdbeee60aa8`
+- Surface=Light (Black stroke + Black text): `63446974658e668edd0b3db6091178c137d28beb`
+
 Feature Cards (Cards & Content page, node 274:1834 — needs moving to _Library):
 - DS1 360 Camera / Style=Image: `274:1515` · Style=Detail: `274:1532`
 - 360 Tour / Style=Image: `274:1548` · Style=Detail: `274:1565`
@@ -1309,8 +1643,8 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "figma_file_key": "JR35zTngKUblEKMD0myUyD",
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
-  "last_figma_sync": "2026-05-04T19:42:12.018544+00:00",
-  "last_skill_sync": "2026-05-28T19:26:03.965367+00:00",
-  "figma_last_version": "2349814142447096167"
+  "last_figma_sync": "2026-08-21T17:22:39.761044+00:00",
+  "last_skill_sync": "2026-08-05T17:41:26.757993+00:00",
+  "figma_last_version": "2390222383400825777"
 }
 ```
