@@ -1,8 +1,7 @@
 # DocuSketch Marketing Design System — Master Skill
 
-> **Canonical location**: `/Users/provins/Desktop/Claude/sync/DS_Brand_Design_Skill.md`
-> This file is the source of truth. The skills-plugin copy is a mirror kept in sync automatically.
-> Figma file: `JR35zTngKUblEKMD0myUyD` (Brand Design Kit)
+> **Source of truth**: the Brand Design Kit Figma file (`JR35zTngKUblEKMD0myUyD`), synced into this document by `figma-sync.py`.
+> This document is the canonical rendering of that system. The `brand-design-kit` repo copy and the `ds-brand-design` plugin copy are kept byte-identical.
 > Live dashboard: https://brand-design-kit.vercel.app
 
 ---
@@ -692,12 +691,10 @@ Nine values only. Source-of-truth is the Figma Border Radius page (`JR35zTngKUbl
 
 | Outer | Padding | Inner | Context |
 |---|---|---|---|
-| `--radius-lg` (12px) | 4px | `--radius-sm` (8px*) | Chip inside a card |
+| `--radius-lg` (12px) | 4px | `--radius-md` (8px) | Chip inside a card |
 | `--radius-xl` (16px) | 8px | `--radius-md` (8px) | Image inside a card |
 | `--radius-2xl` (24px) | 8px | `--radius-xl` (16px) | Card inside section panel |
 | `--radius-3xl` (30px) | 6px | `--radius-2xl` (24px) | Inset panel in hero |
-
-\* Figma labels this inner radius "8px" in the nested-rule examples table — treat as `--radius-md`; the rule cares about the arithmetic, not the token name.
 
 ### Component Assignments
 
@@ -1122,7 +1119,7 @@ A semi-transparent tint of the inner surface color, sitting just outside the pri
 |---|---|
 | Background | Same hue as inner surface, ~25% opacity |
 | Padding | `8` |
-| Border radius | `32` (`--radius-4xl`) — slightly larger than the inner radius |
+| Border radius | `32` (`--radius-4xl`) = inner `24` + padding `8`, per the Nested Radius Rule |
 | Shadow | none (the halo *is* the elevation cue) |
 
 **When to use**: floating action buttons, sticky CTAs, prominent notifications where a soft surround reads better than a sharp drop shadow.
