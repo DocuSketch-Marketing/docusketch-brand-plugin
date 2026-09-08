@@ -552,7 +552,9 @@ The Firefox prefixed pseudo (`::-moz-selection`) needs its own rule — Firefox 
 
 ## Dark Mode
 
-Dark vs. light is never a default. Run the *scene sentence* before choosing — "who uses this, where, under what ambient light, in what mood." For surfaces where dark mode is desired, DocuSketch maintains a committed mapping that respects three principles:
+**Light is the default colour set for every DocuSketch surface.** Every initial deploy renders light, and a surface never inherits dark from the visitor's OS. Dark is reached only by explicit opt-in — `data-theme="dark"` for a committed dark surface, `data-theme="auto"` for the rare surface that deliberately tracks `prefers-color-scheme`. A surface carrying no `data-theme` attribute is light, on every machine, on first paint. *(Immovable — 2026-09-01.)*
+
+Choosing to expose dark at all is still a design decision, not a default: run the *scene sentence* first — "who uses this, where, under what ambient light, in what mood." Where dark mode is wanted, DocuSketch maintains a committed mapping that respects three principles:
 
 1. **Only redefine the semantic layer.** Primitives are immutable; tokens swap. A component that binds to `DS/Token/Background/Default` never needs to know whether it is in light or dark mode.
 2. **Depth from surface lightness, not shadow.** Shadows collapse to `none` in dark; elevation is signalled by stepping each surface lighter on the warm-neutral ramp (Neutral 700 → 650 → 800).
@@ -613,18 +615,19 @@ Brand artifacts that *are* the thing being demonstrated stay canonical regardles
 
 Where dark mode is exposed (e.g. the `/brand` reference site), the pattern is:
 
-1. **Default** — respect `prefers-color-scheme: dark` via `@media`. No JavaScript needed for the OS default; a small inline `<script>` in `<head>` only applies a *stored* user preference before paint to avoid FOUC.
-2. **Toggle** — a two-segment Light / Dark pill in a stable surface position (sidebar bottom-left, footer, or settings panel). Once the user clicks, the choice is written to `localStorage` and to `:root[data-theme="light" | "dark"]` and wins from then on.
-3. **Three-state controls are optional** — add a `System` segment only when the surface needs to let the user re-yield to the OS preference after explicit choice; most product surfaces do not.
+1. **Default is light** — no `@media` gate fires on a fresh visit. Declare `color-scheme: light` on `:root` so native controls, scrollbars and form widgets follow. A small inline `<script>` in `<head>` applies a *stored* user preference before paint to avoid FOUC; with nothing stored it does nothing and the page paints light.
+2. **Toggle** — a two-segment Light / Dark pill in a stable surface position (sidebar bottom-left, footer, or settings panel). Once the user clicks, the choice is written to `localStorage` and to `:root[data-theme="light" | "dark"]` and wins from then on. Do **not** attach a `prefers-color-scheme` change listener: an OS change must never move a surface off light.
+3. **`data-theme="auto"` is the only route to OS-following** — a surface opts in explicitly, typically alongside a three-segment Light / Dark / System control. Most surfaces do not, and shouldn't.
 
 ```css
-:root[data-theme="dark"] { /* explicit override */ }
+:root { color-scheme: light; }              /* light is the floor */
+:root[data-theme="dark"] { /* committed dark, or the toggle's choice */ }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) { /* OS default, only if user hasn't chosen */ }
+  :root[data-theme="auto"] { /* OS-following — opt-in only */ }
 }
 ```
 
-The CSS pattern duplicates the dark mappings under both selectors so explicit and implicit dark behave identically. The `:root:not([data-theme])` guard prevents the OS preference from overriding an explicit user choice.
+The CSS pattern duplicates the dark mappings under both selectors so committed dark and opted-in OS dark behave identically. The `[data-theme="auto"]` gate is what keeps the OS preference out of every surface that didn't ask for it — a bare `:root` or `:root:not([data-theme])` inside that media query is the defect this rule exists to prevent.
 
 ### Canonical-surface scoping
 
@@ -647,7 +650,7 @@ The pattern: inside `:root[data-theme="dark"]`, scope the canonical containers a
 }
 ```
 
-Duplicate the block under `@media (prefers-color-scheme: dark) { :root:not([data-theme]) ... }` so system-preference dark users get the same scoping. Background tokens are not re-bound — the canonical surface either hardcodes its own background (the typical case) or follows the theme via `Background/Default`.
+Duplicate the block under `@media (prefers-color-scheme: dark) { :root[data-theme="auto"] ... }` so surfaces that opted into OS-following get the same scoping. Background tokens are not re-bound — the canonical surface either hardcodes its own background (the typical case) or follows the theme via `Background/Default`.
 
 ### WCAG verification
 
@@ -1641,7 +1644,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-08-21T17:22:39.761044+00:00",
-  "last_skill_sync": "2026-08-05T17:41:26.757993+00:00",
+  "last_skill_sync": "2026-09-01T15:25:08.852435+00:00",
   "figma_last_version": "2390222383400825777"
 }
 ```
