@@ -7,7 +7,7 @@ No coding required. The full reference is bundled in the plugin, so it works on 
 ## Install (paste into Claude Code)
 
 ```
-/plugin marketplace add ds-provins/docusketch-brand-plugin
+/plugin marketplace add DocuSketch-Marketing/docusketch-brand-plugin
 /plugin install ds-brand-design@docusketch-brand
 ```
 
@@ -32,6 +32,23 @@ When the brand kit changes, pull the latest:
 | :--- | :--- |
 | `.claude-plugin/marketplace.json` | The marketplace catalog (name: `docusketch-brand`). |
 | `plugins/ds-brand-design/` | The plugin: manifest, skill, and the bundled brand reference. |
-| `plugins/ds-brand-design/skills/ds-brand-design/DS_Brand_Design_Skill.md` | The canonical brand doc, generated from Figma and shipped with the plugin. |
+| `plugins/ds-brand-design/skills/ds-brand-design/DS_Brand_Design_Skill.md` | The brand doc itself — generated, never hand-edited here. |
+| `plugins/ds-brand-design/org-skill/SKILL.md` | Wrapper for the uploaded org skill (`docusketch-brand`), versioned here so it does not live only inside an installed copy. |
+| `CHANGELOG.md` | What changed in the bundled doc between installs. |
 
-The brand doc is generated from the Brand Design Kit Figma file and kept in sync by `figma-sync.py` in the (private) `brand-design-kit` repo. Live dashboard: https://brand-design-kit.vercel.app
+## How it gets published
+
+The doc is hand-authored (tokens, rules) plus a Figma-generated component
+inventory, and lives canonically at
+`~/Library/Application Support/docusketch/sync/DS_Brand_Design_Skill.md` on the
+design owner's machine. `figma-sync.py` in the `brand-design-kit` repo runs every
+15 minutes and fans it out:
+
+| Consumer | Published by |
+| :--- | :--- |
+| `brand-design-kit` repo + dashboard | committed with the daily health snapshot |
+| **this repo** (plugin installs) | committed and pushed automatically by the sync |
+| org skill `docusketch-brand` (claude.ai → Settings → Skills) | **by hand — no API exists.** The sync stages a ready-to-upload bundle and writes a `PUBLISH_OWED` marker when it falls behind. |
+
+Run `figma-sync.py --publish-status` to see canonical vs. every published copy.
+Live dashboard: https://brand-design-kit.vercel.app
