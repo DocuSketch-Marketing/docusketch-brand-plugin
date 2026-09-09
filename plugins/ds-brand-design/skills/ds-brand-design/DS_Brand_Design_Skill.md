@@ -1645,8 +1645,8 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "figma_file_key": "JR35zTngKUblEKMD0myUyD",
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
-  "last_figma_sync": "2026-09-09T18:26:30.424857+00:00",
+  "last_figma_sync": "2026-09-09T18:56:38.816853+00:00",
   "last_skill_sync": "2026-09-09T15:23:53.371000+00:00",
-  "figma_last_version": "2397288940893494984"
+  "figma_last_version": "2397301593847256842"
 }
 ```
