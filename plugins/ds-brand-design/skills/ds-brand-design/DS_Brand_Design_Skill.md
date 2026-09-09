@@ -1908,8 +1908,8 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "figma_file_key": "JR35zTngKUblEKMD0myUyD",
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
-  "last_figma_sync": "2026-09-09T18:56:38.816853+00:00",
+  "last_figma_sync": "2026-09-09T22:55:57.220340+00:00",
   "last_skill_sync": "2026-09-09T22:39:43.248199+00:00",
-  "figma_last_version": "2397301593847256842"
+  "figma_last_version": "2397367844242490628"
 }
 ```
