@@ -1,0 +1,10 @@
+<svg width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="device_hub">
+<mask id="mask0_0_126" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+<rect id="Bounding box" width="24" height="24" fill="#1A1905"/>
+</mask>
+<g mask="url(#mask0_0_126)">
+<path id="device_hub_2" d="M3.5 20.5V16H7.19225L11.25 11.9422V8.89625C10.6628 8.71158 10.1828 8.38108 9.80975 7.90475C9.43658 7.42858 9.25 6.88342 9.25 6.26925C9.25 5.50642 9.51767 4.85742 10.053 4.32225C10.5882 3.78692 11.2372 3.51925 12 3.51925C12.7628 3.51925 13.4118 3.78692 13.947 4.32225C14.4823 4.85742 14.75 5.50642 14.75 6.26925C14.75 6.88342 14.5634 7.42858 14.1902 7.90475C13.8172 8.38108 13.3372 8.71158 12.75 8.89625V11.9422L16.8077 16H20.5V20.5H16V17.3922L12 13.3922L8 17.3922V20.5H3.5Z" fill="currentColor"/>
+</g>
+</g>
+</svg>

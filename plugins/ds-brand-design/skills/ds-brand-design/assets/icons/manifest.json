@@ -1,0 +1,2190 @@
+{
+ "$comment": "Unified DocuSketch icon library. Brand PULLS from Phoenix read-only, then PUBLISHES this curated set as one library. Every icon records its origin. Do not add entries by hand or via the brand skill in Claude - upstream adoption is handled offline.",
+ "schemaVersion": 2,
+ "library": {
+  "name": "DocuSketch unified icon library",
+  "generated": "2026-09-09",
+  "counts": {
+   "phoenix": 250,
+   "material-symbols": 4,
+   "brand": 5,
+   "total": 259
+  }
+ },
+ "origins": {
+  "phoenix": {
+   "role": "Universal icon set. Product self-serves additions; a new product or positioning move is Chris's decision. Brand pulls and mirrors, never alters.",
+   "fileKey": "uWPtoRCtbBAnOqzJVNhYr3",
+   "fileName": "3.0 Design system",
+   "page": {
+    "nodeId": "33:2227",
+    "name": "Particles"
+   },
+   "section": {
+    "nodeId": "5422:33452",
+    "name": "Icons"
+   },
+   "sets": {
+    "24": "13463:4310",
+    "16": "5422:33541",
+    "32": "18541:4328"
+   },
+   "versionAtPull": "2397122210841953129",
+   "lastModified": "2026-09-08T08:42:02Z",
+   "access": {
+    "mode": "read-only",
+    "note": "Token role on this file is 'editor'. Read-only is policy, not permission.",
+    "allowedTools": [
+     "get_metadata",
+     "get_design_context",
+     "get_screenshot",
+     "download_assets"
+    ],
+    "allowedRestEndpoints": [
+     "GET /v1/files/{key}",
+     "GET /v1/images/{key}?ids=...&format=svg"
+    ]
+   },
+   "transform": {
+    "source": "GET /v1/images/{fileKey}?ids=<nodeIds>&format=svg",
+    "steps": [
+     "svg root fill=none -> fill=currentColor",
+     "drop literal fill=#1A1905 from child shapes so they inherit",
+     "drop root width/height; size via CSS",
+     "keep the upstream viewBox verbatim"
+    ],
+    "note": "Mirrored files are NOT byte-identical upstream; these steps make them reproducible."
+   }
+  },
+  "material-symbols": {
+   "role": "Documented brand fallback where the universal set has no fitting icon.",
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "source": "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/<name>/default/24px.svg"
+  },
+  "brand": {
+   "role": "Brand's own icons, not mirrored from anywhere.",
+   "fileKey": "JR35zTngKUblEKMD0myUyD",
+   "fileName": "Brand Design Kit"
+  }
+ },
+ "gaps": [
+  {
+   "concept": "Document export / shareable PDF",
+   "usedFor": "Enhanced photo report",
+   "fallback": "picture_as_pdf",
+   "origin": "material-symbols",
+   "reason": "0 of 444 upstream symbols match pdf|file|export|print.",
+   "upstreamAdoption": "pending - handled offline"
+  }
+ ],
+ "supersedes": {
+  "$comment": "assets/menu/ predates this library. These 7 files are Phoenix copies taken as tight-bbox exports and renamed, so they share no optical grid and cannot be traced upstream. The pulled sets replace them; retire once every reference is repointed.",
+  "path": "assets/menu/",
+  "map": {
+   "water-outline": "waterOutline",
+   "camera-equipment": "360cam",
+   "mold": "mold",
+   "reconstruction": "reconstruction",
+   "search": "search",
+   "ds-mini": "docuSketchMini",
+   "chevron": "chevronDown"
+  },
+  "unconfirmed": {
+   "chevron": "chevronDown - brand copy was scaled wider than upstream; shape family matches, confirm before repointing"
+  }
+ },
+ "icons": [
+  {
+   "file": "assets/icons/24/360cam.svg",
+   "name": "360cam",
+   "origin": "phoenix",
+   "nodeId": "6603:2141",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/360camConnected.svg",
+   "name": "360camConnected",
+   "origin": "phoenix",
+   "nodeId": "2709:15082",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/360camDisconnected.svg",
+   "name": "360camDisconnected",
+   "origin": "phoenix",
+   "nodeId": "2709:26797",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/360camFilled.svg",
+   "name": "360camFilled",
+   "origin": "phoenix",
+   "nodeId": "11070:16103",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/360\u00b0.svg",
+   "name": "360\u00b0",
+   "origin": "phoenix",
+   "nodeId": "376:579",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/account.svg",
+   "name": "account",
+   "origin": "phoenix",
+   "nodeId": "6014:26612",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/actions.svg",
+   "name": "actions",
+   "origin": "phoenix",
+   "nodeId": "588:2154",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/add.svg",
+   "name": "add",
+   "origin": "phoenix",
+   "nodeId": "376:573",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/add360\u00b0.svg",
+   "name": "add360\u00b0",
+   "origin": "phoenix",
+   "nodeId": "376:578",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/addComment.svg",
+   "name": "addComment",
+   "origin": "phoenix",
+   "nodeId": "376:572",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/addFilled.svg",
+   "name": "addFilled",
+   "origin": "phoenix",
+   "nodeId": "764:1702",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/affected.svg",
+   "name": "affected",
+   "origin": "phoenix",
+   "nodeId": "555:965",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/alert.svg",
+   "name": "alert",
+   "origin": "phoenix",
+   "nodeId": "799:331",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/archive.svg",
+   "name": "archive",
+   "origin": "phoenix",
+   "nodeId": "6075:32810",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/arrowDown.svg",
+   "name": "arrowDown",
+   "origin": "phoenix",
+   "nodeId": "10406:32397",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/arrowLeft.svg",
+   "name": "arrowLeft",
+   "origin": "phoenix",
+   "nodeId": "10406:32396",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/arrowRight.svg",
+   "name": "arrowRight",
+   "origin": "phoenix",
+   "nodeId": "10406:32399",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/arrowUp.svg",
+   "name": "arrowUp",
+   "origin": "phoenix",
+   "nodeId": "10406:32398",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/barrier.svg",
+   "name": "barrier",
+   "origin": "phoenix",
+   "nodeId": "18676:39773",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/batteryAlmostFull.svg",
+   "name": "batteryAlmostFull",
+   "origin": "phoenix",
+   "nodeId": "681:2682",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/batteryFull.svg",
+   "name": "batteryFull",
+   "origin": "phoenix",
+   "nodeId": "681:2675",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/batteryHalf.svg",
+   "name": "batteryHalf",
+   "origin": "phoenix",
+   "nodeId": "681:2614",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/batteryHalfLow.svg",
+   "name": "batteryHalfLow",
+   "origin": "phoenix",
+   "nodeId": "1442:1795",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/batteryLow.svg",
+   "name": "batteryLow",
+   "origin": "phoenix",
+   "nodeId": "681:2647",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/billing.svg",
+   "name": "billing",
+   "origin": "phoenix",
+   "nodeId": "6603:3626",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/boxes.svg",
+   "name": "boxes",
+   "origin": "phoenix",
+   "nodeId": "5717:79206",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/cabinets.svg",
+   "name": "cabinets",
+   "origin": "phoenix",
+   "nodeId": "5717:77644",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/calendar.svg",
+   "name": "calendar",
+   "origin": "phoenix",
+   "nodeId": "547:2292",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/card.svg",
+   "name": "card",
+   "origin": "phoenix",
+   "nodeId": "6603:2235",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/carpentry.svg",
+   "name": "carpentry",
+   "origin": "phoenix",
+   "nodeId": "5717:77640",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/ceiling.svg",
+   "name": "ceiling",
+   "origin": "phoenix",
+   "nodeId": "5717:77646",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/checkmark.svg",
+   "name": "checkmark",
+   "origin": "phoenix",
+   "nodeId": "3720:19645",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/chevronDown.svg",
+   "name": "chevronDown",
+   "origin": "phoenix",
+   "nodeId": "376:587",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/chevronLeft.svg",
+   "name": "chevronLeft",
+   "origin": "phoenix",
+   "nodeId": "376:583",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/chevronRight.svg",
+   "name": "chevronRight",
+   "origin": "phoenix",
+   "nodeId": "376:591",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/chevronUp.svg",
+   "name": "chevronUp",
+   "origin": "phoenix",
+   "nodeId": "376:568",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/circle.svg",
+   "name": "circle",
+   "origin": "phoenix",
+   "nodeId": "18676:39772",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/claimSummary.svg",
+   "name": "claimSummary",
+   "origin": "phoenix",
+   "nodeId": "10534:62381",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/cleaning.svg",
+   "name": "cleaning",
+   "origin": "phoenix",
+   "nodeId": "5717:77643",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/close.svg",
+   "name": "close",
+   "origin": "phoenix",
+   "nodeId": "376:571",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/colComment.svg",
+   "name": "colComment",
+   "origin": "phoenix",
+   "nodeId": "8865:32509",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/comment.svg",
+   "name": "comment",
+   "origin": "phoenix",
+   "nodeId": "10534:62385",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/commentPrivate.svg",
+   "name": "commentPrivate",
+   "origin": "phoenix",
+   "nodeId": "10534:62389",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/commercial.svg",
+   "name": "commercial",
+   "origin": "phoenix",
+   "nodeId": "557:1142",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/compare.svg",
+   "name": "compare",
+   "origin": "phoenix",
+   "nodeId": "2613:18710",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/contentsFilled.svg",
+   "name": "contentsFilled",
+   "origin": "phoenix",
+   "nodeId": "1455:3020",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/contentsOutline.svg",
+   "name": "contentsOutline",
+   "origin": "phoenix",
+   "nodeId": "5273:20416",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/contract.svg",
+   "name": "contract",
+   "origin": "phoenix",
+   "nodeId": "7548:26053",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/copy.svg",
+   "name": "copy",
+   "origin": "phoenix",
+   "nodeId": "5691:1279",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/copyFrom.svg",
+   "name": "copyFrom",
+   "origin": "phoenix",
+   "nodeId": "5691:1297",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/cubicImage.svg",
+   "name": "cubicImage",
+   "origin": "phoenix",
+   "nodeId": "10534:62383",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/delete.svg",
+   "name": "delete",
+   "origin": "phoenix",
+   "nodeId": "376:563",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/deviceLaptop.svg",
+   "name": "deviceLaptop",
+   "origin": "phoenix",
+   "nodeId": "10121:14698",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/devicePhone.svg",
+   "name": "devicePhone",
+   "origin": "phoenix",
+   "nodeId": "10121:14697",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/deviceTablet.svg",
+   "name": "deviceTablet",
+   "origin": "phoenix",
+   "nodeId": "10121:14696",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/docuSketchMini.svg",
+   "name": "docuSketchMini",
+   "origin": "phoenix",
+   "nodeId": "6014:26617",
+   "size": 24,
+   "viewBox": "0 0 26 24"
+  },
+  {
+   "file": "assets/icons/24/door.svg",
+   "name": "door",
+   "origin": "phoenix",
+   "nodeId": "18676:5063",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/doubleChevronLeft.svg",
+   "name": "doubleChevronLeft",
+   "origin": "phoenix",
+   "nodeId": "5988:24230",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/doubleChevronRight.svg",
+   "name": "doubleChevronRight",
+   "origin": "phoenix",
+   "nodeId": "5988:24231",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/download.svg",
+   "name": "download",
+   "origin": "phoenix",
+   "nodeId": "6599:2556",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/drag.svg",
+   "name": "drag",
+   "origin": "phoenix",
+   "nodeId": "10270:8683",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/edit.svg",
+   "name": "edit",
+   "origin": "phoenix",
+   "nodeId": "376:554",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/electricity.svg",
+   "name": "electricity",
+   "origin": "phoenix",
+   "nodeId": "5717:77638",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/emergency.svg",
+   "name": "emergency",
+   "origin": "phoenix",
+   "nodeId": "5273:20700",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/environment.svg",
+   "name": "environment",
+   "origin": "phoenix",
+   "nodeId": "376:566",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/equipAirMover.svg",
+   "name": "equipAirMover",
+   "origin": "phoenix",
+   "nodeId": "18676:39771",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/equipAirScrubber.svg",
+   "name": "equipAirScrubber",
+   "origin": "phoenix",
+   "nodeId": "18676:39774",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/equipDehu.svg",
+   "name": "equipDehu",
+   "origin": "phoenix",
+   "nodeId": "18676:39775",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/equipmentFilled.svg",
+   "name": "equipmentFilled",
+   "origin": "phoenix",
+   "nodeId": "1455:3005",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/equipmentOutline.svg",
+   "name": "equipmentOutline",
+   "origin": "phoenix",
+   "nodeId": "10534:62391",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/estimate.svg",
+   "name": "estimate",
+   "origin": "phoenix",
+   "nodeId": "646:2345",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/existingDamage.svg",
+   "name": "existingDamage",
+   "origin": "phoenix",
+   "nodeId": "1455:2959",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/feedback.svg",
+   "name": "feedback",
+   "origin": "phoenix",
+   "nodeId": "4999:18316",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/filter.svg",
+   "name": "filter",
+   "origin": "phoenix",
+   "nodeId": "594:1693",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/filterApplied.svg",
+   "name": "filterApplied",
+   "origin": "phoenix",
+   "nodeId": "594:1707",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/fire.svg",
+   "name": "fire",
+   "origin": "phoenix",
+   "nodeId": "376:561",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/flag.svg",
+   "name": "flag",
+   "origin": "phoenix",
+   "nodeId": "2604:26796",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/flash.svg",
+   "name": "flash",
+   "origin": "phoenix",
+   "nodeId": "1957:17100",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/flashOff.svg",
+   "name": "flashOff",
+   "origin": "phoenix",
+   "nodeId": "12934:68155",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/floor.svg",
+   "name": "floor",
+   "origin": "phoenix",
+   "nodeId": "5717:77645",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/freehand.svg",
+   "name": "freehand",
+   "origin": "phoenix",
+   "nodeId": "19118:43243",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/freeline.svg",
+   "name": "freeline",
+   "origin": "phoenix",
+   "nodeId": "18676:39776",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/gears.svg",
+   "name": "gears",
+   "origin": "phoenix",
+   "nodeId": "5717:79203",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/geo.svg",
+   "name": "geo",
+   "origin": "phoenix",
+   "nodeId": "376:585",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/help.svg",
+   "name": "help",
+   "origin": "phoenix",
+   "nodeId": "4996:18038",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/helpFilled.svg",
+   "name": "helpFilled",
+   "origin": "phoenix",
+   "nodeId": "11070:16104",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/history.svg",
+   "name": "history",
+   "origin": "phoenix",
+   "nodeId": "16903:24689",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/hvac.svg",
+   "name": "hvac",
+   "origin": "phoenix",
+   "nodeId": "5717:77642",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/idea.svg",
+   "name": "idea",
+   "origin": "phoenix",
+   "nodeId": "7992:35871",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/image.svg",
+   "name": "image",
+   "origin": "phoenix",
+   "nodeId": "376:588",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/information.svg",
+   "name": "information",
+   "origin": "phoenix",
+   "nodeId": "1762:6899",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/kitchen.svg",
+   "name": "kitchen",
+   "origin": "phoenix",
+   "nodeId": "5717:79209",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/label.svg",
+   "name": "label",
+   "origin": "phoenix",
+   "nodeId": "19119:43287",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/ladder.svg",
+   "name": "ladder",
+   "origin": "phoenix",
+   "nodeId": "5717:79207",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/logOut.svg",
+   "name": "logOut",
+   "origin": "phoenix",
+   "nodeId": "6014:26619",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/mapArea.svg",
+   "name": "mapArea",
+   "origin": "phoenix",
+   "nodeId": "18680:40279",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/mask.svg",
+   "name": "mask",
+   "origin": "phoenix",
+   "nodeId": "8472:29726",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/menu.svg",
+   "name": "menu",
+   "origin": "phoenix",
+   "nodeId": "376:575",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/menuNotification.svg",
+   "name": "menuNotification",
+   "origin": "phoenix",
+   "nodeId": "6014:26626",
+   "size": 24,
+   "viewBox": "0 0 27 25"
+  },
+  {
+   "file": "assets/icons/24/message.svg",
+   "name": "message",
+   "origin": "phoenix",
+   "nodeId": "5034:21059",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/messageBadge.svg",
+   "name": "messageBadge",
+   "origin": "phoenix",
+   "nodeId": "5542:18570",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/micOff.svg",
+   "name": "micOff",
+   "origin": "phoenix",
+   "nodeId": "12360:26831",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/micOn.svg",
+   "name": "micOn",
+   "origin": "phoenix",
+   "nodeId": "12360:26829",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/migration.svg",
+   "name": "migration",
+   "origin": "phoenix",
+   "nodeId": "6603:2241",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/minus.svg",
+   "name": "minus",
+   "origin": "phoenix",
+   "nodeId": "4989:18970",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/mold.svg",
+   "name": "mold",
+   "origin": "phoenix",
+   "nodeId": "547:2328",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/more.svg",
+   "name": "more",
+   "origin": "phoenix",
+   "nodeId": "963:1842",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkConnect.svg",
+   "name": "networkConnect",
+   "origin": "phoenix",
+   "nodeId": "3967:19144",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkError.svg",
+   "name": "networkError",
+   "origin": "phoenix",
+   "nodeId": "3967:19145",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkOffline.svg",
+   "name": "networkOffline",
+   "origin": "phoenix",
+   "nodeId": "3967:19140",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkToUpload.svg",
+   "name": "networkToUpload",
+   "origin": "phoenix",
+   "nodeId": "3967:19143",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkUpload.svg",
+   "name": "networkUpload",
+   "origin": "phoenix",
+   "nodeId": "12895:27680",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkUploading.svg",
+   "name": "networkUploading",
+   "origin": "phoenix",
+   "nodeId": "3967:19142",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/networkUpToDate.svg",
+   "name": "networkUpToDate",
+   "origin": "phoenix",
+   "nodeId": "3967:19141",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/noteOutline.svg",
+   "name": "noteOutline",
+   "origin": "phoenix",
+   "nodeId": "3840:42446",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/notes.svg",
+   "name": "notes",
+   "origin": "phoenix",
+   "nodeId": "1455:2544",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/notification.svg",
+   "name": "notification",
+   "origin": "phoenix",
+   "nodeId": "376:589",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/notificationBadge.svg",
+   "name": "notificationBadge",
+   "origin": "phoenix",
+   "nodeId": "11214:27759",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/opening.svg",
+   "name": "opening",
+   "origin": "phoenix",
+   "nodeId": "19119:43286",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/overnighAlert.svg",
+   "name": "overnighAlert",
+   "origin": "phoenix",
+   "nodeId": "12583:8478",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/overnight.svg",
+   "name": "overnight",
+   "origin": "phoenix",
+   "nodeId": "1233:2160",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/photoCamera.svg",
+   "name": "photoCamera",
+   "origin": "phoenix",
+   "nodeId": "1155:2986",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/placeholder.svg",
+   "name": "placeholder",
+   "origin": "phoenix",
+   "nodeId": "4792:2919",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/playMedia.svg",
+   "name": "playMedia",
+   "origin": "phoenix",
+   "nodeId": "3089:42448",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/plumbing.svg",
+   "name": "plumbing",
+   "origin": "phoenix",
+   "nodeId": "5717:77641",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/plus.svg",
+   "name": "plus",
+   "origin": "phoenix",
+   "nodeId": "4989:18969",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/private.svg",
+   "name": "private",
+   "origin": "phoenix",
+   "nodeId": "18576:31246",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/projectsList.svg",
+   "name": "projectsList",
+   "origin": "phoenix",
+   "nodeId": "6476:11877",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/promoEsx.svg",
+   "name": "promoEsx",
+   "origin": "phoenix",
+   "nodeId": "10060:8928",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/promoEsxSow.svg",
+   "name": "promoEsxSow",
+   "origin": "phoenix",
+   "nodeId": "10060:8927",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/promoGift.svg",
+   "name": "promoGift",
+   "origin": "phoenix",
+   "nodeId": "10109:18991",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/public.svg",
+   "name": "public",
+   "origin": "phoenix",
+   "nodeId": "18579:50861",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/reconstruction.svg",
+   "name": "reconstruction",
+   "origin": "phoenix",
+   "nodeId": "5273:20701",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/recordMic.svg",
+   "name": "recordMic",
+   "origin": "phoenix",
+   "nodeId": "16570:24874",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/recordPlayFilled.svg",
+   "name": "recordPlayFilled",
+   "origin": "phoenix",
+   "nodeId": "16570:24877",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/recordStopFilled.svg",
+   "name": "recordStopFilled",
+   "origin": "phoenix",
+   "nodeId": "16570:24876",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/recordWave.svg",
+   "name": "recordWave",
+   "origin": "phoenix",
+   "nodeId": "16570:24875",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/rectangle.svg",
+   "name": "rectangle",
+   "origin": "phoenix",
+   "nodeId": "18676:39779",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/report.svg",
+   "name": "report",
+   "origin": "phoenix",
+   "nodeId": "977:2116",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/reportOutline.svg",
+   "name": "reportOutline",
+   "origin": "phoenix",
+   "nodeId": "8865:32510",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/reshoot.svg",
+   "name": "reshoot",
+   "origin": "phoenix",
+   "nodeId": "376:574",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/residential.svg",
+   "name": "residential",
+   "origin": "phoenix",
+   "nodeId": "557:1127",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/residentialFilled.svg",
+   "name": "residentialFilled",
+   "origin": "phoenix",
+   "nodeId": "761:2749",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/scissors.svg",
+   "name": "scissors",
+   "origin": "phoenix",
+   "nodeId": "19118:43241",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/scissorsCut.svg",
+   "name": "scissorsCut",
+   "origin": "phoenix",
+   "nodeId": "19118:43242",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/search.svg",
+   "name": "search",
+   "origin": "phoenix",
+   "nodeId": "376:581",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/select.svg",
+   "name": "select",
+   "origin": "phoenix",
+   "nodeId": "19119:43272",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/send.svg",
+   "name": "send",
+   "origin": "phoenix",
+   "nodeId": "6599:2559",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/settings.svg",
+   "name": "settings",
+   "origin": "phoenix",
+   "nodeId": "376:590",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/settingsFilled.svg",
+   "name": "settingsFilled",
+   "origin": "phoenix",
+   "nodeId": "11070:16105",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/shareAndroid.svg",
+   "name": "shareAndroid",
+   "origin": "phoenix",
+   "nodeId": "5472:21177",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/shareOutline.svg",
+   "name": "shareOutline",
+   "origin": "phoenix",
+   "nodeId": "376:576",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/shower.svg",
+   "name": "shower",
+   "origin": "phoenix",
+   "nodeId": "5717:79208",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/sketch.svg",
+   "name": "sketch",
+   "origin": "phoenix",
+   "nodeId": "646:2327",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/sketchRoom.svg",
+   "name": "sketchRoom",
+   "origin": "phoenix",
+   "nodeId": "10534:62374",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/sofa.svg",
+   "name": "sofa",
+   "origin": "phoenix",
+   "nodeId": "5717:79204",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/soundOff.svg",
+   "name": "soundOff",
+   "origin": "phoenix",
+   "nodeId": "12281:26422",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/soundOn.svg",
+   "name": "soundOn",
+   "origin": "phoenix",
+   "nodeId": "12281:26421",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/sow.svg",
+   "name": "sow",
+   "origin": "phoenix",
+   "nodeId": "1060:353",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/star.svg",
+   "name": "star",
+   "origin": "phoenix",
+   "nodeId": "7258:1670",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/stMinus.svg",
+   "name": "stMinus",
+   "origin": "phoenix",
+   "nodeId": "4515:23035",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/stPlus.svg",
+   "name": "stPlus",
+   "origin": "phoenix",
+   "nodeId": "4515:23036",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/success.svg",
+   "name": "success",
+   "origin": "phoenix",
+   "nodeId": "799:776",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/supportMessage.svg",
+   "name": "supportMessage",
+   "origin": "phoenix",
+   "nodeId": "6014:26623",
+   "size": 24,
+   "viewBox": "0 0 27 25"
+  },
+  {
+   "file": "assets/icons/24/text.svg",
+   "name": "text",
+   "origin": "phoenix",
+   "nodeId": "12945:68229",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/timeline.svg",
+   "name": "timeline",
+   "origin": "phoenix",
+   "nodeId": "11515:52411",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/transcribe.svg",
+   "name": "transcribe",
+   "origin": "phoenix",
+   "nodeId": "16963:26126",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/trauma.svg",
+   "name": "trauma",
+   "origin": "phoenix",
+   "nodeId": "376:560",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/trolleyFilled.svg",
+   "name": "trolleyFilled",
+   "origin": "phoenix",
+   "nodeId": "963:1880",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/trolleyOutline.svg",
+   "name": "trolleyOutline",
+   "origin": "phoenix",
+   "nodeId": "963:1614",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/tutorial.svg",
+   "name": "tutorial",
+   "origin": "phoenix",
+   "nodeId": "6014:26610",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/unaffected.svg",
+   "name": "unaffected",
+   "origin": "phoenix",
+   "nodeId": "1478:4175",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/unpinned.svg",
+   "name": "unpinned",
+   "origin": "phoenix",
+   "nodeId": "12400:40071",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/usersList.svg",
+   "name": "usersList",
+   "origin": "phoenix",
+   "nodeId": "6752:1515",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/vehicleImpact.svg",
+   "name": "vehicleImpact",
+   "origin": "phoenix",
+   "nodeId": "12037:42241",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/visiblityOff.svg",
+   "name": "visiblityOff",
+   "origin": "phoenix",
+   "nodeId": "4989:19020",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/visiblityOn.svg",
+   "name": "visiblityOn",
+   "origin": "phoenix",
+   "nodeId": "4989:19019",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/wall.svg",
+   "name": "wall",
+   "origin": "phoenix",
+   "nodeId": "5717:77639",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/wallCut.svg",
+   "name": "wallCut",
+   "origin": "phoenix",
+   "nodeId": "18676:39778",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/wallMoisture.svg",
+   "name": "wallMoisture",
+   "origin": "phoenix",
+   "nodeId": "18676:39777",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/warningOutline.svg",
+   "name": "warningOutline",
+   "origin": "phoenix",
+   "nodeId": "10123:17032",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/washingMachine.svg",
+   "name": "washingMachine",
+   "origin": "phoenix",
+   "nodeId": "5717:79205",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/waterFilled.svg",
+   "name": "waterFilled",
+   "origin": "phoenix",
+   "nodeId": "376:564",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/waterOutline.svg",
+   "name": "waterOutline",
+   "origin": "phoenix",
+   "nodeId": "376:565",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/wifi.svg",
+   "name": "wifi",
+   "origin": "phoenix",
+   "nodeId": "681:2578",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/window.svg",
+   "name": "window",
+   "origin": "phoenix",
+   "nodeId": "19119:43285",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/zoomIn.svg",
+   "name": "zoomIn",
+   "origin": "phoenix",
+   "nodeId": "18676:39781",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/zoomReset.svg",
+   "name": "zoomReset",
+   "origin": "phoenix",
+   "nodeId": "18676:39780",
+   "size": 24,
+   "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/16/360imageSmall.svg",
+   "name": "360imageSmall",
+   "origin": "phoenix",
+   "nodeId": "2079:19947",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/360\u00b0Small.svg",
+   "name": "360\u00b0Small",
+   "origin": "phoenix",
+   "nodeId": "376:626",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/affectedOutlineSmall.svg",
+   "name": "affectedOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11247",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/affectedSmall.svg",
+   "name": "affectedSmall",
+   "origin": "phoenix",
+   "nodeId": "555:1004",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/audioNotesSmall.svg",
+   "name": "audioNotesSmall",
+   "origin": "phoenix",
+   "nodeId": "17002:18663",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/changeSmall.svg",
+   "name": "changeSmall",
+   "origin": "phoenix",
+   "nodeId": "11589:19952",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronDownSmall.svg",
+   "name": "chevronDownSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25686",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronLeftSmall.svg",
+   "name": "chevronLeftSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25687",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronRightSmall.svg",
+   "name": "chevronRightSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25688",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronUpSmall.svg",
+   "name": "chevronUpSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25685",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/clearSmall.svg",
+   "name": "clearSmall",
+   "origin": "phoenix",
+   "nodeId": "681:2433",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/closeSmall.svg",
+   "name": "closeSmall",
+   "origin": "phoenix",
+   "nodeId": "6037:7804",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/commentsSmall.svg",
+   "name": "commentsSmall",
+   "origin": "phoenix",
+   "nodeId": "376:718",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/commercialSmall.svg",
+   "name": "commercialSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:34080",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/contentsSmall.svg",
+   "name": "contentsSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2902",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/contractSmall.svg",
+   "name": "contractSmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15101",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/copySmall.svg",
+   "name": "copySmall",
+   "origin": "phoenix",
+   "nodeId": "6067:4371",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/cotalitySmall.svg",
+   "name": "cotalitySmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15086",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/deleteSmall.svg",
+   "name": "deleteSmall",
+   "origin": "phoenix",
+   "nodeId": "12087:19707",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/downloadSmall.svg",
+   "name": "downloadSmall",
+   "origin": "phoenix",
+   "nodeId": "7078:12616",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/editSmall.svg",
+   "name": "editSmall",
+   "origin": "phoenix",
+   "nodeId": "12087:19720",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/emergencyMitigationSmall.svg",
+   "name": "emergencyMitigationSmall",
+   "origin": "phoenix",
+   "nodeId": "1321:2239",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/environmentSmall.svg",
+   "name": "environmentSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11243",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/equipmentFilledSmall.svg",
+   "name": "equipmentFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2884",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/estimateSmall.svg",
+   "name": "estimateSmall",
+   "origin": "phoenix",
+   "nodeId": "642:828",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/fireOutlineSmall.svg",
+   "name": "fireOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11239",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/flagSmall.svg",
+   "name": "flagSmall",
+   "origin": "phoenix",
+   "nodeId": "2601:28148",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/informationSmall.svg",
+   "name": "informationSmall",
+   "origin": "phoenix",
+   "nodeId": "1628:2220",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/messageBadgeSmall.svg",
+   "name": "messageBadgeSmall",
+   "origin": "phoenix",
+   "nodeId": "5544:18605",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/messageSmall.svg",
+   "name": "messageSmall",
+   "origin": "phoenix",
+   "nodeId": "5280:494",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/notesSmall.svg",
+   "name": "notesSmall",
+   "origin": "phoenix",
+   "nodeId": "1291:1706",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/openLinkSmall.svg",
+   "name": "openLinkSmall",
+   "origin": "phoenix",
+   "nodeId": "4999:18088",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/overnightSmall.svg",
+   "name": "overnightSmall",
+   "origin": "phoenix",
+   "nodeId": "1276:1883",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/photoCameraSmall.svg",
+   "name": "photoCameraSmall",
+   "origin": "phoenix",
+   "nodeId": "13136:37423",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/placeholderSmall.svg",
+   "name": "placeholderSmall",
+   "origin": "phoenix",
+   "nodeId": "5923:30293",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/playMediaSmall.svg",
+   "name": "playMediaSmall",
+   "origin": "phoenix",
+   "nodeId": "13136:37424",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/plusSmall.svg",
+   "name": "plusSmall",
+   "origin": "phoenix",
+   "nodeId": "12175:11433",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/predamagedSmall.svg",
+   "name": "predamagedSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2859",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/privateSmall.svg",
+   "name": "privateSmall",
+   "origin": "phoenix",
+   "nodeId": "376:655",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/promoGiftSmall.svg",
+   "name": "promoGiftSmall",
+   "origin": "phoenix",
+   "nodeId": "10113:19345",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/publicSmall.svg",
+   "name": "publicSmall",
+   "origin": "phoenix",
+   "nodeId": "376:658",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reconstructionGeneralSmall.svg",
+   "name": "reconstructionGeneralSmall",
+   "origin": "phoenix",
+   "nodeId": "1321:2304",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reportSmall.svg",
+   "name": "reportSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2795",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reshootSmall.svg",
+   "name": "reshootSmall",
+   "origin": "phoenix",
+   "nodeId": "13003:25484",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/residentialSmall.svg",
+   "name": "residentialSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:34081",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/shareOutlineSmall.svg",
+   "name": "shareOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "17343:35931",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/sketchSmall.svg",
+   "name": "sketchSmall",
+   "origin": "phoenix",
+   "nodeId": "641:1517",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/sowSmall.svg",
+   "name": "sowSmall",
+   "origin": "phoenix",
+   "nodeId": "2592:18337",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/traumaSmall.svg",
+   "name": "traumaSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11241",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/unpinnedSmall.svg",
+   "name": "unpinnedSmall",
+   "origin": "phoenix",
+   "nodeId": "2592:25589",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/uploadSmall.svg",
+   "name": "uploadSmall",
+   "origin": "phoenix",
+   "nodeId": "376:725",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/vehicleImpactSmall.svg",
+   "name": "vehicleImpactSmall",
+   "origin": "phoenix",
+   "nodeId": "12049:37945",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/veriskSmall.svg",
+   "name": "veriskSmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15085",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/warningFilledSmall.svg",
+   "name": "warningFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "2099:22197",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/warningSmall.svg",
+   "name": "warningSmall",
+   "origin": "phoenix",
+   "nodeId": "376:662",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/waterFilledSmall.svg",
+   "name": "waterFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "376:688",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/waterOutlineSmall.svg",
+   "name": "waterOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11237",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/32/contentsFilledLarge.svg",
+   "name": "contentsFilledLarge",
+   "origin": "phoenix",
+   "nodeId": "18541:4327",
+   "size": 32,
+   "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/icons/32/equipmentFilledLarge.svg",
+   "name": "equipmentFilledLarge",
+   "origin": "phoenix",
+   "nodeId": "18541:4324",
+   "size": 32,
+   "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/icons/32/notesLarge.svg",
+   "name": "notesLarge",
+   "origin": "phoenix",
+   "nodeId": "18541:4325",
+   "size": 32,
+   "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/icons/32/reportLarge.svg",
+   "name": "reportLarge",
+   "origin": "phoenix",
+   "nodeId": "18541:4326",
+   "size": 32,
+   "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/icons/32/waterFilledLarge.svg",
+   "name": "waterFilledLarge",
+   "origin": "phoenix",
+   "nodeId": "18541:4323",
+   "size": 32,
+   "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/menu/approval-delegation.svg",
+   "name": "approval_delegation",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
+  },
+  {
+   "file": "assets/menu/device-hub.svg",
+   "name": "device_hub",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
+  },
+  {
+   "file": "assets/menu/flood.svg",
+   "name": "flood",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
+  },
+  {
+   "file": "assets/menu/home-work.svg",
+   "name": "home_work",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
+  },
+  {
+   "file": "assets/menu/workflow-capture.svg",
+   "name": "workflow-capture",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
+   "file": "assets/menu/workflow-scope.svg",
+   "name": "workflow-scope",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
+   "file": "assets/menu/workflow-estimate.svg",
+   "name": "workflow-estimate",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
+   "file": "assets/icons/check.svg",
+   "name": "check",
+   "origin": "brand",
+   "size": 24,
+   "note": "Pre-existing brand icon; placement unchanged."
+  },
+  {
+   "file": "assets/icons/cross.svg",
+   "name": "cross",
+   "origin": "brand",
+   "size": 24,
+   "note": "Pre-existing brand icon; placement unchanged."
+  }
+ ]
+}

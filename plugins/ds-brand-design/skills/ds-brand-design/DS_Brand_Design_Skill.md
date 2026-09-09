@@ -1572,7 +1572,7 @@ DocuSketch draws from **two** icon sources. Which one you use is determined by w
 
 | The icon represents | Source | Example |
 |---|---|---|
-| A named DocuSketch product feature or domain concept | **Universal icon set** (Phoenix) | 360° tours, Timeline, Compare, room list, water/mold/fire |
+| A named DocuSketch product feature or domain concept | **Universal icon set** (Product DocuSketch Portal) | 360° tours, Timeline, Compare, room list, water/mold/fire |
 | A generic UI affordance with no product meaning | **Material Symbols Outlined** | arrows, close, search, download, external link |
 | A product concept the universal set does not yet cover | Material Symbols Outlined, as a declared fallback | see *Self-serve and gaps* |
 
@@ -1584,7 +1584,8 @@ Symbols `download`, `contract` and `language`.
 
 ### The universal icon set
 
-The icon set is hosted in the Phoenix product system and serves brand and product surfaces alike.
+The icon set is the one the DocuSketch product ships, and it serves marketing surfaces too.
+One library, two consumers — not a product asset that brand borrows.
 It is not a product asset that brand borrows — it is one vocabulary with two consumers.
 
 **Source of truth**
@@ -1651,12 +1652,12 @@ Brand keeps pinned copies so builds do not depend on live Figma access, exactly 
 
 | | |
 |---|---|
-| Location | `brand-design-kit/assets/icons/product/` |
+| Location | `brand-design-kit/assets/icons/{16,24,32}/` — plus seven still in `assets/menu/` |
 | Registry | `brand-design-kit/assets/icons/manifest.json` |
 | Drift guard | `figma-sync.py` — read-only (`GET /v1/files/{key}`), same three-way freshness check it already runs for the doc |
 
 **Filenames match upstream verbatim** — `waterOutline.svg`, not `water-outline.svg` — so a
-filename is a lookup key back into Phoenix. Brand-side aliases belong in the manifest, never in
+filename is a lookup key back into the source set. Brand-side aliases belong in the manifest, never in
 the filename.
 
 **Normalization is mirror-side and must be recorded.** Pull on the **upstream viewBox**, never the
@@ -1811,6 +1812,88 @@ Two obligations come with it:
 `pdf`, `file`, `export`, or `print`. `picture_as_pdf` from Material Symbols is the standing
 fallback for document-export concepts.
 
+---
+
+### Icon index — resolving a name to real markup
+
+**Never invent an icon name, and never draw a substitute.** Every icon available to you is listed
+below. If the concept you need is not here, say so in your response and fall back per the
+precedence table above — do not improvise a glyph.
+
+**How to get the actual SVG.** The registry
+`assets/icons/manifest.json` maps every name to a file, a size and a viewBox. Resolve in this
+order:
+
+1. **Bundled with the skill** — `assets/icons/<size>/<name>.svg` relative to the skill directory.
+   This is the offline path and the one to prefer.
+2. **The published brand** — `https://brand-design-kit.vercel.app/<file>`, taking `<file>`
+   verbatim from the manifest. Publicly readable, no auth. Use when the bundle is unavailable.
+
+**Using one.** Inline the SVG rather than referencing it with `<img>`; every icon is normalised to
+`fill="currentColor"`, so inlined it inherits the surrounding text colour and follows light and
+dark automatically. An `<img>` cannot. Keep the upstream `viewBox` verbatim and size with CSS —
+never set both `width` and `height` independently.
+
+**Two exceptions that are multi-colour by design.** `check` and `cross` are two-tone status badges
+carrying their own fore and background; they do not follow `currentColor`. Do not recolour them.
+
+**Sizes.** `24` is the default. `16` for dense UI and inline text — note the set uses a `Small`
+suffix at that size. `32` for large display, and it covers only five concepts.
+
+**24px — 197 icons**
+
+`360cam` · `360camConnected` · `360camDisconnected` · `360camFilled` · `360°` · `account`
+`actions` · `add` · `add360°` · `addComment` · `addFilled` · `affected` · `alert`
+`approval_delegation` · `archive` · `arrowDown` · `arrowLeft` · `arrowRight` · `arrowUp`
+`barrier` · `batteryAlmostFull` · `batteryFull` · `batteryHalf` · `batteryHalfLow`
+`batteryLow` · `billing` · `boxes` · `cabinets` · `calendar` · `card` · `carpentry`
+`ceiling` · `check` · `checkmark` · `chevronDown` · `chevronLeft` · `chevronRight`
+`chevronUp` · `circle` · `claimSummary` · `cleaning` · `close` · `colComment` · `comment`
+`commentPrivate` · `commercial` · `compare` · `contentsFilled` · `contentsOutline`
+`contract` · `copy` · `copyFrom` · `cross` · `cubicImage` · `delete` · `device_hub`
+`deviceLaptop` · `devicePhone` · `deviceTablet` · `docuSketchMini` · `door`
+`doubleChevronLeft` · `doubleChevronRight` · `download` · `drag` · `edit` · `electricity`
+`emergency` · `environment` · `equipAirMover` · `equipAirScrubber` · `equipDehu`
+`equipmentFilled` · `equipmentOutline` · `estimate` · `existingDamage` · `feedback`
+`filter` · `filterApplied` · `fire` · `flag` · `flash` · `flashOff` · `flood` · `floor`
+`freehand` · `freeline` · `gears` · `geo` · `help` · `helpFilled` · `history` · `home_work`
+`hvac` · `idea` · `image` · `information` · `kitchen` · `label` · `ladder` · `logOut`
+`mapArea` · `mask` · `menu` · `menuNotification` · `message` · `messageBadge` · `micOff`
+`micOn` · `migration` · `minus` · `mold` · `more` · `networkConnect` · `networkError`
+`networkOffline` · `networkToUpload` · `networkUpload` · `networkUploading`
+`networkUpToDate` · `noteOutline` · `notes` · `notification` · `notificationBadge`
+`opening` · `overnighAlert` · `overnight` · `photoCamera` · `placeholder` · `playMedia`
+`plumbing` · `plus` · `private` · `projectsList` · `promoEsx` · `promoEsxSow` · `promoGift`
+`public` · `reconstruction` · `recordMic` · `recordPlayFilled` · `recordStopFilled`
+`recordWave` · `rectangle` · `report` · `reportOutline` · `reshoot` · `residential`
+`residentialFilled` · `scissors` · `scissorsCut` · `search` · `select` · `send` · `settings`
+`settingsFilled` · `shareAndroid` · `shareOutline` · `shower` · `sketch` · `sketchRoom`
+`sofa` · `soundOff` · `soundOn` · `sow` · `star` · `stMinus` · `stPlus` · `success`
+`supportMessage` · `text` · `timeline` · `transcribe` · `trauma` · `trolleyFilled`
+`trolleyOutline` · `tutorial` · `unaffected` · `unpinned` · `usersList` · `vehicleImpact`
+`visiblityOff` · `visiblityOn` · `wall` · `wallCut` · `wallMoisture` · `warningOutline`
+`washingMachine` · `waterFilled` · `waterOutline` · `wifi` · `window` · `workflow-capture`
+`workflow-estimate` · `workflow-scope` · `zoomIn` · `zoomReset`
+**16px — 57 icons**
+
+`360imageSmall` · `360°Small` · `affectedOutlineSmall` · `affectedSmall` · `audioNotesSmall`
+`changeSmall` · `chevronDownSmall` · `chevronLeftSmall` · `chevronRightSmall`
+`chevronUpSmall` · `clearSmall` · `closeSmall` · `commentsSmall` · `commercialSmall`
+`contentsSmall` · `contractSmall` · `copySmall` · `cotalitySmall` · `deleteSmall`
+`downloadSmall` · `editSmall` · `emergencyMitigationSmall` · `environmentSmall`
+`equipmentFilledSmall` · `estimateSmall` · `fireOutlineSmall` · `flagSmall`
+`informationSmall` · `messageBadgeSmall` · `messageSmall` · `notesSmall` · `openLinkSmall`
+`overnightSmall` · `photoCameraSmall` · `placeholderSmall` · `playMediaSmall` · `plusSmall`
+`predamagedSmall` · `privateSmall` · `promoGiftSmall` · `publicSmall`
+`reconstructionGeneralSmall` · `reportSmall` · `reshootSmall` · `residentialSmall`
+`shareOutlineSmall` · `sketchSmall` · `sowSmall` · `traumaSmall` · `unpinnedSmall`
+`uploadSmall` · `vehicleImpactSmall` · `veriskSmall` · `warningFilledSmall` · `warningSmall`
+`waterFilledSmall` · `waterOutlineSmall`
+**32px — 5 icons**
+
+`contentsFilledLarge` · `equipmentFilledLarge` · `notesLarge` · `reportLarge`
+`waterFilledLarge`
+
 #### Optical size check
 Universal-set icons fill roughly **60–90%** of the 24×24 box. A Material Symbols glyph beside them
 should land in that range — `picture_as_pdf` measures 83%, so it needs no rescaling. If a mixed row
@@ -1826,7 +1909,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-09T18:56:38.816853+00:00",
-  "last_skill_sync": "2026-09-09T21:56:16.620209+00:00",
+  "last_skill_sync": "2026-09-09T22:39:43.248199+00:00",
   "figma_last_version": "2397301593847256842"
 }
 ```
