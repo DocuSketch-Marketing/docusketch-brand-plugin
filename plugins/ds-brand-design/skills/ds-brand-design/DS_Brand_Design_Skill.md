@@ -49,11 +49,13 @@ Variant property vocabulary (closed list): `Color=Black|White|Chartreuse` (marks
 
 **Semantic re-mappings that supersede the tables below** (the rest of the legacy `DS/Token/*` names remain valid values with legacy spellings until the section-by-section rewrite lands):
 
+> **Retraction 2026-09-09.** The three text rows below originally inverted `text-primary` / `text-strong` and moved `text-inverse` to pure white. Those three re-mappings were never authored here — they entered through the third-party-built token file and were then mirrored into this section. The authored values stand, and the rows now state them. `text-primary` is the ink for body **and** headlines on light; `text-strong` is the high-contrast body-supporting role whose purpose is holding contrast when it flips to Neutral 200 in dark — it is not an emphasis step above primary. Every other row in this table is unaffected.
+
 | Canonical | Value | Supersedes |
 |---|---|---|
-| `text-strong` | `#1A1905` | `DS/Token/Text/Primary` — the strongest ink is now *strong* |
-| `text-primary` | `#39381B` | body ink is now Neutral 650, **not** `#1A1905` |
-| `text-inverse` | `#FFFFFF` | `DS/Token/Text/Inverse` = `#F9F9F5` |
+| `text-primary` | `#1A1905` | nothing — Neutral 700 remains body and headline ink (17.72:1 vs white) |
+| `text-strong` | `#39381B` | nothing — Neutral 650 remains the body-supporting role (11.96:1 vs white) |
+| `text-inverse` | `#F9F9F5` | nothing — Neutral 100 remains the ink on dark (16.79:1 vs Neutral 700) |
 | `text-button-on-accent` | `#010101` | `DS/Token/Text/OnBrand` = `#2A2808` for button labels on accent |
 | `background-accent` | `#E5DF00` | `DS/Token/Background/Brand` (rename) |
 | `brand-white` | `#FFFFFF` | white is reinstated as a brand token |
@@ -400,10 +402,10 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 |---|---|---|---|
 | `DS/Color/Neutral 100` | `#F9F9F5` | — | Common background — page / section warm white. Off-spec for Pantone (warm whites have no clean solid-coated match; print as 0/0/3/0 CMYK or use stock paper). *(= `Background/Subtle` + `Text/Inverse` tokens)* |
 | `DS/Color/Neutral 200` | `#F4F3EA` | 9181 C | Common background — testimonial / card / inset surfaces *(= `Background/Default` + `Border/Subtle` tokens)* |
-| `DS/Color/Neutral 300` | `#DFDDC8` | 7527 C *(re-verify)* | Dividers, image placeholder fills, warm-neutral text overlay on dark neutral swatches in dark mode *(= `Border/Default` token)* |
+| `DS/Color/Neutral 300` | `#DFDDC8` | 7527 C *(re-verify)* | Dividers, image placeholder fills, warm-neutral text overlay on dark neutral swatches in dark mode *(= `Border/Default`, `Surface/Card`, `Text/Sticky-CTA` tokens — the separate `neutral-warm` `#E2E0D3` primitive that previously backed the latter two was collapsed into this value 2026-09-09; the two sat 1.03:1 apart)* |
 | `DS/Color/Neutral 400` | `#C0BC90` | **5793 C** | Light sage / warm grey *(= `Brand/Eucalyptus` + `Text/Muted` tokens — note: 1.49:1 vs white, below AA. Reserve `Text/Muted` for non-essential / decorative text only.)* |
 | `DS/Color/Neutral 500` | `#807C5E` | 5777 C | Mid sage / warm grey *(= `Text/Secondary` + `Border/Strong` tokens — note: 4.04:1 vs white, passes AA Large only.)* |
-| `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (10.5:1 vs white). |
+| `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (11.96:1 vs white). |
 | `DS/Color/Neutral 700` | `#1A1905` | **Black 2 C** | Body text, headlines, icons on light *(= `Brand/Ash`, `Background/Inverse`, `Text/Primary` tokens)* |
 
 *Eucalyptus consolidated into Neutral 400/500/650 (this revision). The former Eucalyptus 100/200/300 (`#C0BC90` / `#807C5E` / `#39381B`) and prior Neutral 400/500/650 (`#B8B5A0` / `#908D68` / `#3D3C2A`) were within ~4 L\* of each other per step — a tonal duplicate scale. Picking the warmer Eucalyptus side as canonical eliminates the redundancy. `Brand/Eucalyptus` token now resolves through `Neutral 400`; the Eucalyptus primitive scale is removed. **Neutral 600** (`#6B6948`) was removed in the same pass — with the new Neutral 500 and 650 in place, the 500 → 650 step is large enough to carry without an intermediate. **Neutral 800** (`#4A4830`) is kept out of the light ramp for the same monotonicity reason, but retained in Figma as a Dark-mode-only primitive (it backs `Background/Subtle` and `Border/Default` in Dark mode).*
@@ -490,7 +492,7 @@ The Camo pattern is intentionally **non-token** at the CSS level — it ships as
 **Accessibility audit notes (WCAG 2.x):**
 
 - `Neutral 100 → 300` are all ≤ 1.4:1 vs each other — intentionally subtle. Use them as adjacent background surfaces (Subtle / Default / Border), not for text differentiation.
-- `Neutral 500` (#807C5E) is **~4.0:1 vs Base/White (#FFFFFF)** — passes **AA Large text only**. The `Text/Secondary` token resolves here; do not use it for body copy, only ≥18 pt / 14 pt bold. For body-sized secondary text use `Neutral 650` (#39381B, ~10.5:1 vs white).
+- `Neutral 500` (#807C5E) is **~4.0:1 vs Base/White (#FFFFFF)** — passes **AA Large text only**. The `Text/Secondary` token resolves here; do not use it for body copy, only ≥18 pt / 14 pt bold. For body-sized secondary text use `Neutral 650` (#39381B, 11.96:1 vs white).
 - `Neutral 400` (`Text/Muted`, #C0BC90) is **~1.5:1 vs Base/White (#FFFFFF)** — below AA. Reserve for non-essential / decorative text only; never load-bearing content.
 - `Chartreuse 200` (#FFFA37) at 1.16:1 vs Base/White (#FFFFFF) means *do not* place black-text-on-yellow as the only signal — pair with iconography or weight.
 
@@ -573,7 +575,7 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 | `DS/Token/Text/Primary` | Neutral 700 | Neutral 400 (`#C0BC90`) | Body, headlines. Dark primary is **warm sage**, not a stark off-white (9.14:1, AAA). Inverting the warm-neutral identity into a tech-flat white misreads the brand — the warm sage carries forward DocuSketch's identity into the dark theme. |
 | `DS/Token/Text/OnBrand` | Chartreuse 900 (`#2A2808`) | **Chartreuse 900** | Text on chartreuse fills — unchanged |
 | `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 500 (`#807C5E`) | 4.0:1 vs Neutral 700 — AA Large only, same caveat both modes |
-| `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 10.5:1 (light) / 14:1 (dark) — AAA both. Escalate to this when Primary's warm sage doesn't carry enough presence for the role. |
+| `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 11.96:1 (light) / 15.91:1 (dark) — AAA both. Not an emphasis step above Primary on light; its purpose is holding high contrast when it flips to Neutral 200 in dark. |
 | `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 650 (`#39381B`) | Decorative only — ~1.5:1 in both modes. Same semantic across themes: tertiary, non-load-bearing copy. |
 | `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
 | `DS/Token/Text/Accent` | Chartreuse 900 (`#2A2808`) | Chartreuse 300 (`#E5DF00`) | Chartreuse-family highlights NOT on a chartreuse fill: breadcrumb current, in-prose links, group headers, "Show more" expanders. |
@@ -583,7 +585,7 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 
 **Two new semantic tokens were added when canonizing dark mode** to replace patterns that were widely hardcoding primitives:
 
-- `Text/Strong` — solves the *high-contrast body-supporting copy* role that hardcoded `Neutral 650` (10.5:1 vs white, AAA). In dark, Neutral 650 (`#39381B`) drops to 1.4:1 against the page bg (invisible). `Text/Strong` resolves to Neutral 200 in dark, preserving the role's high-contrast intent.
+- `Text/Strong` — solves the *high-contrast body-supporting copy* role that hardcoded `Neutral 650` (11.96:1 vs white, AAA). In dark, Neutral 650 (`#39381B`) drops to 1.4:1 against the page bg (invisible). `Text/Strong` resolves to Neutral 200 in dark, preserving the role's high-contrast intent.
 - `Text/Accent` — solves the *chartreuse-family highlight on theme bg* role that hardcoded `Text/OnBrand` (Chartreuse 900) for breadcrumbs, in-prose links, and group titles. `Text/OnBrand` is specifically for text ON a chartreuse fill; on the dark page bg it lands at 1.19:1. `Text/Accent` resolves to Chartreuse 300 in dark (12.56:1, AAA).
 
 ### Surface elevation in dark
@@ -650,7 +652,7 @@ The pattern: inside `:root[data-theme="dark"]`, scope the canonical containers a
 }
 ```
 
-Duplicate the block under `@media (prefers-color-scheme: dark) { :root[data-theme="auto"] ... }` so surfaces that opted into OS-following get the same scoping. Background tokens are not re-bound — the canonical surface either hardcodes its own background (the typical case) or follows the theme via `Background/Default`.
+Duplicate the block under `@media (prefers-color-scheme: dark) { :root[data-theme="auto"] ... }` so surfaces that opted into OS-following get the same scoping. **The two copies must declare byte-identical values** — they drifted apart once (the committed-dark copy carried the retracted primary/strong inversion while the auto copy carried the authored values), which made a canonical surface render differently depending on whether dark was chosen or inherited. Background tokens are not re-bound — the canonical surface either hardcodes its own background (the typical case) or follows the theme via `Background/Default`.
 
 ### WCAG verification
 
@@ -1644,7 +1646,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-08-21T17:22:39.761044+00:00",
-  "last_skill_sync": "2026-09-01T15:25:08.852435+00:00",
+  "last_skill_sync": "2026-09-09T15:23:53.371000+00:00",
   "figma_last_version": "2390222383400825777"
 }
 ```
