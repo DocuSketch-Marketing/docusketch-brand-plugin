@@ -1392,12 +1392,11 @@ The `Sticky CTA` row below (Set Key `266:997`) references the BDK definition. Th
 
 ## Source File Component Keys
 
-### DS-Brand-UI-kit (`iL3MqRVVsyma2D5kL8kZm9`)
-- Wordmark: `ba5b5b12d6f8a157db9a3cfef2792bec6b467488`
-- DS1: `f8f104f5655e82093ccae4e2d1754e0264e5a080`
-- DS°: `57c2ce4065671c0b314629330b3cbac83768a039`
-- Pill: `13a2dfacb981833d99199a7d5584ed7e8f79af42`
-- Insta360 Partnership: `5bfbd9acb4246b61a2d6e2c5ca6bc3b3df9294d8`
+> **`DS-Brand-UI-kit` (`iL3MqRVVsyma2D5kL8kZm9`) is retired.** It previously appeared here with
+> component keys for the Wordmark, DS1, DS°, Pill and Insta360 Partnership marks. That file is
+> being deleted; all five are canonically keyed in the **Brand Design Kit** below, per Best
+> Practice #15. Never key a component from a file that no longer exists —
+> `importComponentByKeyAsync` fails on it.
 
 ### Brand Design Kit (`JR35zTngKUblEKMD0myUyD`)
 
@@ -1568,14 +1567,151 @@ async function localComponentFromSource(sourceComp, variantName, libPage) {
 
 ## Iconography
 
+DocuSketch draws from **two** icon sources. Which one you use is determined by what the icon
+*means*, not by which surface you are building — brand and product share one vocabulary.
+
+| The icon represents | Source | Example |
+|---|---|---|
+| A named DocuSketch product feature or domain concept | **Universal icon set** (Phoenix) | 360° tours, Timeline, Compare, room list, water/mold/fire |
+| A generic UI affordance with no product meaning | **Material Symbols Outlined** | arrows, close, search, download, external link |
+| A product concept the universal set does not yet cover | Material Symbols Outlined, as a declared fallback | see *Self-serve and gaps* |
+
+A product concept always prefers the universal set, **including on marketing surfaces**. The
+pricing page is the reference: it ships the universal `360°` and `timeline` icons beside Material
+Symbols `download`, `contract` and `language`.
+
+---
+
+### The universal icon set
+
+The icon set is hosted in the Phoenix product system and serves brand and product surfaces alike.
+It is not a product asset that brand borrows — it is one vocabulary with two consumers.
+
+**Source of truth**
+
+| | |
+|---|---|
+| Figma file | `uWPtoRCtbBAnOqzJVNhYr3` — *3.0 Design system* |
+| Page | `33:2227` — *Particles* |
+| Section | `5422:33452` — *Icons* |
+
+| Subsection | Node | Notes |
+|---|---|---|
+| 24px icons | `13463:4310` | **Default.** 188 symbols; use this set unless you have a reason not to |
+| 24px icons dark | `18035:25077` | `Dark` suffix; for dark surfaces |
+| 16px icons | `5422:33541` | `Small` suffix |
+| 16px icons dark | `18041:36050` | |
+| 32px icons | `18541:4328` | |
+| iOS SF Symbols | `5422:33569` | Native iOS only |
+
+**Naming convention.** `lowerCamelCase` semantic names — `noteOutline`, `sketchRoom`,
+`claimSummary`, `waterOutline`. Suffixes: `Dark` (dark variant), `Small` (16px set),
+`Filled` / `Outline` (weight pairs, e.g. `equipmentFilled` / `equipmentOutline`).
+
+---
+
+### Ownership and change control
+
+- **Product self-serves.** The product team adds icons to the universal set as needed. There is no
+  brand gate on an ordinary addition.
+- **Chris owns it when it is a new product or a positioning move.** Those decisions route to him
+  first; the icon still lands in the universal set afterwards.
+- **Upstream adoption is handled by Chris offline.** It is not part of any automated pipeline.
+
+#### Brand consumes read-only
+
+Brand **pulls and mirrors. It never alters or edits** the source file, and it never changes how
+product documents or accesses the set.
+
+> **Hard rule for anyone using this skill in Claude: never publish or add an icon.**
+> Do not write to the universal set. Do not add files to the brand mirror. Do not add rows to the
+> manifest or to the component icon map. Do not open a PR proposing an icon. Use what exists,
+> fall back where documented, and report the gap in your response — nothing more.
+
+**Read-only allowlist for `uWPtoRCtbBAnOqzJVNhYr3`.** The Figma MCP exposes write tools next to
+read ones. Against this file, only these four are permitted:
+
+`get_metadata` · `get_design_context` · `get_screenshot` · `download_assets`
+
+Plus two read-only REST endpoints: `GET /v1/files/{key}` and
+`GET /v1/images/{key}?ids=…&format=svg`.
+
+Never `use_figma`, `create_new_file`, `upload_assets`, `add_code_connect_map`,
+`send_code_connect_mappings`, or any other mutating call.
+
+> The brand token's role on this file is **editor**. Read-only is a policy, not a permission —
+> this allowlist is the only thing standing between the skill and an edit to product's source.
+
+---
+
+### The brand mirror
+
+Brand keeps pinned copies so builds do not depend on live Figma access, exactly as
+`tokens/ds-tokens.css` mirrors the DS° Tokens library 1:1.
+
+| | |
+|---|---|
+| Location | `brand-design-kit/assets/icons/product/` |
+| Registry | `brand-design-kit/assets/icons/manifest.json` |
+| Drift guard | `figma-sync.py` — read-only (`GET /v1/files/{key}`), same three-way freshness check it already runs for the doc |
+
+**Filenames match upstream verbatim** — `waterOutline.svg`, not `water-outline.svg` — so a
+filename is a lookup key back into Phoenix. Brand-side aliases belong in the manifest, never in
+the filename.
+
+**Normalization is mirror-side and must be recorded.** Pull on the **upstream viewBox**, never the
+tight-bbox variant, so every icon shares one optical grid.
+
+Use the REST images endpoint — it batches many nodes in one read and returns a clean single-path
+SVG with no background rect and no stray artboard paths:
+
+```
+GET /v1/images/{fileKey}?ids=<nodeId,nodeId,…>&format=svg
+```
+
+1. svg root: `fill="none"` → `fill="currentColor"` so the icon inherits `DS/Color/*`
+2. Drop literal `fill="#1A1905"` from child shapes so they inherit
+3. Drop the root `width`/`height`; size via CSS
+4. Keep the upstream `viewBox` verbatim — usually `0 0 24 24`, but not always
+   (`docuSketchMini` is `0 0 26 24`; size non-square marks by height)
+
+> The MCP's `download_assets` also works, but its node export carries a `#F5F5F5` background rect
+> plus artboard paths that must be stripped from the innermost `<g id="…">`, and it handles one
+> node per call. Prefer the images endpoint.
+
+The mirrored file is therefore **not** byte-identical upstream. The manifest records the upstream
+identity and the transform applied so any copy can be regenerated and diffed. A local copy is
+never evidence of what is upstream.
+
+> Taking the tight-bbox variant is what produced the per-icon hand-tuned scale CSS in commit
+> `88e7bce`. Icons on a shared 24×24 grid need no per-icon sizing.
+
+---
+
+### Verify the glyph, never trust the name
+
+**Always render an icon and look at it before committing to it.** Names in the universal set do
+not reliably describe the drawing:
+
+- `report` and `reportOutline` are octagon-with-exclamation **alert** icons, not documents
+- `promoEsx` is a badge/seal, not a page
+
+Pull the candidates, render them side by side, and choose from the drawings.
+
+---
+
 ### Icon System: Material Symbols Outlined
 
-DocuSketch uses **Material Symbols Outlined** (Google Fonts variable font) as the standard icon set across all digital products, design tooling, and internal dashboards.
+Material Symbols Outlined (Google Fonts variable font) covers generic UI affordances across all
+digital products, design tooling, and internal dashboards.
 
 #### Loading (web / Vercel)
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
 ```
+
+Do **not** append `&display=swap` — the font falls back to rendering the ligature name as literal
+text ("picture_as_pdf") until it loads.
 
 #### CSS baseline
 ```css
@@ -1596,6 +1732,18 @@ DocuSketch uses **Material Symbols Outlined** (Google Fonts variable font) as th
 | `GRAD` | `0` | No grade adjustment. |
 | `opsz` | `24` | Optical size. Use `20` for 16–18px inline icons. |
 
+#### As inline SVG
+Where the webfont is impractical — a single glyph, or a page already inlining universal-set icons —
+fetch the official SVG at the standard axis config:
+
+```
+https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/<name>/default/24px.svg
+```
+
+`default` **is** `FILL 0 / wght 400 / GRAD 0 / opsz 24`. Other path variants (`wght400/`) 404.
+Set `fill="currentColor"` and keep Google's `0 -960 960 960` viewBox — mixing it with 24×24
+universal-set icons is fine, since each is sized to the same box.
+
 #### Arrow set — standard usage
 | Icon name | Use case |
 |---|---|
@@ -1604,37 +1752,69 @@ DocuSketch uses **Material Symbols Outlined** (Google Fonts variable font) as th
 | `arrow_back` | Navigate left, previous, back |
 | `arrow_upward` | Expand, scroll to top, increase |
 | `arrow_downward` | Collapse, scroll down, decrease |
-
-#### Component icon map
-
-Every component documented in `_Library Component Sets` that contains an icon has a canonical icon name. Do not substitute a different icon for a documented component — use the one listed here.
-
-| Component | Variant / part | Icon name | Size |
-|---|---|---|---|
-| Sticky CTA | icon button (all variants) | `arrow_forward` | 24 |
-| Navigation / Nav Item | Active state | `arrow_forward` | 20 inline |
-| External link (inline text) | — | `arrow_outward` | 20 inline |
-| Cards / Feature Card | "Learn more" affordance | `arrow_forward` | 24 |
-| Footer / social or partner links | external destinations | `arrow_outward` | 24 |
-| Workflow icons (Capture, Scope, Estimate) | (custom — see `Icons / Workflow` set) | — | 24 / 32 |
-
-**Rule.** When designing a new component or page that needs an icon, pick from this table if a matching pattern exists. If the pattern is genuinely new, propose an addition here in the same PR.
-
-**Sizes.** Components default to `24px` icons. For inline-text contexts (within 16–18px copy), use `opsz: 20` with 20×20 dimensions so the icon aligns optically with the surrounding lowercase x-height.
-| `arrow_back` | Navigate left, previous, back |
-| `arrow_upward` | Expand, scroll to top, increase |
-| `arrow_downward` | Collapse, scroll down, decrease |
 | `north_east` | Diagonal emphasis (decorative, large display) |
 | `open_in_new` | Inline "open in new" in dense text contexts |
 
-**Rule**: always use `arrow_outward` for external link indicators. Never substitute Unicode arrows (↗ ↑ →) or custom SVG arrows — they break visual consistency across products.
+**Rule.** Always use `arrow_outward` for external link indicators. Never substitute Unicode arrows
+(↗ ↑ →) or custom SVG arrows — they break visual consistency across products.
 
-#### Figma usage
-Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as SVG frames, never as text nodes, inside _Library components.
+---
 
-- Default size: `24 × 24px`
-- Colour: no fill override on the icon node — apply `DS/Color/*` at the parent frame level via `tok()`
-- Never resize icons non-uniformly
+### Component icon map
+
+Every component documented in `_Library Component Sets` that contains an icon has a canonical icon
+name. Do not substitute a different icon for a documented component — use the one listed here.
+
+| Component | Variant / part | Icon | Source | Size |
+|---|---|---|---|---|
+| Sticky CTA | icon button (all variants) | `arrow_forward` | Material Symbols | 24 |
+| Navigation / Nav Item | Active state | `arrow_forward` | Material Symbols | 20 inline |
+| External link (inline text) | — | `arrow_outward` | Material Symbols | 20 inline |
+| Cards / Feature Card | "Learn more" affordance | `arrow_forward` | Material Symbols | 24 |
+| Footer / social or partner links | external destinations | `arrow_outward` | Material Symbols | 24 |
+| Workflow icons (Capture, Scope, Estimate) | custom — see `Icons / Workflow` set | — | Brand | 24 / 32 |
+
+**Platform feature icons** — for pages and decks describing what a project unlocks:
+
+| Feature | Icon | Source |
+|---|---|---|
+| 360° tours | `360°` | Universal |
+| Timeline Tours | `timeline` | Universal |
+| Compare Mode | `compare` | Universal |
+| Field Notes | `noteOutline` | Universal |
+| Structured room list | `sketchRoom` | Universal |
+| Enhanced photo report | `picture_as_pdf` | Material Symbols — **fallback**, see below |
+
+**Rule.** Pick from these tables when a matching pattern exists. If the pattern is genuinely new,
+choose per the precedence table at the top and **report the gap** — do not add a row here. See the
+hard rule under *Brand consumes read-only*.
+
+**Sizes.** Components default to `24px` icons. For inline-text contexts (within 16–18px copy), use
+`opsz: 20` with 20×20 dimensions so the icon aligns optically with the surrounding lowercase
+x-height.
+
+---
+
+### Self-serve and gaps
+
+Brand may self-serve where appropriate: when the universal set has no fitting icon, use Material
+Symbols for the deliverable at hand rather than blocking on an upstream addition.
+
+Two obligations come with it:
+
+1. **Record the fallback** in the manifest under `fallbacks`, so the gap is visible rather than
+   rediscovered each time.
+2. **Report it in your response** so it can be picked up for upstream adoption offline. Never file
+   it upstream yourself.
+
+**Known gap.** The universal set has no PDF/file/export icon — zero of its 444 symbols match
+`pdf`, `file`, `export`, or `print`. `picture_as_pdf` from Material Symbols is the standing
+fallback for document-export concepts.
+
+#### Optical size check
+Universal-set icons fill roughly **60–90%** of the 24×24 box. A Material Symbols glyph beside them
+should land in that range — `picture_as_pdf` measures 83%, so it needs no rescaling. If a mixed row
+looks uneven, measure the ink extents before reaching for a per-icon transform.
 
 ---
 
@@ -1646,7 +1826,7 @@ Use the **Material Symbols** Figma plugin (by Google) to insert icons. Insert as
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-09T18:56:38.816853+00:00",
-  "last_skill_sync": "2026-09-09T15:23:53.371000+00:00",
+  "last_skill_sync": "2026-09-09T21:56:16.620209+00:00",
   "figma_last_version": "2397301593847256842"
 }
 ```
