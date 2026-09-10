@@ -1,7 +1,7 @@
 {
   "name": "ds-brand-design",
   "description": "DocuSketch brand design system: canonical source of truth for brand, marketing, and visual design (tokens, typography, spacing, components, accessibility).",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "DocuSketch Design"
   },

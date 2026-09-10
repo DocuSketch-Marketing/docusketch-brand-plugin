@@ -1,7 +1,7 @@
 # DocuSketch Marketing Design System — Master Skill
 
 > **Source of truth**: the Brand Design Kit Figma file (`JR35zTngKUblEKMD0myUyD`), synced into this document by `figma-sync.py`.
-> This document is the canonical rendering of that system. The `brand-design-kit` repo copy and the `ds-brand-design` plugin copy are kept byte-identical.
+> This document is the canonical rendering of that system. It is versioned in the `brand-design-kit` repo and staged into the `ds-brand-design` plugin automatically — but **published only when a person promotes** `staging` to `main` in `docusketch-brand-plugin`. The claude.ai hosted skill is a separate copy and does **not** update on its own; check its `canon_commit` against the promoted `main` before trusting it.
 > Live dashboard: https://brand-design-kit.vercel.app
 
 ---
@@ -1909,7 +1909,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-09T22:55:57.220340+00:00",
-  "last_skill_sync": "2026-09-09T22:39:43.248199+00:00",
+  "last_skill_sync": "2026-09-10T16:54:41.194061+00:00",
   "figma_last_version": "2397367844242490628"
 }
 ```
