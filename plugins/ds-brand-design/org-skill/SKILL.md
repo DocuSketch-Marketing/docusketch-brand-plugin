@@ -3,7 +3,7 @@ name: docusketch-brand
 description: DocuSketch Marketing Design System — the canonical source of truth for brand, marketing, and visual design decisions. Use when creating or reviewing ANY DocuSketch-branded asset (PDFs, Word docs, presentations, web/HTML, Figma plugin scripts, dashboards, marketing collateral, print pieces). Covers the immovable Best Practices checklist, logo usage and clear space, colour primitives and semantic tokens with Pantone and WCAG data, the 2026 naming unification, IBM Plex type styles and the plain-zero rule, radius and two-tier spacing scales, shadows, motion canon, Dark Mode pairings, Brand Expressions (Editorial mode and the print type ramp), the Product DocuSketch Portal iconography library, and compound-component anatomy. Also use when asked for something "on brand", "in DocuSketch's brand", or when checking design code against brand standards.
 metadata:
   author: chris.provins
-  installer: nick.keyko
+  installer: sergey.novik
   version: '4.0'
   kind: pointer
   source: https://github.com/DocuSketch-Marketing/docusketch-brand-plugin
