@@ -29,6 +29,7 @@
 15. **Logo / wordmark — canonical SVG only, uniform scaling only. Never typeset, never stretch, squash, or skew.** The DocuSketch wordmark must always be rendered from the canonical SVG component (Figma file `JR35zTngKUblEKMD0myUyD`, `Logo / Wordmark` set `266:1521`) at its native aspect ratio (viewBox `0 0 200 25` → **8:1**). The same applies to the DS1 logo, DS° mark, the Pill, and all partner logos in `Logo / *` sets. **SVG-only rule:** anywhere a logo or wordmark is *displayed as a brand mark* — site headers, sidebars, footers, OG cards, login screens, email signatures, watermarks — it must be the inlined or `<img>`-referenced SVG asset. **Never** typeset "DocuSketch°" / "DocuSketch" as live text using a font and a `<sup>°</sup>` (or `°` glyph) as a stand-in for the mark. Type substitution silently breaks: the wordmark's letterforms are custom-drawn (not Plex Sans), the degree symbol's optical placement is bespoke, and live text is at the mercy of the surrounding font stack, weight, tracking, and rendering hints. **Carve-out:** the brand name "DocuSketch" *may* appear as live text when written inside running prose — body copy, headings, button labels, navigation items, page titles, alt text, and ARIA labels. The test: is this *the* logo placement on the surface (one canonical mark per view), or is this the word "DocuSketch" appearing inside a sentence? Logo → SVG. Sentence → live text. **How to scale:** never set both `width` and `height` independently. Pick one (typically height) and derive the other from the aspect ratio — in code, expose a single `height` prop / constant and compute width as `height × ASPECT`; in inline SVG, set `height` (or `width`) in CSS and leave the other as `auto`, and never set `preserveAspectRatio="none"`. In Figma, lock the aspect ratio (`constrainProportions = true`) on every logo instance. Non-uniform scaling, type substitution, or rasterising to a fixed-size box that distorts the glyphs are all violations. **Why immovable:** the wordmark is the most reproduced brand asset; any distortion or text-substitution compounds across deployments and is the hardest brand defect to retract once shipped.
 16. **Motion: only animate `transform`, `opacity`, and `filter`.** See the Motion section. Animating layout properties (`width`, `height`, `padding`, `margin`, `max-height`, `max-width`, `top`, `left`, `right`, `bottom`) causes layout thrash on every frame — janky on any device under load. For accordions / expand-collapse, use `display: grid` with `grid-template-rows: 0fr → 1fr`; for reveals use `transform: scaleY()` or `translateY()` paired with `opacity`. Respect `prefers-reduced-motion: reduce` (WCAG 2.3.3) — override all duration tokens to `1ms` and easings to `linear`.
 17. **IBM Plex (all variants): plain zero only (immovable).** All `0` glyphs in IBM Plex Sans and IBM Plex Mono must render as the **plain** variant — never dotted, never slashed. The OpenType feature *tags* are identical across the family (`zero`/`ss03` = slashed feature; `ss04`/`salt` = the other alternate), but the *glyph each tag substitutes to* differs per font: **Plex Sans's default `zero` is already plain** — adding `ss04` flips it to DOTTED (the opposite of what you want). **Plex Mono defaults to DOTTED** — `ss04` flips it to plain. So the correct web rule is: *scope `font-feature-settings: 'ss04' 1` to Plex Mono elements only; leave Plex Sans elements at default*. Do not apply a universal `*` selector for `ss04` — it will make Plex Sans dotted. **Figma:** the toggle labels are font-specific — Plex Sans's panel shows \"slashed\" and \"dotted\" (both opt-in; default is plain), while Plex Mono's panel shows \"slashed\" and \"plain\" (default is dotted; toggle \"plain\" ON). **Font source matters:** Google Fonts ships a subset that strips the stylistic sets — self-host or load from jsDelivr (`@ibm/plex-sans@1.1.0`, `@ibm/plex-mono@1.1.0`). Do not use `'salt' 1` as a shortcut; it flips all alternates including single-storey `a` and `g`. See the \"IBM Plex — Zero Glyph\" section for the full per-family substitution table. **Why immovable:** the dotted zero is the second-most-reproduced typographic detail in DocuSketch surfaces (after the wordmark), and inconsistency between dotted/plain across pages is a visible brand defect.
+18. **Generative AI: two gates, immovable.** (1) **Never develop alarming imagery** — damage may appear as a job being documented, never as a catastrophe framed for fear: no active fire or flood, no collapse, no people in distress, no injuries, no lighting or colour pushed toward dread. (2) **Never use generative AI to support a real testimonial** — no synthetic portrait, scene, voice, logo, or drafted/"polished" quote anywhere near a real person's words; a testimonial carries the customer's own photo or none. Generative output exists to **show the product in use and add context**. It never generates the product itself (DS1, app, Portal, floor plans, estimates, tours), job evidence, or facts in copy. Imagery is produced in Fuser from its defined models and rooms; files carry a `gen-` marker. See the Generative AI section for the full choice matrix and pre-ship checklist. **Why immovable:** fear-led imagery contradicts a brand whose whole promise is calm, accurate documentation, and a synthetic element beside a real testimonial converts a true statement into a fabricated one the moment it is discovered.
 
 ---
 
@@ -1112,6 +1113,102 @@ When photography is used inside a card at mobile breakpoints, **never overlay te
 
 ---
 
+## Generative AI
+
+Generative AI is a production tool at DocuSketch, not a subject. It exists to do two jobs: **show the product in use** and **add context** around it — the room, the job site, the technician at work, the office where a Portal review happens. It never stands in for evidence, for people who spoke to us, or for output the product itself produces.
+
+### The two gates (immovable)
+
+These are hard limits. They apply to every generative tool — image, video, voice, and text — and to every surface, internal or external. See Best Practice #18.
+
+1. **Never develop alarming imagery.** Restoration work is about damage, so damage may appear — but as a *job being documented*, never as a *catastrophe being sold*. Alarming means: active fire or flooding, collapsed structures, people in distress or danger, injuries, dramatic destruction framed for shock, or lighting and colour pushed toward dread. If the image's job is to make the viewer afraid, it is out. If its job is to show a technician calmly capturing a water-stained wall with a DS1 camera, it is in.
+2. **Never use generative AI to support a real testimonial.** A testimonial is a real person's words about a real job. Nothing generated may sit beside it, under it, or behind it: no synthetic portrait of "the customer," no generated scene of "their" site, no synthetic voice-over, no AI-written or AI-"tidied" quote attributed to a named person, no generated logo for their company. A testimonial without imagery is set typographically — Editorial mode already covers this. Real photos supplied by the customer are the only imagery a testimonial carries.
+
+Both gates are **published-or-not**, not **tone it down**. There is no acceptable amount of alarm and no acceptable amount of synthetic support for a testimonial.
+
+### Where generative belongs
+
+Choose by the reader's job, as with Brand Expressions. Generative output is a **Campaign-mode** primitive — it makes hero and context imagery. It has no place in Editorial mode, where typography carries the work.
+
+| Use | Generative? | Why |
+|---|---|---|
+| Hero imagery showing a technician using the DS1 camera or DS° mobile app on site | **Yes** | This is the primary job — product in use, in context. |
+| Environmental context: rooms, job sites, offices, vehicles, weather | **Yes** | Adds setting the product lives in. Use Fuser's defined rooms. |
+| Repeatable "cast" across a campaign — the same technician, PM, estimator in multiple scenes | **Yes** | Fuser's defined models exist for exactly this consistency. |
+| Social, ads, trade-show graphics, one-pagers (Campaign mode) | **Yes** | Campaign surfaces carry hero imagery by design. |
+| Concept exploration, moodboards, layout placeholders | **Yes** | Internal, disposable. Replace before anything ships if the final asset isn't generative. |
+| Testimonials, case-study portraits, customer quotes | **No — gate 2** | Real people, real words, real (or no) photos. |
+| "Before / after" job evidence, damage documentation, tour stills | **No** | These are claims of fact about real jobs. Generating them fabricates evidence. |
+| Product UI — Portal screens, app screens, Instant Floor Plan, estimate pages, 360 Tour views | **No** | Never fabricate product output. DocuSketch sells accuracy; a generated floor plan is a false claim. Composite real captures into generated scenes instead. |
+| Alarming or fear-led imagery of any kind | **No — gate 1** | See above. |
+| Real customers' properties, real partner logos, named people | **No** | Likeness and trademark risk; also collides with gate 2. |
+| Editorial-mode documents (letters, product updates, whitepapers, PDFs) | **No** | Editorial has no hero imagery — see Editorial anti-patterns. |
+| Press photography, headshots of DocuSketch staff, event coverage | **No** | Photograph it. Generated staff imagery reads as a fabrication when discovered. |
+| Statistics, claims, customer names, quotes in copy | **No** | Text tools may draft structure and variants; they may not invent facts. See Copy below. |
+
+### Imagery — the Fuser system
+
+Imagery is produced in **Fuser**, the node-based generative system. Fuser holds the brand's defined **models** (the recurring cast of technicians, project managers, estimators, adjusters) and defined **rooms** (job-site and office environments), plus the product references. Its value is consistency: the same cast in the same kinds of spaces, campaign after campaign, without a freehand prompt reinventing them each time.
+
+**Working rules**
+
+1. **Start from defined nodes.** Every scene begins from an existing model and an existing room. Freehand-prompting a new person or a new space breaks consistency and skips brand review.
+2. **New cast or rooms are additions to Fuser, not one-offs.** If a brief needs a technician type or environment that doesn't exist, add it as a defined node so it can be reused. A dated note in this section records what was added and why.
+3. **The product is never generated.** The DS1 camera, the DS° mobile app screen, Portal, and every product output are real assets composited into the generated scene. Generators drift on product detail — wrong button count, wrong lens, invented UI. A wrong camera in a hero shot is a brand defect.
+4. **No text in the scene.** Generators garble signage, screens, labels, and badges. Mask, remove, or replace with real type set in IBM Plex. The same applies to logos — the wordmark and marks come from the canonical SVGs only (Best Practice #15).
+5. **Cast represents the real workforce.** Field technicians, PMs, estimators, adjusters — the people who actually hold the camera and review the job. Range in age, gender, and background reflects the industry; do not tokenise, and do not glamorise. Working clothes, working posture, working light.
+6. **Documentation, not drama.** Natural or practical light, neutral colour, calm framing. Damage shown as a condition to be recorded — staining, debris, a stripped floor — not as a spectacle. This is gate 1 applied at the prompt.
+7. **Match the palette.** Grade toward the Neutral scale (`Neutral/100`–`700`). Chartreuse appears only where the brand puts it — a pill, a mark, a highlight in the layout — never as a colour cast over the photograph.
+8. **Inspect before commit.** Hands, eyes, reflections, straps, cables, tool detail, the product. Reject rather than retouch when the product or a person is wrong.
+9. **Keep it reproducible.** Save the Fuser graph and seed with the exported image. A hero that can't be regenerated at a new crop or ratio is a dead end.
+10. **Label it.** Generated files carry `gen-` in the filename and the Fuser project reference in metadata, so a generated image is never mistaken downstream for a photograph of a real job.
+
+**Composition in layout**
+
+- Hero crops use `--radius-2xl` (24px) per the Radius scale. Media embeds the same.
+- On mobile cards, follow the Photo Card Pattern — never text over the image.
+- Campaign surfaces only. If the piece is Editorial, the answer is no imagery.
+- Alt text describes the scene plainly and never claims it is a real job or a real customer.
+
+### Copy — generative text
+
+The Messaging Kit is the source of truth for words. Text tools help with **structure, drafts, variants, and translation checks**. They do not create facts.
+
+- **Lexicon is binding.** Product names, capitalisation, and first-use spellings come from the Messaging Kit lexicon (`/messaging#lexicon`). A generated draft that writes "Docusketch" or "Speech to Scope" is corrected before review.
+- **No invented facts.** No statistics, customer names, job counts, savings figures, or dates unless supplied from a source a human can point to.
+- **No generated testimonials, reviews, or quotes — gate 2.** Not drafted, not "polished," not lightly edited. A real quote may be shortened with an ellipsis and the customer's approval; that is a human editorial act, not a generative one.
+- **Voice is Editorial: honest over persuasive.** Generated copy tends toward superlatives and stacked adjectives. Cut them.
+- **A person owns the final.** Every shipped sentence has a human author accountable for it.
+
+### Video, voice, and motion
+
+The same two gates apply without modification. Generated B-roll follows the imagery rules (Fuser cast, no product generation, no text in scene). Synthetic voice never speaks a customer's words or impersonates a real person. Motion follows the Motion tokens.
+
+### Disclosure
+
+- Generated imagery is never presented as a photograph of a real job, a real site, or a real customer — in caption, alt text, or surrounding copy.
+- Where a channel or region requires labelling synthetic media, label it. Where it does not, the filename and metadata still carry the `gen-` marker.
+- Confirm the licence of every model used in Fuser permits commercial use before a campaign ships.
+
+### Pre-ship checklist
+
+Run before any asset with generative content leaves the team.
+
+1. Does anything in the frame make the viewer afraid rather than informed? → Gate 1. Stop.
+2. Is this asset near a testimonial, a customer quote, a case study, or a named customer? → Gate 2. Stop.
+3. Is the DS1, the app screen, Portal, or any product output real, not generated?
+4. Is there any text, signage, or logo in the scene that wasn't set in Plex or placed as a canonical SVG?
+5. Did the scene start from Fuser's defined models and rooms?
+6. Is the surface Campaign mode? (Editorial → no imagery.)
+7. Is the file named `gen-…` and is the Fuser graph + seed saved beside it?
+8. Does alt text describe without claiming reality?
+
+### Review log
+
+- **2026-09-14** — Section created. Gates set: no alarming imagery; no generative support for real testimonials. Fuser named as the imagery system of record.
+
+---
+
 ## Compound Component Anatomy
 
 Some components are layered — an outer wrapper, an inner primary surface, and one or more nested interactive elements. Each layer has its own token assignments, and the layered relationship is part of the design (not an implementation detail). Compound components are documented with explicit per-layer anatomy so that any consumer renders the same visual hierarchy.
@@ -1909,7 +2006,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-09T22:55:57.220340+00:00",
-  "last_skill_sync": "2026-09-10T16:54:41.194061+00:00",
+  "last_skill_sync": "2026-09-14T16:30:58.152529+00:00",
   "figma_last_version": "2397367844242490628"
 }
 ```
