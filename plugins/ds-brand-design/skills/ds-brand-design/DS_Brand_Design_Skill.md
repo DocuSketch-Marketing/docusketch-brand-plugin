@@ -797,7 +797,7 @@ Nine canonical patterns. All animate only `transform`, `opacity`, `filter`, or `
 | **Reveal** | `transform: scale(0.96 → 1)` + `opacity: 0 → 1`. Emphasis duration, Out easing. | Cards appearing in response to a direct user action. |
 | **Slide-in / drawer** | `transform: translateX(24% → 0)` (or `translateY(...)`) paired with `opacity: 0 → 1`. Never animate `right` / `left` / `top` / `bottom`. Emphasis duration, Out easing. The shorter travel + fade is intentional — drawer should *arrive*, not *fly in*. Surface: pure white (`#ffffff` — currently `DS/Color/Base/White`; a dedicated `Background/Elevated` token is the right long-term home). Shadow: **`--shadow-lg`** per the [Shadows component map](#component-shadow-map). | Side panels, mobile sheets, notification toasts. |
 | **Fade** | `opacity: 0 → 1`. Default duration, Out easing. | When no spatial change is needed — toasts, tooltips, simple state toggles. |
-| **Scroll reveal** | `IntersectionObserver` adds `.is-revealed` to the element. CSS transitions `opacity: 0 → 1` + `transform: translateY(8px → 0)`. Default duration, Out easing. One-shot per element — use `{ once: true }` on the observer. Pair with Stagger tokens for grids. | Section-level reveals on long pages. Marketing surfaces especially. |
+| **Scroll reveal** | `IntersectionObserver` adds `.is-revealed` to the element. CSS transitions `opacity: 0 → 1` + `transform: translateY(…)`. **Two tiers, by target size:** *section-level blocks* (containers, headline groups, hero children) use **Emphasis** duration, Out easing, **10px** travel, a **Micro (100ms) base delay** before the reveal starts, and trigger at `threshold: 0.15` with `rootMargin: '0px 0px -12% 0px'`; *small items inside an already-revealed block* (list rows, cards in a grid) may use Default duration and 8px. One-shot per element — unobserve after reveal. Stagger sits one tier above the grid default on marketing pages: Loose for hero children and card grids, Default for slides / FAQ rows (cap 8). `transition-delay: calc(var(--ds-motion-duration-micro) + var(--index) * <stagger>)`. Opt elements in from JS (e.g. `data-reveal`) so a no-JS page renders everything visible. | Section-level reveals on long pages. Marketing surfaces especially. See *Real-world context* below for where the two-tier rule came from. |
 | **Modal entry** | Backdrop `opacity: 0 → 1` (Default, Out). Content `transform: scale(0.96 → 1)` + `opacity: 0 → 1` (Emphasis, Out). Closing reverses both at Default duration. Focus trap on open. | Confirmation dialogs, content sheets, image lightboxes. |
 | **Spinner / loader** | `@keyframes spin { to { transform: rotate(360deg) } }`. Loop duration (1000ms), `linear` easing, `animation-iteration-count: infinite`. | "The system is working." Never a one-shot — that's a Fade. |
 | **Page transition** | **Clean opacity fade** with a waterfall reveal — no blur. Outgoing `opacity: 1 → 0` → swap content → incoming `opacity: 0 → 1`. On enter, layer a **subtle waterfall**: the incoming view's top-level blocks rise `translateY(8px → 0)` + fade, staggered by the **tight** token (40ms) — first ~6 blocks only (the rest are below the fold). opacity + transform only (compositor-safe). Container fade runs Emphasis duration (≈800ms total out→in); the waterfall children run Default. Sequence leave → swap → enter via `animationend` so it tracks the duration token (and collapses to ~instant under reduced motion; the child waterfall is disabled outright there). | Full-page navigations on the **marketing site**, and section switches on the **/brand reference**. Product surfaces use native routing. |
@@ -855,6 +855,18 @@ Respect `prefers-reduced-motion: reduce` per WCAG 2.3.3. When set, override all 
   }
 }
 ```
+
+### Real-world context
+
+Field notes from applying this section to shipped pages. Each entry names the page, what the canonical rule produced, and what changed — so the rule evolves from evidence, not taste.
+
+**Capture platform page (Webflow draft `capture-software-v2`, 2026-09-16, Chris Provins).**
+
+- **Scroll reveal felt too fast.** The canonical Default 200ms / 8px reveal, triggered at 5% visibility, read as a flicker on full-width containers (80vh tool sections, four-up card grids). First pass: Emphasis (400ms), 16px, Out, `threshold: 0.15`, `rootMargin: -12%` bottom. Second pass, same day: 16px travel read as too much movement at that duration, and blocks still arrived too eagerly — travel cut to **10px**, a **Micro (100ms) base delay** added before every reveal, and stagger moved one tier up (grids Loose, rows Default). Net effect: a block settles in over roughly 0.5s from the moment it clears the trigger line, in sequence rather than en masse. This is now the section-level tier in the Scroll reveal pattern above; Default / 8px remains for small items.
+- **Exclusions executed, not just flagged.** The page's inherited template shipped Lenis smooth scroll, a mouse-tracking 3D hero tilt, a cursor-tilt on cards, and GSAP scroll animations. All removed; native scroll restored. Accordion moved to `grid-template-rows` at Default / Standard; carousel transition set to Default.
+- **Scroll-triggered CTA reference implementation.** Sticky "Book a Demo" now follows the pattern row exactly: `IntersectionObserver` on an enter sentinel (hero button) and exit sentinel (CTA band button), `translateY(24% → 0)` + opacity, Emphasis / Out on entrance, Default / Out on exit, CSS-variable driven, no GSAP. Use this page as the working example when remediating the homepage violation below.
+- **Directional testimonial slide.** Layered on Webflow's native Cross animation: outgoing quote exits at Default with `Easing/In`, incoming arrives at Emphasis with `Out`, 24px travel — the drawer pattern's "arrive, don't fly in" ratio applied to a carousel. Class-toggled CSS transitions, no library.
+- **Click-to-load embed.** Third-party 360° player is a poster + pill button until clicked (no iframe on load, no scroll capture). Poster hover: scale 1.02 and colour inversion at Default / Out; the loaded frame fades in at Default.
 
 ### Known violations to remediate
 
@@ -1961,7 +1973,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-16T08:23:56.362930+00:00",
-  "last_skill_sync": "2026-09-14T17:01:06.050226+00:00",
+  "last_skill_sync": "2026-09-17T00:36:21.114995+00:00",
   "figma_last_version": "2399739214896155282"
 }
 ```
