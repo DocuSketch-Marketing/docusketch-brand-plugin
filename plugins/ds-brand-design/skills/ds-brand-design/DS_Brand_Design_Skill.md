@@ -875,7 +875,7 @@ Field notes from applying this section to shipped pages. Each entry names the pa
   - `Mark/Crosshair-L` — the 1.63rem plus (`plus-icon` asset, `☘️ Element / Crosshair` on the New Home). **The default.** Section dividers (the rows above and below the logo marquee), frames around whole blocks (the testimonial block), and the break between the workflow module and the FAQ.
   - `Mark/Crosshair-S` — the 0.8125rem, 1px, Olive plus. Reserved for the perimeter of data rows, where the large mark would out-weigh the numbers. On the page: the four corners of the business-impact stat row, and nowhere else.
   - `Mark/Dash` — the 5×1px Brand/Black dash. Column boundaries inside a framed row: between the stat columns on the business-impact band and at the tick rows of the tool containers.
-  Rule of thumb: L frames sections, S frames data, Dash divides columns. Never mix two crosshair sizes on the same block. A first pass framed the testimonials with Crosshair-S; Chris moved it to Crosshair-L because the block is a section, not a data row.
+  Rule of thumb: L frames sections, S frames data, Dash divides columns. Where a glow already carries the transition between two blocks, the crosshair row on that edge comes off — the Capture page's testimonial block keeps only its bottom row of Crosshair-L because the feature cards' glow tail flows into its top. **Glow as bookends (2026-09-18):** the stats-band glow that rises into the first tool container is mirrored below the last one — same recipe (24rem layer, 8rem overhang, blur 48px, opacity 0.9) with the ellipse anchored at `50% 0%` instead of `50% 100%`, inside a 12rem clipped tail. Entering and leaving the product block through the same light reads as one framed chapter rather than two effects. Never mix two crosshair sizes on the same block. A first pass framed the testimonials with Crosshair-S; Chris moved it to Crosshair-L because the block is a section, not a data row.
 - **Testimonial frame (2026-09-18).** The testimonial block is framed the same way as the stats row — six half-size crosshairs, three on the top edge and three on the bottom (corners and centre) — so every framed block on the page shares one mark. Watch for legacy classes: the old tile class kept a 1px bottom border that drew a stroke under every stat until it was stripped. Clip it with `overflow: clip` on the section (never `overflow: hidden`, which would kill the scroll-driven timelines elsewhere on the page). `#FFFA37` is a highlight mix from the Figma frame, not a token; use it only inside a glow that resolves to Chartreuse 300 at its core.
 
 ### Known violations to remediate
@@ -1983,7 +1983,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-16T08:23:56.362930+00:00",
-  "last_skill_sync": "2026-09-18T20:03:10.862512+00:00",
+  "last_skill_sync": "2026-09-18T20:18:40.104388+00:00",
   "figma_last_version": "2399739214896155282"
 }
 ```
