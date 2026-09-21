@@ -2,8 +2,8 @@
 name: ds-brand-design
 description: DocuSketch brand design system — the canonical source of truth for brand, marketing, and visual design decisions. Use whenever working on anything visual for DocuSketch (websites, marketing collateral, brand assets, Figma plugins, design tokens, typography, color, spacing, components). Covers approved color tokens, typography styles, spacing scale, radius scale, component IDs, accessibility rules, and Figma file references. Also use when reviewing or producing design code that must match brand standards.
 metadata:
-  canon_commit: 52e45f6
-  synced: '2026-09-18'
+  canon_commit: 6fcd7c1
+  synced: '2026-09-21'
   promoted_ref: main
 ---
 
