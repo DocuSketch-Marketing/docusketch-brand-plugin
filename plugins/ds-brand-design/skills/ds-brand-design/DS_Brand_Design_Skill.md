@@ -1921,7 +1921,7 @@ carrying their own fore and background; they do not follow `currentColor`. Do no
 **Sizes.** `24` is the default. `16` for dense UI and inline text — note the set uses a `Small`
 suffix at that size. `32` for large display, and it covers only five concepts.
 
-**24px — 197 icons**
+**24px — 200 icons**
 
 `360cam` · `360camConnected` · `360camDisconnected` · `360camFilled` · `360°` · `account`
 `actions` · `add` · `add360°` · `addComment` · `addFilled` · `affected` · `alert`
@@ -1935,10 +1935,10 @@ suffix at that size. `32` for large display, and it covers only five concepts.
 `deviceLaptop` · `devicePhone` · `deviceTablet` · `docuSketchMini` · `door`
 `doubleChevronLeft` · `doubleChevronRight` · `download` · `drag` · `edit` · `electricity`
 `emergency` · `environment` · `equipAirMover` · `equipAirScrubber` · `equipDehu`
-`equipmentFilled` · `equipmentOutline` · `estimate` · `existingDamage` · `feedback`
+`equipmentFilled` · `equipmentOutline` · `estimate` · `estimateInstant` · `existingDamage` · `feedback`
 `filter` · `filterApplied` · `fire` · `flag` · `flash` · `flashOff` · `flood` · `floor`
 `freehand` · `freeline` · `gears` · `geo` · `help` · `helpFilled` · `history` · `home_work`
-`hvac` · `idea` · `image` · `information` · `kitchen` · `label` · `ladder` · `logOut`
+`hvac` · `idea` · `image` · `information` · `kitchen` · `label` · `ladder` · `lidar` · `logOut`
 `mapArea` · `mask` · `menu` · `menuNotification` · `message` · `messageBadge` · `micOff`
 `micOn` · `migration` · `minus` · `mold` · `more` · `networkConnect` · `networkError`
 `networkOffline` · `networkToUpload` · `networkUpload` · `networkUploading`
@@ -1948,7 +1948,7 @@ suffix at that size. `32` for large display, and it covers only five concepts.
 `public` · `reconstruction` · `recordMic` · `recordPlayFilled` · `recordStopFilled`
 `recordWave` · `rectangle` · `report` · `reportOutline` · `reshoot` · `residential`
 `residentialFilled` · `scissors` · `scissorsCut` · `search` · `select` · `send` · `settings`
-`settingsFilled` · `shareAndroid` · `shareOutline` · `shower` · `sketch` · `sketchRoom`
+`settingsFilled` · `shareAndroid` · `shareOutline` · `shower` · `sketch` · `sketchInstant` · `sketchRoom`
 `sofa` · `soundOff` · `soundOn` · `sow` · `star` · `stMinus` · `stPlus` · `success`
 `supportMessage` · `text` · `timeline` · `transcribe` · `trauma` · `trolleyFilled`
 `trolleyOutline` · `tutorial` · `unaffected` · `unpinned` · `usersList` · `vehicleImpact`
@@ -1990,7 +1990,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-16T08:23:56.362930+00:00",
-  "last_skill_sync": "2026-09-21T20:49:22.167859+00:00",
+  "last_skill_sync": "2026-09-22T15:16:22.688738+00:00",
   "figma_last_version": "2399739214896155282"
 }
 ```

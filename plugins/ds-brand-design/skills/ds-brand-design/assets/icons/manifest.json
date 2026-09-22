@@ -3,12 +3,12 @@
  "schemaVersion": 2,
  "library": {
   "name": "DocuSketch unified icon library",
-  "generated": "2026-09-09",
+  "generated": "2026-09-22",
   "counts": {
    "phoenix": 250,
    "material-symbols": 4,
-   "brand": 5,
-   "total": 259
+   "brand": 8,
+   "total": 262
   }
  },
  "origins": {
@@ -100,6 +100,462 @@
  },
  "icons": [
   {
+   "file": "assets/icons/16/360imageSmall.svg",
+   "name": "360imageSmall",
+   "origin": "phoenix",
+   "nodeId": "2079:19947",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/360°Small.svg",
+   "name": "360°Small",
+   "origin": "phoenix",
+   "nodeId": "376:626",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/affectedOutlineSmall.svg",
+   "name": "affectedOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11247",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/affectedSmall.svg",
+   "name": "affectedSmall",
+   "origin": "phoenix",
+   "nodeId": "555:1004",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/audioNotesSmall.svg",
+   "name": "audioNotesSmall",
+   "origin": "phoenix",
+   "nodeId": "17002:18663",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/changeSmall.svg",
+   "name": "changeSmall",
+   "origin": "phoenix",
+   "nodeId": "11589:19952",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronDownSmall.svg",
+   "name": "chevronDownSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25686",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronLeftSmall.svg",
+   "name": "chevronLeftSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25687",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronRightSmall.svg",
+   "name": "chevronRightSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25688",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/chevronUpSmall.svg",
+   "name": "chevronUpSmall",
+   "origin": "phoenix",
+   "nodeId": "13005:25685",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/clearSmall.svg",
+   "name": "clearSmall",
+   "origin": "phoenix",
+   "nodeId": "681:2433",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/closeSmall.svg",
+   "name": "closeSmall",
+   "origin": "phoenix",
+   "nodeId": "6037:7804",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/commentsSmall.svg",
+   "name": "commentsSmall",
+   "origin": "phoenix",
+   "nodeId": "376:718",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/commercialSmall.svg",
+   "name": "commercialSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:34080",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/contentsSmall.svg",
+   "name": "contentsSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2902",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/contractSmall.svg",
+   "name": "contractSmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15101",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/copySmall.svg",
+   "name": "copySmall",
+   "origin": "phoenix",
+   "nodeId": "6067:4371",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/cotalitySmall.svg",
+   "name": "cotalitySmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15086",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/deleteSmall.svg",
+   "name": "deleteSmall",
+   "origin": "phoenix",
+   "nodeId": "12087:19707",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/downloadSmall.svg",
+   "name": "downloadSmall",
+   "origin": "phoenix",
+   "nodeId": "7078:12616",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/editSmall.svg",
+   "name": "editSmall",
+   "origin": "phoenix",
+   "nodeId": "12087:19720",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/emergencyMitigationSmall.svg",
+   "name": "emergencyMitigationSmall",
+   "origin": "phoenix",
+   "nodeId": "1321:2239",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/environmentSmall.svg",
+   "name": "environmentSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11243",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/equipmentFilledSmall.svg",
+   "name": "equipmentFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2884",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/estimateSmall.svg",
+   "name": "estimateSmall",
+   "origin": "phoenix",
+   "nodeId": "642:828",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/fireOutlineSmall.svg",
+   "name": "fireOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11239",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/flagSmall.svg",
+   "name": "flagSmall",
+   "origin": "phoenix",
+   "nodeId": "2601:28148",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/informationSmall.svg",
+   "name": "informationSmall",
+   "origin": "phoenix",
+   "nodeId": "1628:2220",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/messageBadgeSmall.svg",
+   "name": "messageBadgeSmall",
+   "origin": "phoenix",
+   "nodeId": "5544:18605",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/messageSmall.svg",
+   "name": "messageSmall",
+   "origin": "phoenix",
+   "nodeId": "5280:494",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/notesSmall.svg",
+   "name": "notesSmall",
+   "origin": "phoenix",
+   "nodeId": "1291:1706",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/openLinkSmall.svg",
+   "name": "openLinkSmall",
+   "origin": "phoenix",
+   "nodeId": "4999:18088",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/overnightSmall.svg",
+   "name": "overnightSmall",
+   "origin": "phoenix",
+   "nodeId": "1276:1883",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/photoCameraSmall.svg",
+   "name": "photoCameraSmall",
+   "origin": "phoenix",
+   "nodeId": "13136:37423",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/placeholderSmall.svg",
+   "name": "placeholderSmall",
+   "origin": "phoenix",
+   "nodeId": "5923:30293",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/playMediaSmall.svg",
+   "name": "playMediaSmall",
+   "origin": "phoenix",
+   "nodeId": "13136:37424",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/plusSmall.svg",
+   "name": "plusSmall",
+   "origin": "phoenix",
+   "nodeId": "12175:11433",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/predamagedSmall.svg",
+   "name": "predamagedSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2859",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/privateSmall.svg",
+   "name": "privateSmall",
+   "origin": "phoenix",
+   "nodeId": "376:655",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/promoGiftSmall.svg",
+   "name": "promoGiftSmall",
+   "origin": "phoenix",
+   "nodeId": "10113:19345",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/publicSmall.svg",
+   "name": "publicSmall",
+   "origin": "phoenix",
+   "nodeId": "376:658",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reconstructionGeneralSmall.svg",
+   "name": "reconstructionGeneralSmall",
+   "origin": "phoenix",
+   "nodeId": "1321:2304",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reportSmall.svg",
+   "name": "reportSmall",
+   "origin": "phoenix",
+   "nodeId": "977:2795",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/reshootSmall.svg",
+   "name": "reshootSmall",
+   "origin": "phoenix",
+   "nodeId": "13003:25484",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/residentialSmall.svg",
+   "name": "residentialSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:34081",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/shareOutlineSmall.svg",
+   "name": "shareOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "17343:35931",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/sketchSmall.svg",
+   "name": "sketchSmall",
+   "origin": "phoenix",
+   "nodeId": "641:1517",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/sowSmall.svg",
+   "name": "sowSmall",
+   "origin": "phoenix",
+   "nodeId": "2592:18337",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/traumaSmall.svg",
+   "name": "traumaSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11241",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/unpinnedSmall.svg",
+   "name": "unpinnedSmall",
+   "origin": "phoenix",
+   "nodeId": "2592:25589",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/uploadSmall.svg",
+   "name": "uploadSmall",
+   "origin": "phoenix",
+   "nodeId": "376:725",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/vehicleImpactSmall.svg",
+   "name": "vehicleImpactSmall",
+   "origin": "phoenix",
+   "nodeId": "12049:37945",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/veriskSmall.svg",
+   "name": "veriskSmall",
+   "origin": "phoenix",
+   "nodeId": "11587:15085",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/warningFilledSmall.svg",
+   "name": "warningFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "2099:22197",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/warningSmall.svg",
+   "name": "warningSmall",
+   "origin": "phoenix",
+   "nodeId": "376:662",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/waterFilledSmall.svg",
+   "name": "waterFilledSmall",
+   "origin": "phoenix",
+   "nodeId": "376:688",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
+   "file": "assets/icons/16/waterOutlineSmall.svg",
+   "name": "waterOutlineSmall",
+   "origin": "phoenix",
+   "nodeId": "6075:11237",
+   "size": 16,
+   "viewBox": "0 0 16 16"
+  },
+  {
    "file": "assets/icons/24/360cam.svg",
    "name": "360cam",
    "origin": "phoenix",
@@ -132,8 +588,8 @@
    "viewBox": "0 0 24 24"
   },
   {
-   "file": "assets/icons/24/360\u00b0.svg",
-   "name": "360\u00b0",
+   "file": "assets/icons/24/360°.svg",
+   "name": "360°",
    "origin": "phoenix",
    "nodeId": "376:579",
    "size": 24,
@@ -164,8 +620,8 @@
    "viewBox": "0 0 24 24"
   },
   {
-   "file": "assets/icons/24/add360\u00b0.svg",
-   "name": "add360\u00b0",
+   "file": "assets/icons/24/add360°.svg",
+   "name": "add360°",
    "origin": "phoenix",
    "nodeId": "376:578",
    "size": 24,
@@ -202,6 +658,19 @@
    "nodeId": "799:331",
    "size": 24,
    "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/menu/approval-delegation.svg",
+   "name": "approval_delegation",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
   },
   {
    "file": "assets/icons/24/archive.svg",
@@ -346,6 +815,13 @@
    "nodeId": "5717:77646",
    "size": 24,
    "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/check.svg",
+   "name": "check",
+   "origin": "brand",
+   "size": 24,
+   "note": "Pre-existing brand icon; placement unchanged."
   },
   {
    "file": "assets/icons/24/checkmark.svg",
@@ -500,6 +976,13 @@
    "viewBox": "0 0 24 24"
   },
   {
+   "file": "assets/icons/cross.svg",
+   "name": "cross",
+   "origin": "brand",
+   "size": 24,
+   "note": "Pre-existing brand icon; placement unchanged."
+  },
+  {
    "file": "assets/icons/24/cubicImage.svg",
    "name": "cubicImage",
    "origin": "phoenix",
@@ -514,6 +997,19 @@
    "nodeId": "376:563",
    "size": 24,
    "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/menu/device-hub.svg",
+   "name": "device_hub",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
   },
   {
    "file": "assets/icons/24/deviceLaptop.svg",
@@ -668,6 +1164,14 @@
    "viewBox": "0 0 24 24"
   },
   {
+   "file": "assets/icons/24/estimateInstant.svg",
+   "name": "estimateInstant",
+   "origin": "brand",
+   "size": 24,
+   "viewBox": "0 0 24 24",
+   "note": "Brand-drawn product icon supplied by Chris Provins 2026-09-22; no Phoenix component of this name at adoption time."
+  },
+  {
    "file": "assets/icons/24/existingDamage.svg",
    "name": "existingDamage",
    "origin": "phoenix",
@@ -730,6 +1234,19 @@
    "nodeId": "12934:68155",
    "size": 24,
    "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/menu/flood.svg",
+   "name": "flood",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
   },
   {
    "file": "assets/icons/24/floor.svg",
@@ -796,6 +1313,19 @@
    "viewBox": "0 0 24 24"
   },
   {
+   "file": "assets/menu/home-work.svg",
+   "name": "home_work",
+   "origin": "material-symbols",
+   "size": 24,
+   "axes": {
+    "FILL": 0,
+    "wght": 400,
+    "GRAD": 0,
+    "opsz": 24
+   },
+   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
+  },
+  {
    "file": "assets/icons/24/hvac.svg",
    "name": "hvac",
    "origin": "phoenix",
@@ -850,6 +1380,14 @@
    "nodeId": "5717:79207",
    "size": 24,
    "viewBox": "0 0 24 24"
+  },
+  {
+   "file": "assets/icons/24/lidar.svg",
+   "name": "lidar",
+   "origin": "brand",
+   "size": 24,
+   "viewBox": "0 0 24 24",
+   "note": "Brand-drawn product icon supplied by Chris Provins 2026-09-22; no Phoenix component of this name at adoption time."
   },
   {
    "file": "assets/icons/24/logOut.svg",
@@ -1332,6 +1870,14 @@
    "viewBox": "0 0 24 24"
   },
   {
+   "file": "assets/icons/24/sketchInstant.svg",
+   "name": "sketchInstant",
+   "origin": "brand",
+   "size": 24,
+   "viewBox": "0 0 24 24",
+   "note": "Brand-drawn product icon supplied by Chris Provins 2026-09-22; no Phoenix component of this name at adoption time."
+  },
+  {
    "file": "assets/icons/24/sketchRoom.svg",
    "name": "sketchRoom",
    "origin": "phoenix",
@@ -1588,6 +2134,27 @@
    "viewBox": "0 0 24 24"
   },
   {
+   "file": "assets/menu/workflow-capture.svg",
+   "name": "workflow-capture",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
+   "file": "assets/menu/workflow-estimate.svg",
+   "name": "workflow-estimate",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
+   "file": "assets/menu/workflow-scope.svg",
+   "name": "workflow-scope",
+   "origin": "brand",
+   "size": 24,
+   "note": "Brand's own Icons / Workflow set, component 266:1560."
+  },
+  {
    "file": "assets/icons/24/zoomIn.svg",
    "name": "zoomIn",
    "origin": "phoenix",
@@ -1602,462 +2169,6 @@
    "nodeId": "18676:39780",
    "size": 24,
    "viewBox": "0 0 24 24"
-  },
-  {
-   "file": "assets/icons/16/360imageSmall.svg",
-   "name": "360imageSmall",
-   "origin": "phoenix",
-   "nodeId": "2079:19947",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/360\u00b0Small.svg",
-   "name": "360\u00b0Small",
-   "origin": "phoenix",
-   "nodeId": "376:626",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/affectedOutlineSmall.svg",
-   "name": "affectedOutlineSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:11247",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/affectedSmall.svg",
-   "name": "affectedSmall",
-   "origin": "phoenix",
-   "nodeId": "555:1004",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/audioNotesSmall.svg",
-   "name": "audioNotesSmall",
-   "origin": "phoenix",
-   "nodeId": "17002:18663",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/changeSmall.svg",
-   "name": "changeSmall",
-   "origin": "phoenix",
-   "nodeId": "11589:19952",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/chevronDownSmall.svg",
-   "name": "chevronDownSmall",
-   "origin": "phoenix",
-   "nodeId": "13005:25686",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/chevronLeftSmall.svg",
-   "name": "chevronLeftSmall",
-   "origin": "phoenix",
-   "nodeId": "13005:25687",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/chevronRightSmall.svg",
-   "name": "chevronRightSmall",
-   "origin": "phoenix",
-   "nodeId": "13005:25688",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/chevronUpSmall.svg",
-   "name": "chevronUpSmall",
-   "origin": "phoenix",
-   "nodeId": "13005:25685",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/clearSmall.svg",
-   "name": "clearSmall",
-   "origin": "phoenix",
-   "nodeId": "681:2433",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/closeSmall.svg",
-   "name": "closeSmall",
-   "origin": "phoenix",
-   "nodeId": "6037:7804",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/commentsSmall.svg",
-   "name": "commentsSmall",
-   "origin": "phoenix",
-   "nodeId": "376:718",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/commercialSmall.svg",
-   "name": "commercialSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:34080",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/contentsSmall.svg",
-   "name": "contentsSmall",
-   "origin": "phoenix",
-   "nodeId": "977:2902",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/contractSmall.svg",
-   "name": "contractSmall",
-   "origin": "phoenix",
-   "nodeId": "11587:15101",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/copySmall.svg",
-   "name": "copySmall",
-   "origin": "phoenix",
-   "nodeId": "6067:4371",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/cotalitySmall.svg",
-   "name": "cotalitySmall",
-   "origin": "phoenix",
-   "nodeId": "11587:15086",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/deleteSmall.svg",
-   "name": "deleteSmall",
-   "origin": "phoenix",
-   "nodeId": "12087:19707",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/downloadSmall.svg",
-   "name": "downloadSmall",
-   "origin": "phoenix",
-   "nodeId": "7078:12616",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/editSmall.svg",
-   "name": "editSmall",
-   "origin": "phoenix",
-   "nodeId": "12087:19720",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/emergencyMitigationSmall.svg",
-   "name": "emergencyMitigationSmall",
-   "origin": "phoenix",
-   "nodeId": "1321:2239",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/environmentSmall.svg",
-   "name": "environmentSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:11243",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/equipmentFilledSmall.svg",
-   "name": "equipmentFilledSmall",
-   "origin": "phoenix",
-   "nodeId": "977:2884",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/estimateSmall.svg",
-   "name": "estimateSmall",
-   "origin": "phoenix",
-   "nodeId": "642:828",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/fireOutlineSmall.svg",
-   "name": "fireOutlineSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:11239",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/flagSmall.svg",
-   "name": "flagSmall",
-   "origin": "phoenix",
-   "nodeId": "2601:28148",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/informationSmall.svg",
-   "name": "informationSmall",
-   "origin": "phoenix",
-   "nodeId": "1628:2220",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/messageBadgeSmall.svg",
-   "name": "messageBadgeSmall",
-   "origin": "phoenix",
-   "nodeId": "5544:18605",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/messageSmall.svg",
-   "name": "messageSmall",
-   "origin": "phoenix",
-   "nodeId": "5280:494",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/notesSmall.svg",
-   "name": "notesSmall",
-   "origin": "phoenix",
-   "nodeId": "1291:1706",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/openLinkSmall.svg",
-   "name": "openLinkSmall",
-   "origin": "phoenix",
-   "nodeId": "4999:18088",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/overnightSmall.svg",
-   "name": "overnightSmall",
-   "origin": "phoenix",
-   "nodeId": "1276:1883",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/photoCameraSmall.svg",
-   "name": "photoCameraSmall",
-   "origin": "phoenix",
-   "nodeId": "13136:37423",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/placeholderSmall.svg",
-   "name": "placeholderSmall",
-   "origin": "phoenix",
-   "nodeId": "5923:30293",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/playMediaSmall.svg",
-   "name": "playMediaSmall",
-   "origin": "phoenix",
-   "nodeId": "13136:37424",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/plusSmall.svg",
-   "name": "plusSmall",
-   "origin": "phoenix",
-   "nodeId": "12175:11433",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/predamagedSmall.svg",
-   "name": "predamagedSmall",
-   "origin": "phoenix",
-   "nodeId": "977:2859",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/privateSmall.svg",
-   "name": "privateSmall",
-   "origin": "phoenix",
-   "nodeId": "376:655",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/promoGiftSmall.svg",
-   "name": "promoGiftSmall",
-   "origin": "phoenix",
-   "nodeId": "10113:19345",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/publicSmall.svg",
-   "name": "publicSmall",
-   "origin": "phoenix",
-   "nodeId": "376:658",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/reconstructionGeneralSmall.svg",
-   "name": "reconstructionGeneralSmall",
-   "origin": "phoenix",
-   "nodeId": "1321:2304",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/reportSmall.svg",
-   "name": "reportSmall",
-   "origin": "phoenix",
-   "nodeId": "977:2795",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/reshootSmall.svg",
-   "name": "reshootSmall",
-   "origin": "phoenix",
-   "nodeId": "13003:25484",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/residentialSmall.svg",
-   "name": "residentialSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:34081",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/shareOutlineSmall.svg",
-   "name": "shareOutlineSmall",
-   "origin": "phoenix",
-   "nodeId": "17343:35931",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/sketchSmall.svg",
-   "name": "sketchSmall",
-   "origin": "phoenix",
-   "nodeId": "641:1517",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/sowSmall.svg",
-   "name": "sowSmall",
-   "origin": "phoenix",
-   "nodeId": "2592:18337",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/traumaSmall.svg",
-   "name": "traumaSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:11241",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/unpinnedSmall.svg",
-   "name": "unpinnedSmall",
-   "origin": "phoenix",
-   "nodeId": "2592:25589",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/uploadSmall.svg",
-   "name": "uploadSmall",
-   "origin": "phoenix",
-   "nodeId": "376:725",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/vehicleImpactSmall.svg",
-   "name": "vehicleImpactSmall",
-   "origin": "phoenix",
-   "nodeId": "12049:37945",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/veriskSmall.svg",
-   "name": "veriskSmall",
-   "origin": "phoenix",
-   "nodeId": "11587:15085",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/warningFilledSmall.svg",
-   "name": "warningFilledSmall",
-   "origin": "phoenix",
-   "nodeId": "2099:22197",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/warningSmall.svg",
-   "name": "warningSmall",
-   "origin": "phoenix",
-   "nodeId": "376:662",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/waterFilledSmall.svg",
-   "name": "waterFilledSmall",
-   "origin": "phoenix",
-   "nodeId": "376:688",
-   "size": 16,
-   "viewBox": "0 0 16 16"
-  },
-  {
-   "file": "assets/icons/16/waterOutlineSmall.svg",
-   "name": "waterOutlineSmall",
-   "origin": "phoenix",
-   "nodeId": "6075:11237",
-   "size": 16,
-   "viewBox": "0 0 16 16"
   },
   {
    "file": "assets/icons/32/contentsFilledLarge.svg",
@@ -2098,93 +2209,6 @@
    "nodeId": "18541:4323",
    "size": 32,
    "viewBox": "0 0 32 32"
-  },
-  {
-   "file": "assets/menu/approval-delegation.svg",
-   "name": "approval_delegation",
-   "origin": "material-symbols",
-   "size": 24,
-   "axes": {
-    "FILL": 0,
-    "wght": 400,
-    "GRAD": 0,
-    "opsz": 24
-   },
-   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
-  },
-  {
-   "file": "assets/menu/device-hub.svg",
-   "name": "device_hub",
-   "origin": "material-symbols",
-   "size": 24,
-   "axes": {
-    "FILL": 0,
-    "wght": 400,
-    "GRAD": 0,
-    "opsz": 24
-   },
-   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
-  },
-  {
-   "file": "assets/menu/flood.svg",
-   "name": "flood",
-   "origin": "material-symbols",
-   "size": 24,
-   "axes": {
-    "FILL": 0,
-    "wght": 400,
-    "GRAD": 0,
-    "opsz": 24
-   },
-   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
-  },
-  {
-   "file": "assets/menu/home-work.svg",
-   "name": "home_work",
-   "origin": "material-symbols",
-   "size": 24,
-   "axes": {
-    "FILL": 0,
-    "wght": 400,
-    "GRAD": 0,
-    "opsz": 24
-   },
-   "note": "No Phoenix equivalent; confirmed by render against upstream candidates."
-  },
-  {
-   "file": "assets/menu/workflow-capture.svg",
-   "name": "workflow-capture",
-   "origin": "brand",
-   "size": 24,
-   "note": "Brand's own Icons / Workflow set, component 266:1560."
-  },
-  {
-   "file": "assets/menu/workflow-scope.svg",
-   "name": "workflow-scope",
-   "origin": "brand",
-   "size": 24,
-   "note": "Brand's own Icons / Workflow set, component 266:1560."
-  },
-  {
-   "file": "assets/menu/workflow-estimate.svg",
-   "name": "workflow-estimate",
-   "origin": "brand",
-   "size": 24,
-   "note": "Brand's own Icons / Workflow set, component 266:1560."
-  },
-  {
-   "file": "assets/icons/check.svg",
-   "name": "check",
-   "origin": "brand",
-   "size": 24,
-   "note": "Pre-existing brand icon; placement unchanged."
-  },
-  {
-   "file": "assets/icons/cross.svg",
-   "name": "cross",
-   "origin": "brand",
-   "size": 24,
-   "note": "Pre-existing brand icon; placement unchanged."
   }
  ]
 }
