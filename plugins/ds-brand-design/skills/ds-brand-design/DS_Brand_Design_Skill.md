@@ -30,6 +30,7 @@
 16. **Motion: only animate `transform`, `opacity`, and `filter`.** See the Motion section. Animating layout properties (`width`, `height`, `padding`, `margin`, `max-height`, `max-width`, `top`, `left`, `right`, `bottom`) causes layout thrash on every frame — janky on any device under load. For accordions / expand-collapse, use `display: grid` with `grid-template-rows: 0fr → 1fr`; for reveals use `transform: scaleY()` or `translateY()` paired with `opacity`. Respect `prefers-reduced-motion: reduce` (WCAG 2.3.3) — override all duration tokens to `1ms` and easings to `linear`.
 17. **IBM Plex (all variants): plain zero only (immovable).** All `0` glyphs in IBM Plex Sans and IBM Plex Mono must render as the **plain** variant — never dotted, never slashed. The OpenType feature *tags* are identical across the family (`zero`/`ss03` = slashed feature; `ss04`/`salt` = the other alternate), but the *glyph each tag substitutes to* differs per font: **Plex Sans's default `zero` is already plain** — adding `ss04` flips it to DOTTED (the opposite of what you want). **Plex Mono defaults to DOTTED** — `ss04` flips it to plain. So the correct web rule is: *scope `font-feature-settings: 'ss04' 1` to Plex Mono elements only; leave Plex Sans elements at default*. Do not apply a universal `*` selector for `ss04` — it will make Plex Sans dotted. **Figma:** the toggle labels are font-specific — Plex Sans's panel shows \"slashed\" and \"dotted\" (both opt-in; default is plain), while Plex Mono's panel shows \"slashed\" and \"plain\" (default is dotted; toggle \"plain\" ON). **Font source matters:** Google Fonts ships a subset that strips the stylistic sets — self-host or load from jsDelivr (`@ibm/plex-sans@1.1.0`, `@ibm/plex-mono@1.1.0`). Do not use `'salt' 1` as a shortcut; it flips all alternates including single-storey `a` and `g`. See the \"IBM Plex — Zero Glyph\" section for the full per-family substitution table. **Why immovable:** the dotted zero is the second-most-reproduced typographic detail in DocuSketch surfaces (after the wordmark), and inconsistency between dotted/plain across pages is a visible brand defect.
 18. **Generative AI: two gates, immovable.** Generative AI shows the product in use and builds the job site around it; synthesized damage (moisture, staining, debris, smoke residue) shown calmly is in scope. (1) **Never develop alarming imagery:** no current or recent weather events or disasters; no people in danger, injuries, collapse, or dread. Test: inform, not alarm. (2) **Never synthesize a real person:** customers, testimonial givers, subject-matter experts — no likeness, voice, or attributed words; anyone presented with a voice in real time is real. Never generate the product, evidence from a real job, or facts in copy. A generated scene may show a realistic job site but is never presented as a specific real job or customer; files carry `gen-`. **Why immovable:** imagery of a live event turns a promise of calm documentation into a false alarm, and a synthesized customer or expert turns a true statement into a fabricated one the moment it is discovered.
+19. **No orphans (all type, every breakpoint).** A single word must never sit alone on the last line of a heading, title, card title or paragraph. Fix it in this order: (a) if the heading is meant to read as one line, **reduce its size one step** (or narrow the copy) until it fits on one line; (b) otherwise **give the last word a friend**: bind the final two words with a non-breaking space (`&nbsp;` / U+00A0) or a soft return (Shift+Return in Figma, `<br>` only when the line count is fixed) so they wrap together; (c) on the web also set `text-wrap: balance` on headings and `text-wrap: pretty` on body copy. Check every breakpoint (desktop, tablet, mobile); an orphan at any width is a defect. See Type Styles → Line breaks — no orphans.
 
 ---
 
@@ -884,7 +885,6 @@ Field notes from applying this section to shipped pages. Each entry names the pa
 - **Enhanced Sketch media is a scroll-scrubbed video (2026-09-21, Chris Provins).** The card's placeholder became a 9s dollhouse rotation (1220×698 screen recording, hosted as a Webflow asset — the asset store accepts `video/mp4` through the same S3 hand-off as images) whose playback is driven by scroll, per the *Scroll-scrubbed media* row above: one rotation across the slot's travel through the viewport, poster first frame, mid frame under reduced motion. It sits in the same `.cap-tool__media` slot as the click-to-load tour and the photographs, `object-fit: cover` at 16:10 on desktop and 4:3 on mobile, on a white field because the recording's background is white. **Rules that fell out:** the mapping runs across the whole visible travel rather than a pinned range, so the model turns as the card scrolls by instead of holding the page; and the clip is the source of truth for progress — no easing curve is layered on top, only a lerp that damps seek bursts. Gotcha: the source is a screen recording with a 1px window edge and a view-cube widget baked in; a 3% scale hides the edge, the widget stays until a clean export replaces the clip. Prefer exports from the tool over recordings.
 - **Mobile logo marquee: two rows, no JavaScript (2026-09-21, Chris Provins).** The ≤767px marquee splits the client logos into two rows scrolling in opposite directions, 30% larger than desktop. The first build cloned the collection list into a second row with a script inside the embed, and Chris could not find it: **the Designer canvas never executes embed scripts**, so anything a script creates is invisible while the page is being designed and only appears on publish. The second row is now static markup — a hand copy of the Marquee-Logos collection, doubled for the seamless loop and started mid-list so it never mirrors row 1 — hidden above 767px, with the section switched to `flex-direction: column` at that breakpoint. **Rule:** on a Webflow page anything structural a designer needs to see in the canvas must exist as elements or static markup; scripts may only enhance (clone for a seamless loop, bind scroll to playback), never create what the layout depends on. The cost is that the static row has to be updated by hand when the collection changes; a note in the embed says so.
 - **Closing CTA block replaces the sticky button at page end (2026-09-21, Chris Provins).** Reference: Mews' "Ready for impact?" pre-footer — a display headline, three numbered one-line steps, one button. The DS translation sits between the FAQ's Crosshair-L row and the footer, on top of the pre-footer glow (the glow layer stays at `z-index: -1`, the block at `1`, so the light reads as the surface the invitation sits on rather than an effect behind the footer). Headline in IBM Plex Sans Condensed 500, uppercase, 5.5rem / 0.95 (4rem tablet, 2.75rem phone), Olive — the condensed cut is the brand's display voice for a one-line shout; Plex Sans stays for sentences. Steps are the onboarding promise from the existing site (Free consultation · On-site training · Ongoing support): a 1.75rem Olive disc with a Neutral 100 condensed numeral, then a bold lead (`Lead.`) with the sentence beneath it, three equal columns on desktop (one row of inline steps, Mews-style, does not fit three restoration-length sentences at 1440px), a single left-aligned column on phones. Button is the `Elements / CTA` component, never a re-drawn pill. **Rule that fell out:** the sticky CTA retires for good once this block enters the viewport (or has been scrolled past) — two Book-a-Demo buttons on screen at once is a conversion smell, and the page end should be a place to stop, not something a floating button hovers over. Together with the workflow-panel rule this gives the sticky button three states: hidden over any block that carries its own CTA, visible elsewhere after the hero, retired at the closing block.
-- **Newsletter section hover (2026-09-22, Chris Provins).** The footer sign-up block (label, pill email input, Eucalyptus arrow button drawn as an image) had focus and active states but no hover. Final version, after three richer attempts were rolled back the same day (arrow nudge; placeholder erasing and retyping; a blinking caret): hovering anywhere in the block warms the field — stroke from Border/Brand Eucalyptus to Eucalyptus Dark `#39381B`, surface from transparent to Neutral 100 `#F9F9F5`, placeholder from Text/Placeholder to `#39381B`. Default 200ms / Standard, colour only, nothing moves, hover-capable pointers only, transitions off under reduced motion. **Rules that fell out:** an input's hover is a lighter version of its focus, never a new colour or a new element; a form field's hover is colour only — carets, nudges and typing effects were all tried and all read as theatre next to a real cursor; and the hover target is the whole block, not the input, so the label and button feel like one control.
 
 ### Known violations to remediate
 
@@ -1024,6 +1024,33 @@ Line-heights and letter-spacing are preserved across both ramps so relative rhyt
 | `DS/Type/Print/Nav` | `f023c3252752bd87aabf7ecf797360b2877a7eab` | IBM Plex Sans Condensed | Regular | 11 | 100% | `0` |
 
 Same plain-zero rules apply (BP #17): Plex Sans defaults plain, Plex Mono needs `ss04`. `DS/Type/Print/Overline` (Plex Mono) requires the same toggle as the web Overline.
+
+### Line breaks — no orphans
+
+An **orphan** is one word left alone on the last line of a block of text. It breaks the reading rhythm and makes a heading look
+unfinished. Rule: Best Practice #19, applies to every surface (web, Figma, print, decks, email).
+
+| Situation | Fix |
+|---|---|
+| Heading intended as **one line** that wraps by a word or two | Step the size down (e.g. `H2 Large` → `H2`, or a page-scoped size override) or tighten the copy until it holds on one line at that breakpoint |
+| Multi-line heading that ends on one word | Bind the last two words with a non-breaking space so they travel together (`get&nbsp;paid`) |
+| Body / description paragraph | `text-wrap: pretty` on the web; in Figma, nudge the frame width or add a non-breaking space |
+| Fixed-format artwork (ads, print, decks) | Soft return (Shift+Return) before the last two words |
+
+**Web implementation:** headings get `text-wrap: balance` (evens out line lengths, which removes most orphans), paragraphs get
+`text-wrap: pretty`. Neither is a guarantee at every width, so still bind the final two words with `&nbsp;` in the copy of any
+heading that can wrap, and check desktop, tablet and mobile.
+
+**Figma:** there is no automatic orphan control. Inspect every text frame at each breakpoint frame; use a non-breaking space or
+Shift+Return, never extra spaces or a narrower frame that breaks the grid.
+
+#### Real-world context
+
+- **2026-10-02 · docusketch.com New Home GA draft, problem section.** The title "If it's not in the file, you don't get paid" wrapped
+  so that "paid" sat alone on the second line. Chris: "Either we reduce the typeface size or we give it a friend." Preferred outcome:
+  both problem titles on one line each (size stepped down for this instance); fallback: `get&nbsp;paid` so the pair wraps together.
+  Rule promoted to Best Practice #19 the same day: no orphans, universally.
+
 
 ### IBM Plex — Zero Glyph (plain, not dotted, not slashed)
 
@@ -1991,7 +2018,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-09-16T08:23:56.362930+00:00",
-  "last_skill_sync": "2026-09-22T20:13:11.984432+00:00",
+  "last_skill_sync": "2026-10-02T19:54:53.846342+00:00",
   "figma_last_version": "2399739214896155282"
 }
 ```
