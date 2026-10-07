@@ -2017,8 +2017,8 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "figma_file_key": "JR35zTngKUblEKMD0myUyD",
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
-  "last_figma_sync": "2026-10-07T18:56:23.477423+00:00",
+  "last_figma_sync": "2026-10-07T19:41:38.402975+00:00",
   "last_skill_sync": "2026-10-02T19:54:53.846342+00:00",
-  "figma_last_version": "2407695295077581609"
+  "figma_last_version": "2407703090356358589"
 }
 ```
