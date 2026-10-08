@@ -7,8 +7,8 @@
   "counts": {
    "phoenix": 250,
    "material-symbols": 4,
-   "brand": 8,
-   "total": 262
+   "brand": 9,
+   "total": 263
   }
  },
  "origins": {
@@ -2209,6 +2209,14 @@
    "nodeId": "18541:4323",
    "size": 32,
    "viewBox": "0 0 32 32"
+  },
+  {
+   "file": "assets/icons/24/360aiLogo.svg",
+   "name": "360aiLogo",
+   "origin": "brand",
+   "size": 24,
+   "viewBox": "0 0 22 22",
+   "note": "The 360AI logo: a modified 360 mark, brand-drawn and supplied by Chris Provins 2026-10-06. A stroke icon (stroke currentColor, 1.25 at 22px) rather than a fill. Also the job-record hub at the centre of the hero's four nodes. Chris is campaigning for it to become the full DocuSketch logo; until that is ruled, it is not the DocuSketch logo and the logo rules (canonical wordmark, DS° mark) are unchanged."
   }
  ]
 }

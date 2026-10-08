@@ -11,7 +11,7 @@
 1. **No overlapping text** — every text node must have non-overlapping bounds.
 2. **Variants in component frames** — all variants live inside a COMPONENT_SET; designers can reference or edit directly.
 3. **Logical, minimal, plain language naming** — use `Property=Value` Figma convention; no generic names like `Variant2`; use `Style=Chartreuse`.
-4. **Accessibility** — page background is `Neutral/200` (`#e2e1da`); text must meet WCAG AA (4.5:1 normal, 3:1 large/UI).
+4. **Accessibility, surface and ink** — light web pages sit on `Background/Default` (`Neutral 200`, `#F4F3EA`), with insets one step lighter on `Neutral 100` (`#F9F9F5`). Headings and body copy on light web pages are set in `Neutral 650` (`#39381B`, the Olive ink; 10.7:1 on the page surface). Both rulings are confirmed by the New Home page (2026-10-05); see Colour Tokens → *Web ink and surfaces*. Text must meet WCAG AA (4.5:1 normal, 3:1 large/UI).
 5. **Side-by-side Light + Dark mode** — every component group shows both modes in a HORIZONTAL frame.
 6. **No scaling** — components display at 1:1. Use `layoutSizingHorizontal='FIXED'` + `layoutPositioning='AUTO'` on children inside COMPONENT_SETs.
 7. **`setCurrentPageAsync` required** — ALWAYS call before reading or writing any page. Pages without this return 0 children.
@@ -31,6 +31,7 @@
 17. **IBM Plex (all variants): plain zero only (immovable).** All `0` glyphs in IBM Plex Sans and IBM Plex Mono must render as the **plain** variant — never dotted, never slashed. The OpenType feature *tags* are identical across the family (`zero`/`ss03` = slashed feature; `ss04`/`salt` = the other alternate), but the *glyph each tag substitutes to* differs per font: **Plex Sans's default `zero` is already plain** — adding `ss04` flips it to DOTTED (the opposite of what you want). **Plex Mono defaults to DOTTED** — `ss04` flips it to plain. So the correct web rule is: *scope `font-feature-settings: 'ss04' 1` to Plex Mono elements only; leave Plex Sans elements at default*. Do not apply a universal `*` selector for `ss04` — it will make Plex Sans dotted. **Figma:** the toggle labels are font-specific — Plex Sans's panel shows \"slashed\" and \"dotted\" (both opt-in; default is plain), while Plex Mono's panel shows \"slashed\" and \"plain\" (default is dotted; toggle \"plain\" ON). **Font source matters:** Google Fonts ships a subset that strips the stylistic sets — self-host or load from jsDelivr (`@ibm/plex-sans@1.1.0`, `@ibm/plex-mono@1.1.0`). Do not use `'salt' 1` as a shortcut; it flips all alternates including single-storey `a` and `g`. See the \"IBM Plex — Zero Glyph\" section for the full per-family substitution table. **Why immovable:** the dotted zero is the second-most-reproduced typographic detail in DocuSketch surfaces (after the wordmark), and inconsistency between dotted/plain across pages is a visible brand defect.
 18. **Generative AI: two gates, immovable.** Generative AI shows the product in use and builds the job site around it; synthesized damage (moisture, staining, debris, smoke residue) shown calmly is in scope. (1) **Never develop alarming imagery:** no current or recent weather events or disasters; no people in danger, injuries, collapse, or dread. Test: inform, not alarm. (2) **Never synthesize a real person:** customers, testimonial givers, subject-matter experts — no likeness, voice, or attributed words; anyone presented with a voice in real time is real. Never generate the product, evidence from a real job, or facts in copy. A generated scene may show a realistic job site but is never presented as a specific real job or customer; files carry `gen-`. **Why immovable:** imagery of a live event turns a promise of calm documentation into a false alarm, and a synthesized customer or expert turns a true statement into a fabricated one the moment it is discovered.
 19. **No orphans (all type, every breakpoint).** A single word must never sit alone on the last line of a heading, title, card title or paragraph. Fix it in this order: (a) if the heading is meant to read as one line, **reduce its size one step** (or narrow the copy) until it fits on one line; (b) otherwise **give the last word a friend**: bind the final two words with a non-breaking space (`&nbsp;` / U+00A0) or a soft return (Shift+Return in Figma, `<br>` only when the line count is fixed) so they wrap together; (c) on the web also set `text-wrap: balance` on headings and `text-wrap: pretty` on body copy. Check every breakpoint (desktop, tablet, mobile); an orphan at any width is a defect. See Type Styles → Line breaks — no orphans.
+20. **Proportional states (hover, press, motion), Chris Provins 2026-10-06.** An interactive state is a small step inside the control's own colour family, never a swap. Every state colour is a DS palette step, never a computed mix: no `color-mix()` and no alpha tint of a brand colour, because a tint over a surface lands off-palette (Olive 6% over a light stage reads as #EFEFEB; Chris Provins 2026-10-07). Each state takes the next palette step in the same family, never a tint. Hover moves fill lightness by one palette step (hard limit 0.10); press takes the next step on (hard limit 0.20 from rest); the label keeps 4.5:1 in every state. **Never on hover or press:** flip dark to light or light to dark; switch hue family (Olive to Chartreuse, an outline to a solid fill); recolour one segment of a joined control (split button, button group, segmented control, toolbar) so the group's silhouette breaks; change a label's colour; scale outside 0.98 to 1.02 or move more than 2px (the card lift is the 2px ceiling); grow a halo past 4px or tint it chartreuse (halos are Neutral 300, then Neutral 400). Recipes: Olive fill to Neutral 800, then Chartreuse 900 `#2A2808`; Chartreuse 300 to 200, then 400; outline and ghost take Neutral 200, then Neutral 300, inside their own shape (on the Neutral 200 page, Neutral 300, then Neutral 400); danger holds its Signal/Error fill and steps the outline (Neutral 800, then Chartreuse 900); selection stays Chartreuse 300 and steps the same way. Entrances start from at least 0.8 scale with no overshoot; pulses are opacity only. **Exception:** the full colour inversion is a signature move reserved for the site's standalone primary marketing CTAs as built (Sticky CTA, hero and closing Book a demo, product-row Learn more, the tour poster); never in a group, never in a system component. Enforced by the state and restraint audits (`scripts/audit/`); components follow `components/STATES.md`.
 
 ---
 
@@ -55,13 +56,25 @@ Variant property vocabulary (closed list): `Color=Black|White|Chartreuse` (marks
 
 | Canonical | Value | Supersedes |
 |---|---|---|
-| `text-primary` | `#1A1905` | nothing — Neutral 700 remains body and headline ink (17.72:1 vs white) |
+| `text-primary` | `#1A1905` | nothing — Neutral 700 remains body and headline ink (17.72:1 vs white). *Superseded 2026-10-05: `text-primary` is now Olive `#39381B`.* |
 | `text-strong` | `#39381B` | nothing — Neutral 650 remains the body-supporting role (11.96:1 vs white) |
 | `text-inverse` | `#F9F9F5` | nothing — Neutral 100 remains the ink on dark (16.79:1 vs Neutral 700) |
-| `text-button-on-accent` | `#010101` | `DS/Token/Text/OnBrand` = `#2A2808` for button labels on accent |
+| `text-button-on-accent` | `#010101` | Retired 2026-10-05: button labels on accent use `DS/Token/Text/Primary`, Olive `#39381B` |
 | `background-accent` | `#E5DF00` | `DS/Token/Background/Brand` (rename) |
 | `brand-white` | `#FFFFFF` | white is reinstated as a brand token |
 | `error` | `#FF7575` | any prior signal/negative red |
+
+> **Ruling 2026-10-05 — Olive is the primary dark brand colour.** `Neutral 650` `#39381B` (Olive, Pantone 5747 C) is the brand's dark, everywhere: web and print, ink and fill. It replaces `Neutral 700` `#1A1905` (Brand Black) in every role Brand Black held:
+>
+> - **Ink:** `Text/Primary` resolves to Neutral 650 on every light surface, web and print alike. This supersedes the same-day web-only ink ruling, which kept `#1A1905` for print.
+> - **Brand dark:** the token is renamed `Brand/Olive` (formerly `Brand/Ash`; CSS `--ds-brand-olive`, formerly `--ds-brand-ash`) and resolves to Neutral 650. "Ash" no longer names anything in the system. Dark bands and Campaign dark surfaces (`Background/Inverse`), Editorial hairlines, scrims and shadow tints all follow.
+> - **Marks:** DocuSketch logos on light surfaces are Olive in print as well as on the web. On an Olive surface the mark is Chartreuse (White beside a chartreuse CTA). On Chartreuse it is Olive.
+> - **On brand:** text on chartreuse fills, button labels included, uses `Text/Primary` (Olive). `Text/OnBrand` and `text-button-on-accent` `#010101` are retired: once Olive, they only duplicated Primary. Dark-theme constraint: Primary flips to sage `#C0BC90` in dark, which is 1.37:1 on chartreuse, so a dark theme must flip the pair (Olive fill, chartreuse text) or pin the text to `Brand/Olive`. This belongs to the open dark-mode ruling. Olive clears AA on every chartreuse step it covers (lowest 5.18:1 on Chartreuse 600). On an Olive band, chartreuse highlights (`Text/Accent`) are Chartreuse 300 (8.48:1).
+> - **Contrast:** Olive is AAA against every light surface (11.96:1 on white, 10.74:1 on Neutral 200) and against Chartreuse 300 (8.48:1). One pair breaks: `Text/Secondary` Neutral 500 on an Olive band is 2.83:1, so secondary text on Olive uses Neutral 400 `#C0BC90` (6.17:1).
+> - **What `#1A1905` keeps:** it stays a primitive (`Neutral 700`) for the dark theme's deepest surface, which is still an open question (see Dark Mode). It is no longer an ink, a logo fill or a brand surface.
+> - **Not yet propagated:** the Brand Design Kit Figma variables (`Brand/Ash`, still to be renamed `Brand/Olive`; `Text/Primary`; `Background/Inverse`), `tokens/ds-tokens.css` (generated from Figma), the `Color=Black` logo variants and the brand kit site's own `:root`. Until Figma changes, bind these roles to Neutral 650 directly.
+>
+> Source: Chris Provins, 2026-10-05, building on the New Home GA draft (`/dev/new-home-ga`, page `6abae1da24071f5a642f0ffb`), where one Olive ink first replaced the near-black.
 
 Ramp primitives (`chartreuse-100…900`, `neutral-100…800`, `black`, `white`) and the Editorial/print system (`DS/Type/Print/*`, Text/Secondary, Border scale) are **extensions**: absent from the website file, retained here in the same grammar, candidates to upstream.
 
@@ -75,7 +88,7 @@ Two modes that DocuSketch design lives in. Same brand, two voices — they share
 
 **Campaign mode — attention in a noisy context.**
 
-- Full-bleed `Brand Black` (`#1A1905`) surface, scattered chartreuse "+" mark pattern.
+- Full-bleed `Brand/Olive` (`#39381B`) surface, scattered chartreuse "+" mark pattern.
 - Hero imagery — the 3D iso restoration render (imageHash `f5b72c8ae46eb6e827de28ad588e8ef5be746658`) and its siblings.
 - Chartreuse pill tags with IBM Plex Mono caps (`+0.08em` tracking).
 - IBM Plex Sans Medium/SemiBold cream headlines, tight tracking, on dark.
@@ -86,7 +99,7 @@ Two modes that DocuSketch design lives in. Same brand, two voices — they share
 
 - Warm white surface (`Background/Subtle`, `#F9F9F5`).
 - **No hero imagery** unless it informs the reader's task — typography carries the work.
-- 1px `Brand Black` hairlines define the content frame; no shadows, no card borders.
+- 1px `Brand/Olive` hairlines define the content frame; no shadows, no card borders.
 - **One** deliberate chartreuse accent per page (~5×5 square mark), placed semantically.
 - IBM Plex Sans Medium headlines (modest sizing, 24–28px); IBM Plex Sans Regular body (13/150); IBM Plex Sans Condensed Medium for caps labels (9–10px, `+12%` tracking).
 - **No Plex Mono.** Side benefit: every zero renders plain by default — no manual `ss04` toggle ever needed (cf. BP #17).
@@ -112,7 +125,7 @@ If a brief sits between, the mode is the one whose principles serve the **reader
 1. **Honest over persuasive.** Say the thing. Don't decorate it.
 2. **Less, but better.** Every element earns its place — if removing it doesn't lose meaning, remove it.
 3. **Typography carries the work.** No imagery unless it informs.
-4. **Hairlines, not borders or shadows.** 1px Brand Black rules define structure; nothing else.
+4. **Hairlines, not borders or shadows.** 1px `Brand/Olive` rules define structure; nothing else.
 5. **One deliberate chartreuse accent per page.** A 5×5 square, placed semantically (e.g. next to a section identifier). Never two; never bigger.
 6. **Sans only.** IBM Plex Sans + IBM Plex Sans Condensed for caps labels. Plex Mono belongs to Campaign — its dotted default zero requires a manual `ss04` toggle the Plugin API cannot set. Editorial side-steps the problem entirely.
 7. **Wide margins.** 72px (~0.75 in) from page edge at letter format; scale proportionally for other sizes.
@@ -127,9 +140,9 @@ All existing — no new tokens required.
 | Role | Token | Hex |
 |---|---|---|
 | Surface | `Background/Subtle` | `#F9F9F5` |
-| Ink (body, headline, signature name) | `Text/Primary` | `#1A1905` |
+| Ink (body, headline, signature name) | `Text/Primary` | `#39381B` |
 | Labels (sidebar metadata, signature title, footer left URL) | `Text/Secondary` | `#807C5E` |
-| Hairlines (top + bottom of content frame) | `Brand/Ash` 1 px | `#1A1905` |
+| Hairlines (top + bottom of content frame) | `Brand/Olive` 1 px | `#39381B` |
 | Single accent mark (5×5 square) | `Brand/Chartreuse` | `#E5DF00` |
 
 ### Editorial type ramp (letter format, `816×1056`)
@@ -249,13 +262,13 @@ Patterns surveyed from the "Your Guide to Remote Estimating" ebook in DS Print �
 
 | Pattern | Use case | Distinctive elements | Template |
 |---|---|---|---|
-| **01 — Cover** | Front cover of a multi-page document | Full-bleed dark (`Brand/Ash`) surface, centred chartreuse eyebrow pill, small wordmark, large Display headline, single subtitle line, large hero image filling lower half | `4041:87` |
+| **01 — Cover** | Front cover of a multi-page document | Full-bleed dark (`Brand/Olive`) surface, centred chartreuse eyebrow pill, small wordmark, large Display headline, single subtitle line, large hero image filling lower half | `4041:87` |
 | **02 — Image-led content** | Narrative pages where one image carries the story | Centred eyebrow + top "+" row, hero image at top (~⅓ height), single-column title left, body paragraph, chartreuse `THE RESULTS` callout box on right, footer | `4042:85` |
 | **03 — Two-column header + numbered sections** | Body pages with multiple stepped points | Centred eyebrow + top "+" row, 2-col header (title left ⅔ / intro paragraph right ⅓), numbered sections below (`1.` `2.` …) each with subtitle, body, bullets, optional pull-quote with attribution, footer | `4043:85` |
 | **04 — Three-column process grid** | Stepped-process or feature-set pages | Centred eyebrow + top "+" row, 2-col header, sub-section eyebrow + sub-title, three image cards in a row (each with `0X_STEP` numeric overline above an image), three subhead + body columns below the cards, chartreuse outcome callout banner across the full content width, footer | `4044:85` |
-| **05 — Data table** | Metrics, before/after, comparison data | Centred eyebrow + 2-col header, 3-column table below with Mono caps header row (`DS/Type/Overline`-style), Brand Black `Plex Sans Medium` left column (row labels) + `Regular` value columns, 1 px `Neutral 300` hairlines between rows, optional muted footnote paragraph below, footer | `4047:85` |
+| **05 — Data table** | Metrics, before/after, comparison data | Centred eyebrow + 2-col header, 3-column table below with Mono caps header row (`DS/Type/Overline`-style), Olive `Plex Sans Medium` left column (row labels) + `Regular` value columns, 1 px `Neutral 300` hairlines between rows, optional muted footnote paragraph below, footer | `4047:85` |
 | **06 — Stat callouts** | High-impact numbers / outcome summary | Centred eyebrow + 2-col header, 2 × 2 grid of large numbers (56 px Plex Sans Medium, −4% tracking) each paired with a `Condensed Medium` caps label in `Text/Secondary`, thin `Neutral 300` separators between cells, chartreuse outcome banner spanning full content width, footer | `4048:85` |
-| **07 — Quote / testimonial** | Single-page anchor quote | Centred eyebrow + top "+" row, oversized chartreuse opening quote glyph (`Plex Mono Regular` ~96 px), pull quote in `Plex Mono Regular` ~28 px / 130% on Brand Black, attribution row below with circular portrait + name (`Plex Sans Medium`) + role (`Text/Secondary`), footer | `4049:85` |
+| **07 — Quote / testimonial** | Single-page anchor quote | Centred eyebrow + top "+" row, oversized chartreuse opening quote glyph (`Plex Mono Regular` ~96 px), pull quote in `Plex Mono Regular` ~28 px / 130% on Olive, attribution row below with circular portrait + name (`Plex Sans Medium`) + role (`Text/Secondary`), footer | `4049:85` |
 
 **Frame and grid for body pages (02–04):**
 
@@ -294,7 +307,7 @@ Specifically *not* used in Editorial. Each of these is a Campaign primitive tryi
 - Plex Mono caps labels — use Plex Sans Condensed instead.
 - More than one chartreuse element per page.
 - Bullet markers (`•`, `✓`, `+`) — use numerals.
-- Decorative rules (chartreuse hairlines, dotted lines, double rules) — single 1px Brand Black hairlines only.
+- Decorative rules (chartreuse hairlines, dotted lines, double rules) — single 1px `Brand/Olive` hairlines only.
 - Drop caps, pull quotes, magazine flourishes — keep it letter-quiet.
 - Coloured text for hierarchy — use size and weight.
 
@@ -327,7 +340,7 @@ Editorial doesn't override the brand — it inherits everything except where thi
 
 ## Logo Usage
 
-Five canonical marks, each shipped in three colour variants (`Brand Black` / `White` / `Chartreuse`). All marks live on the `_Library` page of the [Brand Design Kit](https://www.figma.com/design/JR35zTngKUblEKMD0myUyD/Brand-Design-Kit) Figma file under `Logo / *` component sets. Always use the canonical SVG — never typeset, never recolour outside the three approved fills. See **Best Practice #15** for the immovable rule.
+Five canonical marks, each shipped in three colour variants (`Brand Black` / `White` / `Chartreuse`). Since the 2026-10-05 ruling the `Brand Black` variant is filled with Olive (`#39381B`) wherever it is placed; the Figma variant keeps its old name until it is re-filled. All marks live on the `_Library` page of the [Brand Design Kit](https://www.figma.com/design/JR35zTngKUblEKMD0myUyD/Brand-Design-Kit) Figma file under `Logo / *` component sets. Always use the canonical SVG — never typeset, never recolour outside the three approved fills. See **Best Practice #15** for the immovable rule.
 
 ### The marks
 
@@ -351,12 +364,12 @@ Approved fills:
 
 | Background | Approved fill | Notes |
 |---|---|---|
-| `Neutral 100` / `Neutral 200` / White | `Brand Black` | Default light surface treatment. |
-| `Brand Black` (#1A1905) | `White` *or* `Chartreuse` | Chartreuse on Brand Black is the bolder, more on-brand option; reserve White for surfaces where the chartreuse would conflict with neighbouring chartreuse UI (e.g. a chartreuse CTA right beside the mark). |
-| `Chartreuse 300` (#E5DF00) | `Brand Black` | Black-on-chartreuse is the canonical brand combination — see Gradients / Hero. |
+| `Neutral 100` / `Neutral 200` / White, **web and print** | `Olive` (Neutral 650 `#39381B`) | Every light surface (ruling 2026-10-05, extended to print the same day): the mark shares the page's one ink. Same canonical SVG, filled with the ink token (`currentColor` or a fill bound to Neutral 650), never a recoloured raster. Figma has no `Color=Olive` variant yet; until it does, apply the fill to the `Color=Black` instance. |
+| `Brand/Olive` (#39381B) | `White` *or* `Chartreuse` | Chartreuse on Olive (8.48:1) is the bolder, more on-brand option; reserve White for surfaces where the chartreuse would conflict with neighbouring chartreuse UI (e.g. a chartreuse CTA right beside the mark). |
+| `Chartreuse 300` (#E5DF00) | `Olive` | Olive-on-chartreuse is the canonical brand combination (8.48:1) — see Gradients / Hero. |
 | `DS/Pattern/Camo` | `Chartreuse 300` | Type on Camo is always chartreuse — see Patterns. |
 
-Never combine: White-on-light, Brand-Black-on-Camo, Chartreuse-on-Chartreuse, any fill on a high-detail photo without a scrim.
+Never combine: White-on-light, Olive-on-Camo, Brand-Black anywhere, Chartreuse-on-Chartreuse, any fill on a high-detail photo without a scrim.
 
 ### Sizing
 
@@ -394,7 +407,7 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 | `DS/Color/Chartreuse 600` | `#B5AF00` | 398 C | Deeper chartreuse mid-tone |
 | `DS/Color/Chartreuse 700` | `#8A8500` | 399 C | Dark chartreuse |
 | `DS/Color/Chartreuse 800` | `#4A4510` | 5747 C | Very dark chartreuse / olive crossover |
-| `DS/Color/Chartreuse 900` | `#2A2808` | Black 4 C | Darkest chartreuse *(= `Text/OnBrand` token)* |
+| `DS/Color/Chartreuse 900` | `#2A2808` | Black 4 C | Darkest chartreuse *(backs `Text/Accent` on light; was `Text/OnBrand`, retired 2026-10-05)* |
 
 *Scale gap at 500 is intentional — the previous step at #C2BC00 was visually indistinguishable from 400 (1.05:1 contrast). 400→600 now reads as a single, clearer mid-tone transition.*
 
@@ -407,8 +420,8 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 | `DS/Color/Neutral 300` | `#DFDDC8` | 7527 C *(re-verify)* | Dividers, image placeholder fills, warm-neutral text overlay on dark neutral swatches in dark mode *(= `Border/Default`, `Surface/Card`, `Text/Sticky-CTA` tokens — the separate `neutral-warm` `#E2E0D3` primitive that previously backed the latter two was collapsed into this value 2026-09-09; the two sat 1.03:1 apart)* |
 | `DS/Color/Neutral 400` | `#C0BC90` | **5793 C** | Light sage / warm grey *(= `Brand/Eucalyptus` + `Text/Muted` tokens — note: 1.49:1 vs white, below AA. Reserve `Text/Muted` for non-essential / decorative text only.)* |
 | `DS/Color/Neutral 500` | `#807C5E` | 5777 C | Mid sage / warm grey *(= `Text/Secondary` + `Border/Strong` tokens — note: 4.04:1 vs white, passes AA Large only.)* |
-| `DS/Color/Neutral 650` | `#39381B` | 5747 C | Deep sage / warm grey — high-contrast secondary text, dark-mode accents (11.96:1 vs white). |
-| `DS/Color/Neutral 700` | `#1A1905` | **Black 2 C** | Body text, headlines, icons on light *(= `Brand/Ash`, `Background/Inverse`, `Text/Primary` tokens)* |
+| `DS/Color/Neutral 650` | `#39381B` | **5747 C** | **The brand dark (Olive), ruling 2026-10-05** — body text, headlines, icons and logos on light; dark bands; Editorial ink and hairlines *(= `Brand/Olive`, `Background/Inverse`, `Text/Primary`, `Text/Strong` tokens)*. 11.96:1 vs white. |
+| `DS/Color/Neutral 700` | `#1A1905` | Black 2 C | Formerly Brand Black. Since 2026-10-05 a primitive only: the dark theme's deepest surface, pending the dark-mode ruling. Not an ink, logo fill or brand surface. |
 
 *Eucalyptus consolidated into Neutral 400/500/650 (this revision). The former Eucalyptus 100/200/300 (`#C0BC90` / `#807C5E` / `#39381B`) and prior Neutral 400/500/650 (`#B8B5A0` / `#908D68` / `#3D3C2A`) were within ~4 L\* of each other per step — a tonal duplicate scale. Picking the warmer Eucalyptus side as canonical eliminates the redundancy. `Brand/Eucalyptus` token now resolves through `Neutral 400`; the Eucalyptus primitive scale is removed. **Neutral 600** (`#6B6948`) was removed in the same pass — with the new Neutral 500 and 650 in place, the 500 → 650 step is large enough to carry without an intermediate. **Neutral 800** (`#4A4830`) is kept out of the light ramp for the same monotonicity reason, but retained in Figma as a Dark-mode-only primitive (it backs `Background/Subtle` and `Border/Default` in Dark mode).*
 
@@ -416,16 +429,33 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 
 | Token | Hex | Pantone | Used as |
 |---|---|---|---|
-| `DS/Color/Black` | `#000000` | Process Black C | Pure black — sparingly; prefer Neutral 700 / `Text/Primary` for body |
+| `DS/Color/Black` | `#000000` | Process Black C | Pure black — sparingly; prefer Olive / `Text/Primary` for body |
 | `DS/Color/Base/White` | `#FFFFFF` | — | Pure white — surfaces, panels. No ink for printed white; reference stock paper. Not a brand-identity token (removed from Tokens · Brand) — reference the primitive directly. |
+
+### Primitives · Status
+
+Five light-fill / dark-ink pairs for status tags, pills and messages (ruling 2026-10-07, Chris Provins). Always used as a pair: light fill, dark ink, and on a card a 1px hairline in the dark ink. Full rules under *Status colours* below.
+
+| Token | Hex | Pantone | Used as |
+|---|---|---|---|
+| `DS/Color/Status/Green Light` | `#EBFAC1` | — | Success fill (good news). Dark ink on it 11.6:1 |
+| `DS/Color/Status/Green Dark` | `#243805` | — | Success ink and hairline on Green Light |
+| `DS/Color/Status/Yellow Light` | `#FEF2C3` | — | Warning / caution fill. Dark ink on it 9.7:1 |
+| `DS/Color/Status/Yellow Dark` | `#5F3100` | — | Warning ink and hairline on Yellow Light |
+| `DS/Color/Status/Red Light` | `#FFD6BD` | — | Error tint (peach): the fill behind an error tag, alert or invalid cell. Dark ink on it 11.2:1 |
+| `DS/Color/Status/Red Dark` | `#4A1404` | — | Error ink and hairline on Red Light |
+| `DS/Color/Status/Blue Light` | `#D4E6F4` | — | Info fill. Dark ink on it 5.7:1 (AA, not AAA) |
+| `DS/Color/Status/Blue Dark` | `#165D77` | — | Info ink and hairline on Blue Light |
+| `DS/Color/Status/Purple Light` | `#DFD3D9` | — | Spare category fill (no fixed meaning; label it). Dark ink on it 11.4:1 |
+| `DS/Color/Status/Purple Dark` | `#3D072D` | — | Ink and hairline on Purple Light |
 
 ### Pantone matching — note
 
 Pantones above are **best-attempt visual approximations** against the [Pantone Solid Coated library](https://www.pantone.com/connect/Pantone+Solid+Coated). Pantone is a printed-ink standard; RGB / hex is on-screen. The two systems don't map perfectly, and individual lighting, paper stock, and ink batch all shift the printed result. Before producing any high-stakes print collateral (signage, packaging, vehicle wraps), verify the match against a physical Pantone chip under the same lighting conditions as the final deliverable. For day-to-day digital work, the hex value is authoritative; use the Pantone column only when the print vendor asks for a spot reference.
 
-The brand-defining matches — `Chartreuse 300 = 396 C`, `Neutral 400 = 5793 C` (the sage formerly known as Eucalyptus 100), `Neutral 700 = Black 2 C` — are the three to pin first if a vendor needs a definitive brand-level reference.
+The brand-defining matches — `Chartreuse 300 = 396 C`, `Neutral 400 = 5793 C` (the sage formerly known as Eucalyptus 100), `Neutral 650 = 5747 C` (the brand dark since 2026-10-05; it replaces `Neutral 700 = Black 2 C`) — are the three to pin first if a vendor needs a definitive brand-level reference.
 
-> **2026-08-05 — Ash re-pinned to Black 2 C.** `Neutral 700` / `Brand/Ash` (`#1A1905`) was previously listed as Black 4 C; it is now canonically **Pantone Black 2 C**, whose olive/yellow undertone matches Ash's cast (Black 4 C reads brown). `Chartreuse 900` (`#2A2808`) keeps Black 4 C pending its own review. Email precedent for the family: the DS1 packaging warm grey was specced as Pantone 2330 U (Insta360 thread, Nov 2024) — an uncoated production reference, not a brand token.
+> *Superseded 2026-10-05: the brand dark is now `Brand/Olive` (Neutral 650, Pantone 5747 C); the `Brand/Ash` name is retired. Kept for the record.* **2026-08-05 — Ash re-pinned to Black 2 C.** `Neutral 700` / `Brand/Ash` (`#1A1905`) was previously listed as Black 4 C; it is now canonically **Pantone Black 2 C**, whose olive/yellow undertone matches Ash's cast (Black 4 C reads brown). `Chartreuse 900` (`#2A2808`) keeps Black 4 C pending its own review. Email precedent for the family: the DS1 packaging warm grey was specced as Pantone 2330 U (Insta360 thread, Nov 2024) — an uncoated production reference, not a brand token.
 
 ### Tokens · Brand
 
@@ -434,7 +464,7 @@ Semantic aliases for the three colours that carry brand identity. Components sho
 | Token | Resolves to | Hex | Used as |
 |---|---|---|---|
 | `DS/Token/Brand/Chartreuse` | `Chartreuse 300` | `#E5DF00` | Primary brand fill — CTA pills, accent surfaces |
-| `DS/Token/Brand/Ash` | `Neutral 700` | `#1A1905` | The brand's darkest neutral — body text on light, dark fills |
+| `DS/Token/Brand/Olive` | `Neutral 650` | `#39381B` | The brand dark (ruling 2026-10-05; renamed from `Brand/Ash`) — ink on light, dark fills, hairlines, scrims |
 | `DS/Token/Brand/Eucalyptus` | `Neutral 400` | `#C0BC90` | Muted sage brand accent (resolves through the Neutral scale; the former Eucalyptus primitive scale has been consolidated in) |
 
 ### Tokens · Background
@@ -442,16 +472,17 @@ Semantic aliases for the three colours that carry brand identity. Components sho
 | Token | Resolves to | Hex | Used as |
 |---|---|---|---|
 | `DS/Token/Background/Brand` | `Chartreuse 300` | `#E5DF00` | Chartreuse-fill sections |
-| `DS/Token/Background/Inverse` | `Neutral 700` | `#1A1905` | Dark sections, dark-mode page bg |
-| `DS/Token/Background/Default` | `Neutral 200` | `#F4F3EA` | Card, testimonial, inset section bg |
-| `DS/Token/Background/Subtle` | `Neutral 100` | `#F9F9F5` | Page / section background (warm white) |
+| `DS/Token/Background/Inverse` | `Neutral 650` | `#39381B` | Dark sections and bands (Olive, ruling 2026-10-05). Secondary text on it uses Neutral 400 |
+| `DS/Token/Background/Default` | `Neutral 200` | `#F4F3EA` | **Light web page and section background** (ruling 2026-09-16, confirmed on New Home 2026-10-05) |
+| `DS/Token/Background/Subtle` | `Neutral 100` | `#F9F9F5` | Insets, testimonial and card surfaces one step lighter than the page; the Editorial print page (warm white) |
+
+> The role text above was corrected 2026-10-05; it previously read Subtle = page, Default = inset. The token *values* never changed. **Still open:** the Dark Mode pairings below label `Background/Subtle` as the deepest (page) surface and `Background/Default` as one step up. Light web now uses the opposite assignment, so the dark mapping needs a ruling before any web surface ships a dark theme.
 
 ### Tokens · Text
 
 | Token | Resolves to | Hex | Used as |
 |---|---|---|---|
-| `DS/Token/Text/Primary` | `Neutral 700` | `#1A1905` | Body text, headlines on light backgrounds |
-| `DS/Token/Text/OnBrand` | `Chartreuse 900` | `#2A2808` | Text on chartreuse fills — overline, critical badges |
+| `DS/Token/Text/Primary` | `Neutral 650` | `#39381B` | Body text and headlines on every light surface, web and print, and all text on chartreuse fills including button labels (Olive, ruling 2026-10-05; 8.48:1 on Chartreuse 300) |
 | `DS/Token/Text/Secondary` | `Neutral 500` | `#807C5E` | Captions, supporting copy |
 | `DS/Token/Text/Muted` | `Neutral 400` | `#C0BC90` | Tertiary / disabled text |
 | `DS/Token/Text/Inverse` | `Neutral 100` | `#F9F9F5` | Text on dark backgrounds |
@@ -500,10 +531,10 @@ The Camo pattern is intentionally **non-token** at the CSS level — it ships as
 
 **Text-on-swatch rule (text colour over a solid brand colour):** the light/dark decision is contrast-driven, the light-text *choice* is family-matched.
 
-- **Dark-text test:** if `Text/OnBrand` (#2A2808) clears **AA (≥ 4.5:1)** on the swatch, the background is light enough — use `Text/OnBrand`. (Covers Chartreuse 100–600 and Neutral 100–400.)
+- **Dark-text test:** if `Text/Primary` (Olive #39381B) clears **AA (≥ 4.5:1)** on the swatch, the background is light enough — use `Text/Primary`. (Covers Chartreuse 100–600, lowest 5.18:1 on Chartreuse 600, and Neutral 100–400.)
 - **Otherwise the background is dark/mid and needs light text, picked by family** so the overlay stays inside that family:
   - **Chartreuse swatches → pale `Chartreuse 100` (#FFFCC4).** Keeps the chartreuse identity and gives clean hue separation on the dark olive steps (700 / 800 / 900), where dark-olive-on-olive reads muddy. Applies to **Chartreuse 700, 800, 900**.
-  - **Neutral swatches → `Neutral 300` (#DFDDC8).** A warm off-white that keeps the neutral overlay inside the warm-neutral family. Stark pure-white text (Neutral 100) on a warm dark neutral swatch reads as "tech-flat," not brand — Neutral 300 carries DocuSketch's warm identity into the contrast. ~12.85:1 on Neutral 700, ~8.73:1 on Neutral 650, ~3.16:1 on the Neutral 500 mid-tone (same AA Large limit as the other mid-tones — Neutral 500 is the tightest pair, just clearing 3:1). Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Ash` surfaces, which are neutral-family).
+  - **Neutral swatches → `Neutral 300` (#DFDDC8).** A warm off-white that keeps the neutral overlay inside the warm-neutral family. Stark pure-white text (Neutral 100) on a warm dark neutral swatch reads as "tech-flat," not brand — Neutral 300 carries DocuSketch's warm identity into the contrast. ~12.85:1 on Neutral 700, ~8.73:1 on Neutral 650, ~3.16:1 on the Neutral 500 mid-tone (same AA Large limit as the other mid-tones — Neutral 500 is the tightest pair, just clearing 3:1). Applies to **Neutral 500, 650, 700** (and the dark `Background/Inverse`, `Brand/Olive` surfaces, which are neutral-family).
 
 The two mid-tone steps near L\*54 — **`Chartreuse 700` (#8A8500)** and **`Neutral 500` (#807C5E)** — can't reach AA with *any* brand text colour (their best lands at AA Large, ~3.7–4.0:1). Treat them as fill / large-display tones, not backgrounds for body-size copy. (The /brand colour page applies this picker automatically and shows the resulting WCAG level on each swatch.)
 
@@ -516,14 +547,14 @@ The two mid-tone steps near L\*54 — **`Chartreuse 700` (#8A8500)** and **`Neut
 
 The previous flat `DS/Color/{Black,White,Warm,Default,Chartreuse[…],Eucalyptus[…],Olive,Neutral 300–600}` model is collapsed into the two-tier structure above. Map old names to new:
 
-- `DS/Color/Black` *(legacy meaning, was #1A1905)* → `Neutral 700` (primitive) or `Brand/Ash` / `Text/Primary` (semantic). True black `#000000` is now its own primitive: `DS/Color/Black`.
+- `DS/Color/Black` *(legacy meaning, was #1A1905)* → `Neutral 700` (primitive); its semantic roles (`Brand/Ash`, now `Brand/Olive`, and `Text/Primary`) moved to Olive on 2026-10-05. True black `#000000` is now its own primitive: `DS/Color/Black`.
 - `DS/Color/Base/White` → `Base/White` primitive only. The `Brand/White` semantic alias was removed — pure white is not part of the brand identity tier.
 - `DS/Color/Neutral 100` *(#F9F9F5)* → `Neutral 100` or `Background/Subtle` / `Text/Inverse`
 - `DS/Color/Neutral 200` *(#F2F1EA)* → `Neutral 200` or `Background/Default` / `Border/Subtle`
 - `DS/Color/Chartreuse 300` *(#E5DF00)* → `Chartreuse 300` or `Brand/Chartreuse`
 - `DS/Color/Chartreuse Light` *(legacy #F2EF88)* → discontinued. Chartreuse 200 is now `#FFFA37` (formerly Chartreuse Active); use Chartreuse 100 (#FFFCC4) for paper-tint surfaces.
 - `DS/Color/Chartreuse Active` *(#FFFA37)* → `Chartreuse 200` (absorbed into the primitive scale).
-- `DS/Color/Chartreuse 900` *(#2A2808)* → `Chartreuse 900` or `Text/OnBrand`
+- `DS/Color/Chartreuse 900` *(#2A2808)* → `Chartreuse 900` (`Text/OnBrand`, its old semantic, was retired 2026-10-05)
 - `DS/Color/Chartreuse 400` *(#C8C200)* → `Chartreuse 400` (unchanged)
 - `DS/Color/Chartreuse 700` *(#8A8500)* → renumbered to **`Chartreuse 700`**
 - `DS/Color/Eucalyptus 100` *(#C0BC90)* → `Eucalyptus 100` or `Brand/Eucalyptus`
@@ -537,22 +568,84 @@ The previous flat `DS/Color/{Black,White,Warm,Default,Chartreuse[…],Eucalyptus
 **Newly added** (were missing from our doc; sourced from the Brand Design Kit Colour page):
 Chartreuse 100, 500, 600, 800; Neutral 400, 800; true Black `#000000`; the entire Tokens semantic layer (16 aliases).
 
+### Web ink and surfaces
+
+Rulings confirmed by the New Home page (New Home GA draft (`/dev/new-home-ga`, page `6abae1da24071f5a642f0ffb`), approved as canon by Chris Provins 2026-10-05):
+
+| Role on a light web page | Value | Contrast |
+|---|---|---|
+| Page and section background | `Background/Default` · Neutral 200 `#F4F3EA` | — |
+| Inset, card, testimonial surface | `Background/Subtle` · Neutral 100 `#F9F9F5` | — |
+| Headings and body copy | Neutral 650 `#39381B` (Olive) | 10.7:1 on `#F4F3EA` |
+| Dark band | `Background/Inverse` · Olive `#39381B`, type in `Text/Inverse` `#F9F9F5`; secondary text in Neutral 400 | 11.3:1 (Neutral 400: 6.2:1) |
+| Hairlines and row dividers | Neutral 400 `#C0BC90` (decorative, never text) | — |
+
+Hierarchy on the page comes from size, weight and space; every heading, paragraph, ink stroke and DocuSketch mark shares the one Olive ink. A near-black `#1A1905` heading beside Olive row titles read as unresolved, which is why the whole page moved to one ink.
+
+### Binding every colour (web)
+
+Every colour a web page draws comes from a DS token: type, strokes, fills, SVG presentation attributes, gradients, shadows and scrims. The New Home page was verified by setting every DS colour variable to magenta and checking all 551 rendered colours followed. Rules that fell out:
+
+- **Never the Relume `default` collection.** Webflow's starter collection (literally named `default`, e.g. `Text Color/text primary`) is not the brand kit. Bind to `DS / Color Tokens` (`--_ds--color-tokens---*`) and `DS / Color Primitives`.
+- **SVGs with a baked hex** (crosshair marks, arrows, dot tiles) are drawn as a CSS `mask` filled with a token (`background: var(--token)` or `currentColor`), so they recolour with the system.
+- **Shadows and scrims** mix Brand/Olive: `color-mix(in srgb, var(--brand-olive) 12%, transparent)`, never a raw `rgba(0,0,0,…)` on brand pages.
+- **The camo generator's colours** are chartreuse primitives (300 / 400 / 700 / 800 / 900 + neutral ink) and get bound to them.
+- **Exceptions:** App Store and Google Play badges (store artwork stays unaltered), photography, and product UI shown inside a render (it follows the product design system, not brand accents).
+
 ### Text selection
 
-When a user drag-selects copy on any DocuSketch surface, the selection reads as a **brand affordance** — `Chartreuse 300` (`#E5DF00`) background, `Brand Black` (`#1A1905`) text. Same colour pair as primary CTAs, gradient hero, and the chartreuse-on-camo type rule. The OS-default blue is not used.
+When a user drag-selects copy on any DocuSketch surface, the selection reads as a **brand affordance** — `Chartreuse 300` (`#E5DF00`) background, `Text/Primary` (Olive `#39381B`) text. Same colour pair as primary CTAs, gradient hero, and the chartreuse-on-camo type rule. The OS-default blue is not used.
 
 ```css
 ::selection {
   background-color: var(--ds-brand-chartreuse);  /* Chartreuse 300 — #E5DF00 */
-  color: var(--ds-text-on-brand);                 /* Brand Black — #1A1905 */
+  color: var(--ds-text-primary);                  /* Olive — #39381B */
 }
 ::-moz-selection {
   background-color: var(--ds-brand-chartreuse);
-  color: var(--ds-text-on-brand);
+  color: var(--ds-text-primary);
 }
 ```
 
-The Firefox prefixed pseudo (`::-moz-selection`) needs its own rule — Firefox will not honour a comma-grouped selector mixing both. Inside dark-mode surfaces (or any block where the text colour is already chartreuse), authors may flip the pair for legibility: `background-color: var(--ds-text-on-brand); color: var(--ds-brand-chartreuse);`. The pair *always* uses these two tokens — never substitute a neutral or a secondary brand colour.
+The Firefox prefixed pseudo (`::-moz-selection`) needs its own rule — Firefox will not honour a comma-grouped selector mixing both. Inside dark-mode surfaces (or any block where the text colour is already chartreuse), authors flip the pair for legibility: `background-color: var(--ds-brand-olive); color: var(--ds-brand-chartreuse);`. In dark mode the flip is required: `Text/Primary` turns sage there and fails on chartreuse. The pair *always* uses these two tokens — never substitute a neutral or a secondary brand colour.
+
+### Error colour (web) — ruling 2026-10-07
+
+`Signal/Error` `#FF7575` is the one error colour on the web: the 2px inset ring on an invalid field **and** the error message text under it. There is no separate darker error ink. In the component kit `--dsc-error-ink` resolves to `var(--dsc-error)`.
+
+**Known contrast exception (accepted).** `#FF7575` text measures 2.47:1 on Neutral 100 `#F9F9F5`, 2.34:1 on Neutral 200 `#F4F3EA` and 2.61:1 on white: below AA for text (4.5:1) and below the 3:1 UI minimum for the ring. Chris Provins accepted this on 2026-10-07. Keep the value; don't swap in a darker red to pass. Pair every error with something besides colour: the message wording, an error glyph, and `aria-invalid` with `aria-describedby` on the field.
+
+#### Real-world context
+
+- **2026-10-07 · Remote Estimating Ebook pages** (`/lp/remote-estimating-ebook` and `/docusketch-guide-to-remote-estimating`, embed "Brand v2 CSS (ebook)"). Restyling the HubSpot form with the v2 kit, the kit's provisional dark-red error ink (off palette, never canon) was replaced by `Signal/Error`, the brand's only red, for both the invalid ring and the message text (Plex Sans 14 / 1.4, sentence case). Chris ruled that the palette red carries the error state on its own, and accepted its sub-AA text contrast as a known exception.
+
+### Status colours — ruling 2026-10-07
+
+Chris Provins' status pairs (designed ~2024 for the Figma DS Brand UI kit, file `iL3MqRVVsyma2D5kL8kZm9`, node `576:952`, and adopted by the product design system as `--{color}-light` / `--{color}-dark` in `colors_and_type.css`) are canon for status on brand surfaces. They shipped first on the marketing dashboard's Expected tags (`--md-signal-*`, 2026-10-07). Values are in *Primitives · Status* above.
+
+| Pair | Role | Light fill | Dark ink | Ink on fill | Olive on fill | Fill vs Neutral 100 |
+|---|---|---|---|---|---|---|
+| Green | Success, good news | `#EBFAC1` | `#243805` | 11.6:1 | 10.8:1 | 1.05:1 |
+| Yellow | Warning, caution | `#FEF2C3` | `#5F3100` | 9.7:1 | 10.7:1 | 1.06:1 |
+| Red | Error tint (peach) | `#FFD6BD` | `#4A1404` | 11.2:1 | 8.9:1 | 1.27:1 |
+| Blue | Info | `#D4E6F4` | `#165D77` | 5.7:1 (AA only) | 9.4:1 | 1.21:1 |
+| Purple | Spare category | `#DFD3D9` | `#3D072D` | 11.4:1 | 8.2:1 | 1.38:1 |
+
+CSS: primitives `--ds-status-{green,yellow,red,blue,purple}-{light,dark}`; component roles `--dsc-{success,warning,info}-bg` / `-ink` and `--dsc-error-bg` / `--dsc-error-bg-ink` (`skill/components/shared/base.css`).
+
+**Usage.**
+
+- **Always the pair.** Light fill with its own dark ink for the label and icon. Olive also reads on every fill (8.2–10.8:1) and is fine for body text inside a status panel, but the tag label takes the pair's ink.
+- **Hairline on cards.** The fills sit only 1.05–1.38:1 off Neutral 100 and 1.01–1.30:1 off Neutral 200, so a pill or tag on a card or page carries a 1px inset hairline in its dark ink. Without it green and yellow disappear on the warm whites.
+- **Colour never alone.** Every status says it in words (and an icon where there is room): "On track", "Behind", "Failed". Colour is the second signal.
+- **Sentiment, not direction.** Green means good news and yellow means caution, whatever way the number moved (a falling cost is green).
+- **Caution is yellow, not peach.** The red light fill is the error tint; don't use it for "attention" or "warning".
+- **Success is green, not chartreuse.** Chartreuse 300 stays the brand accent: CTAs, selection, highlights. A chartreuse "success" reads as a button or a selected state. `--dsc-success` moved from Chartreuse 300 to the green pair on 2026-10-07.
+- **Blue is AA only** (5.7:1). Keep blue-ink text at 14px or larger.
+- **Purple has no fixed meaning.** Use it for a fifth category only, and label it.
+- **Light theme only.** The pairs are light-surface colours; there is no dark-mode mapping yet.
+
+**How the red pair relates to Signal/Error.** `Signal/Error` `#FF7575` stays the error colour for the invalid-field ring, error glyphs and form error text (ruling above). The red pair is the *tint* around an error: the fill of an error tag, alert, toast disc or invalid table cell (`--dsc-error-bg` `#FFD6BD`, which replaces the off-palette `#FFE3E3` tint the component kit used), with `#4A1404` for text set inside that fill. `#FF7575` on `#FFD6BD` is only 1.94:1, so never set error text in Signal/Error on the peach fill; the ring or icon can stay Signal/Error.
 
 ## Dark Mode
 
@@ -562,7 +655,7 @@ Choosing to expose dark at all is still a design decision, not a default: run th
 
 1. **Only redefine the semantic layer.** Primitives are immutable; tokens swap. A component that binds to `DS/Token/Background/Default` never needs to know whether it is in light or dark mode.
 2. **Depth from surface lightness, not shadow.** Shadows collapse to `none` in dark; elevation is signalled by stepping each surface lighter on the warm-neutral ramp (Neutral 700 → 650 → 800).
-3. **Brand colour stays brand.** `Background/Brand` (Chartreuse 300) and `Text/OnBrand` (Chartreuse 900) do not flip. The brand pair is identity, not chrome.
+3. **Brand colour stays brand.** `Background/Brand` (Chartreuse 300) and `Brand/Olive` do not flip; text on chartreuse in dark is pinned to `Brand/Olive` because `Text/Primary` flips. The brand pair is identity, not chrome.
 
 ### Pairings
 
@@ -571,15 +664,14 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 | Token | Light primitive | Dark primitive | Notes |
 |---|---|---|---|
 | `DS/Token/Background/Brand` | Chartreuse 300 (`#E5DF00`) | **Chartreuse 300** | Brand fill — unchanged |
-| `DS/Token/Background/Inverse` | Neutral 700 (`#1A1905`) | Neutral 100 (`#F9F9F5`) | Flipped — "inverse" relative to current mode |
+| `DS/Token/Background/Inverse` | Neutral 650 (`#39381B`) | Neutral 100 (`#F9F9F5`) | Flipped — "inverse" relative to current mode |
 | `DS/Token/Background/Default` | Neutral 200 (`#F4F3EA`) | Neutral 650 (`#39381B`) | Card / inset surfaces — one step elevated above page |
 | `DS/Token/Background/Subtle` | Neutral 100 (`#F9F9F5`) | Neutral 700 (`#1A1905`) | Page / section background — deepest surface in each mode |
-| `DS/Token/Text/Primary` | Neutral 700 | Neutral 400 (`#C0BC90`) | Body, headlines. Dark primary is **warm sage**, not a stark off-white (9.14:1, AAA). Inverting the warm-neutral identity into a tech-flat white misreads the brand — the warm sage carries forward DocuSketch's identity into the dark theme. |
-| `DS/Token/Text/OnBrand` | Chartreuse 900 (`#2A2808`) | **Chartreuse 900** | Text on chartreuse fills — unchanged |
+| `DS/Token/Text/Primary` | Neutral 650 | Neutral 400 (`#C0BC90`) | Body, headlines. Dark primary is **warm sage**, not a stark off-white (9.14:1, AAA). Inverting the warm-neutral identity into a tech-flat white misreads the brand — the warm sage carries forward DocuSketch's identity into the dark theme. |
 | `DS/Token/Text/Secondary` | Neutral 500 (`#807C5E`) | Neutral 500 (`#807C5E`) | 4.0:1 vs Neutral 700 — AA Large only, same caveat both modes |
 | `DS/Token/Text/Strong` | Neutral 650 (`#39381B`) | Neutral 200 (`#F4F3EA`) | High-contrast body-supporting copy. 11.96:1 (light) / 15.91:1 (dark) — AAA both. Not an emphasis step above Primary on light; its purpose is holding high contrast when it flips to Neutral 200 in dark. |
 | `DS/Token/Text/Muted` | Neutral 400 (`#C0BC90`) | Neutral 650 (`#39381B`) | Decorative only — ~1.5:1 in both modes. Same semantic across themes: tertiary, non-load-bearing copy. |
-| `DS/Token/Text/Inverse` | Neutral 100 | Neutral 700 | Flipped |
+| `DS/Token/Text/Inverse` | Neutral 100 | Neutral 650 | Flipped |
 | `DS/Token/Text/Accent` | Chartreuse 900 (`#2A2808`) | Chartreuse 300 (`#E5DF00`) | Chartreuse-family highlights NOT on a chartreuse fill: breadcrumb current, in-prose links, group headers, "Show more" expanders. |
 | `DS/Token/Border/Strong` | Neutral 500 | Neutral 400 | Lifted off dark bg |
 | `DS/Token/Border/Default` | Neutral 300 (`#DFDDC8`) | Neutral 800 (`#4A4830`) | Dark-mode-only primitive — see below |
@@ -588,7 +680,7 @@ The full Light / Dark map for every DS semantic token. Light values are unchange
 **Two new semantic tokens were added when canonizing dark mode** to replace patterns that were widely hardcoding primitives:
 
 - `Text/Strong` — solves the *high-contrast body-supporting copy* role that hardcoded `Neutral 650` (11.96:1 vs white, AAA). In dark, Neutral 650 (`#39381B`) drops to 1.4:1 against the page bg (invisible). `Text/Strong` resolves to Neutral 200 in dark, preserving the role's high-contrast intent.
-- `Text/Accent` — solves the *chartreuse-family highlight on theme bg* role that hardcoded `Text/OnBrand` (Chartreuse 900) for breadcrumbs, in-prose links, and group titles. `Text/OnBrand` is specifically for text ON a chartreuse fill; on the dark page bg it lands at 1.19:1. `Text/Accent` resolves to Chartreuse 300 in dark (12.56:1, AAA).
+- `Text/Accent` — solves the *chartreuse-family highlight on theme bg* role that hardcoded `Text/OnBrand` (then Chartreuse 900, now retired) for breadcrumbs, in-prose links, and group titles. That token was specifically for text ON a chartreuse fill; on the dark page bg it lands at 1.19:1. `Text/Accent` resolves to Chartreuse 300 in dark (12.56:1, AAA).
 
 ### Surface elevation in dark
 
@@ -646,7 +738,7 @@ The pattern: inside `:root[data-theme="dark"]`, scope the canonical containers a
 :root[data-theme="dark"] .logo-dont *,
 :root[data-theme="dark"] .colour-item,
 :root[data-theme="dark"] .colour-item * {
-  --ds-text-primary:    #1A1905;   /* Neutral 700 */
+  --ds-text-primary:    #39381B;   /* Neutral 650, the brand dark */
   --ds-text-secondary:  #807C5E;   /* Neutral 500 */
   --ds-text-strong:     #39381B;   /* Neutral 650 */
   --ds-text-inverse:    #F9F9F5;   /* Neutral 100 */
@@ -667,7 +759,7 @@ Run a programmatic contrast walk on the dark variant of every brand surface. The
 | Text/Strong (Neutral 200) on Background/Subtle | ~14:1 | 4.5:1 | AAA — escalation tier when Primary's warm sage needs reinforcement |
 | Text/Secondary (Neutral 500) on Background/Subtle | 4.0:1 | 3:1 (AA Large) | AA Large only — captions / metadata; same caveat as light mode |
 | Text/Muted on Background/Subtle | ~1.5:1 | (decorative) | Decorative only — non-load-bearing |
-| Text/OnBrand on Background/Brand | 10.59:1 | 4.5:1 | AAA |
+| Text/Primary (Olive) on Background/Brand | 8.48:1 | 4.5:1 | AAA |
 | Text/Accent (Chartreuse 300) on Background/Subtle | 12.56:1 | 4.5:1 | AAA |
 | Focus ring (Chartreuse 300) on page | 12.56:1 | 3:1 (non-text) | Pass |
 
@@ -703,6 +795,19 @@ Nine values only. Source-of-truth is the Figma Border Radius page (`JR35zTngKUbl
 | `--radius-2xl` (24px) | 8px | `--radius-xl` (16px) | Card inside section panel |
 | `--radius-3xl` (30px) | 6px | `--radius-2xl` (24px) | Inset panel in hero |
 
+### Edge fades on rounded containers
+
+**An edge fade must reach zero opacity before the corner radius begins** (Chris Provins, 2026-09-28, Scope hero transcript strip). A fade that ends at the container edge still shows content at partial opacity where the straight edge turns into the curve, which reads as clipping, not fading. The mask stays fully transparent for the whole radius, then ramps to opaque. Radius `1rem` example:
+
+```css
+mask-image: linear-gradient(90deg,
+  transparent 0, transparent 1rem,
+  #000 3.5rem, #000 calc(100% - 3.5rem),
+  transparent calc(100% - 1rem), transparent 100%);
+```
+
+Applied on the Scope hero ticker and the card-1 walk strip (radius 28px on the 1200 stage).
+
 ### Component Assignments
 
 | Component | Token | Value |
@@ -733,7 +838,17 @@ Three durations, two easings, one rule. Apply via `var(--ds-motion-*)` in CSS, o
 | `DS/Motion/Duration/Default` | `200ms` | Dropdowns, tooltips, popovers, accordions, tabs — the default for almost everything |
 | `DS/Motion/Duration/Emphasis` | `400ms` | Modals, sheets, page transitions, hero reveals — moments the user should perceive as a transition |
 
-> Three tiers, not five. Sub-50ms is below most users' perception of motion; 600ms+ feels sluggish in a productivity tool. If something doesn't fit one of these tiers, that's a design question, not a token question.
+> Three tiers for UI, plus one showcase tier below. Sub-50ms is below most users' perception of motion; 600ms+ feels sluggish on controls in a productivity tool. If something doesn't fit, that's a design question, not a token question.
+
+**Showcase tier (ruling 2026-10-05).** Large content expansions on marketing pages (a card opening in an accordion, a photo moving from desaturated to colour) use the Resources page *Meet the Experts* motion, adopted on the New Home testimonials:
+
+| Token (proposed) | Value | Usage |
+|---|---|---|
+| `DS/Motion/Duration/Showcase` | `600ms` + `Easing/Standard` | Card flex / width changes, open-state image framing, `filter` from inactive to active |
+| Copy reveal inside the opened card | `opacity` `500ms`, `150ms` delay, `Easing/Standard` | Text arrives after the card has started opening |
+| Inactive image treatment | `filter: grayscale(1) sepia(.2)` → none on hover / active | Peeks and slivers read as one warm-grey family |
+
+Never for buttons, menus or anything a user waits on: those stay on Micro / Default / Emphasis. Reduced motion drops the duration to instant.
 
 **Exception — continuous loops:** spinners and marquees have no perceived start or end. They use:
 
@@ -748,6 +863,8 @@ Three durations, two easings, one rule. Apply via `var(--ds-motion-*)` in CSS, o
 | `DS/Motion/Easing/Out` | `cubic-bezier(0, 0, 0.2, 1)` | **Entrances** — anything appearing (tooltips, modals opening, menus revealing). Fast in, slow settle. |
 | `DS/Motion/Easing/Standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | **Persistent / two-way** — accordions, drags, slider changes, state-of-the-world updates. Symmetric ease. |
 | `DS/Motion/Easing/In` | `cubic-bezier(0.42, 0, 1, 1)` | **Exits** — for cases where reversed `Out` doesn't read right. Used on the exit half of compound animations like the Sticky CTA arrow loop. |
+
+> **Linear, constant speed** is permitted only for travel along a path (the workflow bracket's pulses run at 50px/s so they don't speed up at corners) and for continuous loops (marquees, progress fills). It is never a transition easing.
 
 > No bounce, elastic, or overshoot curves. These read as AI-generated and don't match brand voice — impeccable explicitly flags them. Use `Easing/In` only for exits where reversed `Out` doesn't read right; default to reversed `Out` otherwise.
 
@@ -787,6 +904,8 @@ For revealing groups of elements (card grids, nav items, list entries), insert a
 Animate only **`transform`**, **`opacity`**, and **`filter`**. These stay on the compositor and don't trigger layout or paint.
 
 **Forbidden** (cause layout thrash on every frame): `width`, `height`, `padding`, `margin`, `top`, `left`, `right`, `bottom`, `max-height`, `max-width`.
+
+**Showcase exception (ruling 2026-10-05, New Home).** Two size changes may animate because the size change *is* the information, and both are contained: an accordion card's `flex-grow` (the testimonial row) and a progress dot's `width` (8px → 40px pill). Both run at Showcase 600ms / `Easing/Standard`, touch at most a handful of elements in one row, and reflow no surrounding text. Nothing else gets this exception: accordions that reveal text still use `grid-template-rows`, and reveals still use `transform`. brand-lint reports the dot's `width` as an error; mark that line `brand-lint: ignore` with a reason.
 
 ### Patterns
 
@@ -858,6 +977,10 @@ Respect `prefers-reduced-motion: reduce` per WCAG 2.3.3. When set, override all 
 }
 ```
 
+### Decorative motion (ruling 2026-10-05)
+
+Motion must explain a change or a flow. On New Home, animated outcome illustrations went through four rounds (radar sweep, scan lines, point clouds, flowing threads), each made subtler, and were then removed entirely: **illustrations are static**. What stayed is motion that carries information: the workflow bracket showing data flowing into the job record, the testimonial autoplay progress, the DS1 camera scroll-scrub, the camo drift behind the closing CTA (paused off screen), and the client-logo marquee at half speed (`0.5`). Each one has a reduced-motion branch that shows the resting frame.
+
 ### Real-world context
 
 Field notes from applying this section to shipped pages. Each entry names the page, what the canonical rule produced, and what changed — so the rule evolves from evidence, not taste.
@@ -876,7 +999,7 @@ Field notes from applying this section to shipped pages. Each entry names the pa
 - **Registration marks — three tokens, three jobs (2026-09-18, Chris Provins).** The Capture page settled the vocabulary for the crosshair family, which had drifted into three sizes used interchangeably. Proposed token names, pending Figma:
   - `Mark/Crosshair-L` — the 1.63rem plus (`plus-icon` asset, `☘️ Element / Crosshair` on the New Home). **The default.** Section dividers (the rows above and below the logo marquee), frames around whole blocks (the testimonial block), and the break between the workflow module and the FAQ.
   - `Mark/Crosshair-S` — the 0.8125rem, 1px, Olive plus. Reserved for the perimeter of data rows, where the large mark would out-weigh the numbers. On the page: the four corners of the business-impact stat row, and nowhere else.
-  - `Mark/Dash` — the 5×1px Brand/Black dash. Column boundaries inside a framed row: between the stat columns on the business-impact band and at the tick rows of the tool containers.
+  - `Mark/Dash` — the 5×1px dash in the brand dark (Olive since 2026-10-05; Brand/Black before). Column boundaries inside a framed row: between the stat columns on the business-impact band and at the tick rows of the tool containers. Dashes sit at the top and bottom ends of each column boundary, aligned with the row's top and bottom edges, never centred vertically on the content (Chris Provins, 2026-10-05).
   Rule of thumb: L frames sections, S frames data, Dash divides columns. Where a glow already carries the transition between two blocks, the crosshair row on that edge comes off — the Capture page's testimonial block keeps only its bottom row of Crosshair-L because the feature cards' glow tail flows into its top. **Glow as bookends (2026-09-18):** the stats-band glow that rises into the first tool container is mirrored below the last one — same recipe (24rem layer, 8rem overhang, blur 48px, opacity 0.9) with the ellipse anchored at `50% 0%` instead of `50% 100%`, inside a 12rem clipped tail. Entering and leaving the product block through the same light reads as one framed chapter rather than two effects. Never mix two crosshair sizes on the same block. A first pass framed the testimonials with Crosshair-S; Chris moved it to Crosshair-L because the block is a section, not a data row.
 - **Workflow value panel on animated Camo (2026-09-18).** The cross-page "Capture / Scope / Estimate" module became a single rounded panel (`--radius-2xl`, 24) on `DS/Pattern/Camo` in its Animate mode — the same `generateCamoSvg` output with the kit's `pattern-blob` drift (22s ease-in-out, 2.2s stagger, off under reduced motion), a new seed per surface so two camo panels on one page never match. Left: eyebrow + one-sentence statement. Right: three hairline-divided rows, title + ↗ (or a "You are here" pill on the current step) + one-line description drawn from the positioning doc's workflow pillars. **Type on the panel is Chartreuse 200 on the standard generator camo** (seed 2027; strokes at 50% alpha, secondary copy at 85%, outlined "You are here" pill, icon boxes filled Chartreuse 200 with Brand/Black glyphs). Chris tried Brand/Black on a bright seed, light neutrals on a dark-base variant and Chartreuse 300 on both bases in one session; Chartreuse 200 was the pairing that separated type from pattern without leaving the family, and it became the rule. An earlier pass used Olive on Neutral 100 cards and read as three product tiles rather than one platform statement. Row states: hover nudges the row `translateX(4px)` (kit list-row rule), turns its top hairline from 35% to solid Brand/Black, brings the description from 80% to full opacity and sends the arrow a further 6px; `:active` settles the row at 2px and the arrow at 3px; `:focus-visible` is a 2px Brand/Black outline at 4px offset. The current step has no link and carries a filled pill — Brand/Black with Chartreuse 300 text, the canonical primary fill — instead of an arrow. The arrow is the same 16px `→` SVG the testimonial slider arrows use, in `currentColor`, so one glyph does all directional work on the page. All at Default 200ms / Standard. Standing rule for this module: a Camo panel is a statement surface — one idea, one palette, no illustrations, no imagery fighting the pattern.
 - **Scroll-entry reveals removed (2026-09-21, Chris Provins).** After five passes of tuning, the Capture page shipped without any on-scroll entry animation. Chris's call: the reveals and the continuous card glide added script, observers and per-element transitions without earning their keep, and the page already carried enough motion in the animated camo, the hover states and the marquee. What stayed is motion that either responds to the reader (hover, sticky CTA) or lives inside one bounded surface (camo drift). Field lesson for the Scroll reveal pattern: it is optional, not default — reach for it when a section needs to be *discovered*, not to decorate content that is already legible. **Sticky CTA exit rule, refined:** hide the floating button only while the block carrying the in-page CTA is on screen, and let it return below that block, so the FAQ and footer are never left without a path to convert.
@@ -989,6 +1112,8 @@ Letter-spacing is part of the type style — set it on the style object, do not 
 
 > **DS/Type/Label has been deleted.** `DS/Type/Overline` now supersedes it as the standard label style for all eyebrows, stat headers, column labels, and section markers. Any file that previously used Label should be rebound to Overline via `figma.importStyleByKeyAsync('fdc61f952a620bf320986e341ed689cc8bfa5c4a')`.
 
+**Web eyebrow — ruling 2026-10-07.** A page or section eyebrow on the web is the kit's `Document / Page Eyebrow` (Brand Design Kit `JR35zTngKUblEKMD0myUyD`, set `1183:221`, `Surface=Light` `1183:219`) at web size: `DS/Type/Overline` text (Plex Mono 11, line-height 1, `+0.08em`, caps, `ss04` for the plain zero) in Olive, inside a 1px Olive inset hairline (`box-shadow: inset 0 0 0 1px`), `--radius-sm` (4), padding 8px vertical / 12px horizontal, no fill. On an Olive surface use `Surface=Dark` (Chartreuse stroke and text). This settles the Overline vs Plex Sans Condensed 14 question (AUDIT-2026-10-05 #4): no Condensed eyebrows on the web. Condensed Medium caps stays for Editorial caps labels, product pills and in-control column heads. First built on the Remote Estimating Ebook pages (2026-10-07, embed "Brand v2 CSS (ebook)").
+
 ### Print parallel ramp — `DS/Type/Print/*`
 
 Print collateral designed at **PDF-native scale** (1 px = 1 pt, page size `612 × 792` = 8.5 × 11 in) renders type at the same point size on screen as it will print. Web/digital styles (the `DS/Type/*` ramp above) are sized for screen reading and look oversized at print scale; `DS/Type/Print/*` is a parallel ramp at ~60–65% scale that lands as print-realistic body / headline sizing.
@@ -1040,6 +1165,12 @@ unfinished. Rule: Best Practice #19, applies to every surface (web, Figma, print
 **Web implementation:** headings get `text-wrap: balance` (evens out line lengths, which removes most orphans), paragraphs get
 `text-wrap: pretty`. Neither is a guarantee at every width, so still bind the final two words with `&nbsp;` in the copy of any
 heading that can wrap, and check desktop, tablet and mobile.
+
+**Page-wide safety net (New Home, 2026-10-02):** one typesetting embed per page sets `text-wrap: balance` on `h1–h6`, `[class*="heading-style"]`, quotes and attributions, and `text-wrap: pretty` on `p`, `li` and `[class*="text-size-p"]`. Copy that can still orphan carries `&nbsp;` between its last two words inside the text itself (component instance props included). A hyphenated last word needs a **word joiner** (U+2060) after the hyphen (`estimate-⁠ready`): IBM Plex Sans has no non-breaking hyphen (U+2011) glyph.
+
+**One-line fit:** where a title must hold on one line (the problem / solution card titles), size it to its container: `font-size: min(2rem, (100cqi - 84px) / 17); white-space: nowrap` from 1200px up, balanced wrap below. Put `container-type: inline-size` on an ancestor with a **definite width** (a grid track), never on a shrink-to-fit or flex-aligned element: containment drops its intrinsic width and the element collapses.
+
+**Verification:** scan each text block's last line for a single word at 11 widths from 1600 to 360px; New Home ships with zero orphans at every width.
 
 **Figma:** there is no automatic orphan control. Inspect every text frame at each breakpoint frame; use a non-breaking space or
 Shift+Return, never extra spaces or a narrower frame that breaks the grid.
@@ -1128,6 +1259,10 @@ Google Fonts ships a subset of IBM Plex that strips the stylistic sets — `'ss0
 **Why not `'salt' 1`?** `salt` (Stylistic Alternates) is a meta-feature that flips *all* alternates simultaneously — single-storey `a`, single-storey `g`, the zero alternate, alt-eszett, etc. In Plex Mono it produces plain zero as a side-effect, but it also changes letters in ways you don't want for brand text. In Plex Sans it makes the zero dotted. Always use the specific `ss04` flag where you need it, scoped to the right family.
 
 ---
+
+#### Real-world context — Webflow-hosted Plex (2026-10-02, New Home)
+
+Webflow's hosted IBM Plex Mono (`Ibmplexmono`) keeps its stylistic sets and defaults to the **dotted** zero, so `ss04` turns on its plain zero; hosted Plex Sans and Condensed default to plain. The page applies `font-feature-settings: "ss04" on` to every Mono selector by name (eyebrows, attributions, stats, quotes, chips, code), never to `*`.
 
 ## Photo Card Pattern (Mobile)
 
@@ -1221,6 +1356,105 @@ Campaign mode only. Editorial carries no imagery.
 
 ---
 
+## Marketing Page Patterns
+
+Approved page-level patterns, each taken from a shipped or approved page and stated as a rule another page can reuse. Section-level rulings (ink, surfaces, motion, line breaks, touch targets) live in their own sections; this section holds the patterns themselves.
+
+**Source for every pattern below unless noted:** New Home GA draft (`/dev/new-home-ga`, Webflow page `6abae1da24071f5a642f0ffb`), approved as brand canon by Chris Provins on 2026-10-05. Measured from the page's live embed code on that date. Values marked *approved deviation* sit off the documented scales on purpose; keep them for this pattern and don't generalise them.
+
+### Product rows (Capture / Scope / Estimate)
+
+A stacked set of two-column rows, one per product, used where a page introduces the three products in sequence.
+
+| Part | Spec |
+|---|---|
+| Row | Two equal columns; media and content alternate sides (Scope flips). Rows divided by a 0.5px Neutral 400 hairline, with a 1px Neutral 400 centre line at 60% opacity |
+| Media | 24px padding; image **3:2**, `object-fit: cover`, radius 12 (`--radius-lg`) |
+| Content | Vertically centred; padding 64 / 80 desktop, 40 tablet, 32 / 24 / 48 mobile |
+| Head | Icon tile + pill, 2px apart |
+| Icon tile | 36px, 8px padding, radius 8, fill Neutral 650 `#39381B`, the brand-kit product mark in Chartreuse 300 (see *Product marks*) |
+| Pill | 36px tall, padding 0 14 (*approved deviation*), 1px ink stroke, radius full; Plex Sans Condensed Medium 14/16.8, +1.12px, uppercase |
+| Title | Plex Sans Medium 46.8 / 50.5, −1.5px (*approved deviation* between H2 and H2 Large); 36 / 40 tablet; 30 / 33 mobile; Olive; balanced |
+| Description | Plex Sans 18 / 28 (Body LG), Olive, pretty wrap, max 620px |
+| Feature chips | 28px tall, padding 0 12, 1px Eucalyptus (Neutral 400) stroke, no fill, radius full; Plex Mono Medium 12 / 16, +0.06em, uppercase, `ss04`; 8px gap, wrap |
+| Learn more | See below |
+
+**Learn more button (row link).** 36px tall (the icon tile's height), radius 8, fill and stroke Neutral 650, label in `Text/Inverse` Plex Sans 16 Regular, 20px Material `arrow_forward` drawn as a mask in `currentColor`. Hover / focus: chartreuse fill and stroke, ink label, arrow nudges 4px right; all at Default 200ms / `Easing/Out`. Press: Eucalyptus fill, `Text/Secondary` label. Focus ring 2px ink, 2px offset. 44px tall on touch screens. Five earlier variants were tried and rejected: chartreuse at rest, a subtle fill that read as a chip, an outline-only button, a boxed arrow and a looping arrow.
+
+**Mobile:** one column, media first in every row (the flip is removed), centre line hidden.
+
+### Testimonial accordion
+
+Desktop and tablet: one row of photo cards where one card is open and the rest are slivers; built on the *Meet the Experts* motion (Motion → Showcase tier).
+
+| Part | Spec |
+|---|---|
+| Width | Capped at 74.5rem (1192px), matching the page's content width |
+| Heading | The label style used by the logo band ("Trusted by…"): Plex Mono 16, centred, Olive |
+| Row | Flex, 8px gap; open card `flex: 6.5`, slivers `1`, hovered sliver `1.6`; the row's `aspect-ratio` is set so the **open card is 16:9** (five cards → about 2.95:1) |
+| Images | Inactive `grayscale(1) sepia(.2)`, colour when open or hovered; per-card focal points: the face centred in a sliver, the person in the right third when open |
+| Copy | Quote and attribution shown only on the open card, over a left-to-right Brand/Olive scrim (72% → 40% → 0 at 62%); copy fades in 500ms after 150ms |
+| Framing | The page's 26px crosshair, centred 32px outside each end of the row, vertically centred; hidden at 991px and below |
+| Dots | One per card: inactive 8px at 25% opacity, active a 40px Olive pill that fills over 7s while autoplay runs |
+| Autoplay | Advances every 7s and loops; pauses on hover, focus, off screen and hidden tab, then resumes with the time left; a manual pick restarts the timer; off under reduced motion |
+| Build | No JavaScript for the accordion itself: transparent radio inputs laid out with the same flex rules are the hit areas, and `:has(#card-k:checked)` opens card k. Works in Webflow preview and with arrow keys. Autoplay is a progressive enhancement |
+
+**Phone (767px and below):** one card at a time in a **1:1** square framed on the face; a Brand/Olive scrim on the bottom 45%; quote 16 / 1.35, attribution 12; Previous / Next buttons below the square, 44px, radius 8, 1px Olive stroke, CTA arrows.
+
+**Content rules:** quotes are verbatim from the source (trim with `…`, never insert words in `[ ]`); every card is a real, approved customer with their real photo.
+
+### Outcome columns ("Built for")
+
+Four highlight columns that connect the dots after the product rows. They don't re-walk the workflow.
+
+| Part | Spec |
+|---|---|
+| Heading | One H2 spanning the columns, centred, max 16em, balanced |
+| Grid | Four equal columns, padding 0 40 (first column flush left); two columns at 991px and below, stacked at 767px |
+| Column | Label (Plex Mono 14, +0.4px, `ss04`) → statement (Plex Sans 26 / 1.22, −0.5px, max 10em so every title runs two lines) → one-line body (17px) → illustration pinned to the bottom |
+| Frame | Crosshair rows above and below the columns only, inside the grid: 13px + at the ends, 5px dashes at the three column boundaries, centre + hidden; 56px above the columns and 64px below |
+| Illustrations | Equal rendered width (crop each `viewBox` to its own artwork); static (Motion → Decorative motion) |
+
+**Illustration style.** Reference: Figma `guoAdcJQH5m7hrlyH62OGZ` node `2038:6693` (the Capture drawing). Open line work at about 2px, **no fills**, fine dotted secondary lines with round caps, at most one solid dark element as the focal point. Instant Sketch is drawn as the floor plan only. Product marks in an illustration keep their crop marks.
+
+### Client logo band
+
+- Background: a repeating dot tile (r 0.88, Eucalyptus at 75%, pitch 21.333 × 17.531) drawn as a token-filled mask so it recolours with the system.
+- The logo row sits 96px from the crosshair centre lines above and below; the label sits 46px above the logos.
+- Marquee at half speed (`0.5` / `−0.5`).
+- The crosshair row under the hero drops its centre point where it would collide with the hero icon (spacing kept).
+
+### Workflow bracket
+
+The Capture / Scope / Estimate → Connected Job Record bracket is inline SVG. A 2px Chartreuse 200 (`#FFFA37`, bound as `background/accent-active`) segment at 85% opacity travels each line into the stem at a constant 50px/s on a 7s loop. Use Chartreuse 200 here because the section background turns chartreuse, where Chartreuse 300 would vanish. The tip is the CTA's open, square-cut arrow head. Reduced motion shows the static bracket.
+
+### Hero: product-artifact nodes
+
+The hero's floating nodes are real product artifacts (360° Tour, Scope Walkthrough, Instant Sketch, Scope Sheet). Threads from each node converge on one mark that stands for the DocuSketch job record. Rules:
+
+- Product UI inside a node follows the **product** design system (Field Note pins, walkthrough pill, real Instant Sketch plans), never brand accents. Match a real product screenshot over any token inference.
+- Show only states the product has. No invented status cards, live transcripts or flows.
+- No prices in any estimate or scope render (costing comes from Xactimate).
+- Motion inside a node (tour pan, recording pulse) honours reduced motion.
+
+### Image ratios
+
+| Use | Ratio |
+|---|---|
+| Default for new image frames, cards and generated assets | **16:9** landscape |
+| Product row media | 3:2 |
+| Open testimonial card | 16:9 (desktop / tablet) · 1:1 (phone) |
+
+### Product marks
+
+Capture, Scope and Estimate icons are the brand-kit marks from the workflow pills: a corner-bracket frame plus ring (Capture), 3×3 dots (Scope) or three bars (Estimate), 24×24, `currentColor`. The crop-mark frame is part of the mark. Never strip it; scale the whole mark to fit a tile or circle. Never substitute the chartreuse 360 / claim-summary / estimate image assets.
+
+### Pre-footer CTA on animated camo
+
+The closing CTA band uses `DS/Pattern/Camo` in Animate mode (kit generator, drift keyframes), with the drift paused while off screen. Type over camo follows Colour Tokens → Patterns (Chartreuse 200).
+
+---
+
 ## Compound Component Anatomy
 
 Some components are layered — an outer wrapper, an inner primary surface, and one or more nested interactive elements. Each layer has its own token assignments, and the layered relationship is part of the design (not an implementation detail). Compound components are documented with explicit per-layer anatomy so that any consumer renders the same visual hierarchy.
@@ -1279,6 +1513,8 @@ Sticky CTA  (compound component)
 **Text inside the pill**: IBM Plex Sans Regular at 24px, line-height 110%, tracking `-0.04em` (= `-0.96px` at 24px). Colour is **`Neutral/300`** in the Default (black) state and **`Brand/Black`** in the hover (chartreuse) state — see the Interaction states table. Note this is **Regular** weight — the `DS/Type/H4` token is Medium; the Sticky CTA's "Book A Demo" label uses Sans Regular at H4 size. *This is a documented exception; do not generalise — most surfaces use the canonical type styles.*
 
 **Interaction states**:
+
+> **Olive ruling 2026-10-05.** Where this component spec says `Brand/Black` (`#1a1905`), the brand dark is now Olive `#39381B`. On the web, bind the pill fill and hover text to `Brand/Olive`. The Figma component keeps the old fill until it is re-filled, so treat the values below as Figma's current state, not the target.
 
 | Layer | Default (rest) | hover | press (active) |
 |---|---|---|---|
@@ -1380,6 +1616,10 @@ Use for: gaps between elements within a component, padding inside a card / butto
 | `128` | Hero gaps, top-of-page / bottom-of-page padding, division between distinct page surfaces |
 
 Use for: outer layout, viewport-edge clearance, section-to-section gaps. Components themselves should not consume these values internally — only the page / layout context.
+
+### Touch targets (ruling 2026-10-05)
+
+Interactive controls are at least **44px** in each direction on touch screens. Grow the hit area, not the visual: under `@media (pointer: coarse)` add padding (with a matching negative margin where layout must not move) so an 8px dot or a 36px button keeps its look and gains a 44px target. Desktop keeps the visual size. Applied on New Home to the testimonial dots, the menu button, the Learn more buttons and the CTA.
 
 ### Forbidden values
 
@@ -1850,7 +2090,7 @@ fetch the official SVG at the standard axis config:
 https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/<name>/default/24px.svg
 ```
 
-`default` **is** `FILL 0 / wght 400 / GRAD 0 / opsz 24`. Other path variants (`wght400/`) 404.
+`default` **is** `FILL 0 / wght 400 / GRAD 0 / opsz 24`. Lighter official weights exist as path variants: `…/<name>/wght300/24px.svg` and `wght200`, and the 20px optical size as `…/<name>/wght300/20px.svg` (verified 2026-10-06; `wght400/` and `wght300fill0/` 404). The brand kit's UI chrome (block tabs, preview-width toggle) uses `wght300` at 20px for a lighter line next to Plex.
 Set `fill="currentColor"` and keep Google's `0 -960 960 960` viewBox — mixing it with 24×24
 universal-set icons is fine, since each is sized to the same box.
 
@@ -1946,12 +2186,18 @@ never set both `width` and `height` independently.
 **Two exceptions that are multi-colour by design.** `check` and `cross` are two-tone status badges
 carrying their own fore and background; they do not follow `currentColor`. Do not recolour them.
 
+**One stroke icon.** `360aiLogo` (the 360AI logo, a modified 360 mark; brand-drawn, Chris Provins
+2026-10-06) is a 1.25 stroke on `currentColor` in a `0 0 22 22` viewBox, not a fill: size it with CSS
+and never add a fill. It is also the job-record hub at the centre of the hero's four nodes. It is
+proposed as the full DocuSketch logo, but until that is ruled it is an icon, not the logo: the
+Logo Usage rules (canonical wordmark, DS° mark) are unchanged.
+
 **Sizes.** `24` is the default. `16` for dense UI and inline text — note the set uses a `Small`
 suffix at that size. `32` for large display, and it covers only five concepts.
 
-**24px — 200 icons**
+**24px — 201 icons**
 
-`360cam` · `360camConnected` · `360camDisconnected` · `360camFilled` · `360°` · `account`
+`360aiLogo` · `360cam` · `360camConnected` · `360camDisconnected` · `360camFilled` · `360°` · `account`
 `actions` · `add` · `add360°` · `addComment` · `addFilled` · `affected` · `alert`
 `approval_delegation` · `archive` · `arrowDown` · `arrowLeft` · `arrowRight` · `arrowUp`
 `barrier` · `batteryAlmostFull` · `batteryFull` · `batteryHalf` · `batteryHalfLow`
@@ -2018,7 +2264,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-10-07T22:27:05.802465+00:00",
-  "last_skill_sync": "2026-10-02T19:54:53.846342+00:00",
+  "last_skill_sync": "2026-10-08T16:16:45.424732+00:00",
   "figma_last_version": "2407744953440500267"
 }
 ```
