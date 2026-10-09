@@ -434,20 +434,25 @@ Two-tier palette mirroring Figma node `119:3`. **Primitives** are the raw colour
 
 ### Primitives · Status
 
-Five light-fill / dark-ink pairs for status tags, pills and messages (ruling 2026-10-07, Chris Provins). Always used as a pair: light fill, dark ink, and on a card a 1px hairline in the dark ink. Full rules under *Status colours* below.
+Five light-fill / dark-ink pairs for status tags, pills and messages (ruling 2026-10-07, Chris Provins). Always used as a pair: light fill, dark ink, and on a card a 1px hairline in the dark ink. Each hue also has a **Mid** tone for marks that sit straight on a surface (ruling 2026-10-09). Full rules under *Status colours* below.
 
 | Token | Hex | Pantone | Used as |
 |---|---|---|---|
 | `DS/Color/Status/Green Light` | `#EBFAC1` | — | Success fill (good news). Dark ink on it 11.6:1 |
-| `DS/Color/Status/Green Dark` | `#243805` | — | Success ink and hairline on Green Light |
+| `DS/Color/Status/Green Mid` | `#43944F` | — | Success mark on a surface: status dot, icon, chart series, meter or progress fill. Marks only, never text or a tag fill. 3.56:1 on Neutral 100, 3.37:1 on Neutral 200 |
+| `DS/Color/Status/Green Dark` | `#243805` | — | Success ink: the label and icon on Green Light, and the 1px hairline around a success tag on a card. 11.6:1 on Green Light, 12.1:1 on Neutral 100 |
 | `DS/Color/Status/Yellow Light` | `#FEF2C3` | — | Warning / caution fill. Dark ink on it 9.7:1 |
-| `DS/Color/Status/Yellow Dark` | `#5F3100` | — | Warning ink and hairline on Yellow Light |
+| `DS/Color/Status/Yellow Mid` | `#9A7D04` | — | Warning mark on a surface: status dot, icon, chart series, meter fill. A mustard, so never beside a chartreuse accent. 3.75:1 on Neutral 100, 3.55:1 on Neutral 200 |
+| `DS/Color/Status/Yellow Dark` | `#5F3100` | — | Warning ink: the label and icon on Yellow Light, and the 1px hairline around a warning tag on a card. 9.7:1 on Yellow Light, 10.3:1 on Neutral 100 |
 | `DS/Color/Status/Red Light` | `#FFD6BD` | — | Error tint (peach): the fill behind an error tag, alert or invalid cell. Dark ink on it 11.2:1 |
-| `DS/Color/Status/Red Dark` | `#4A1404` | — | Error ink and hairline on Red Light |
+| `DS/Color/Status/Red Mid` | `#E62C2D` | — | Error mark in data: error dot, failed chart series, over-limit meter segment. Form errors (ring, glyph, message) stay Signal/Error. 4.18:1 on Neutral 100, 3.96:1 on Neutral 200 |
+| `DS/Color/Status/Red Dark` | `#4A1404` | — | Error ink: text and icons set inside the Red Light tint (error tag, alert, invalid cell), and its 1px hairline on a card. 11.2:1 on Red Light, 14.3:1 on Neutral 100 |
 | `DS/Color/Status/Blue Light` | `#D4E6F4` | — | Info fill. Dark ink on it 5.7:1 (AA, not AAA) |
-| `DS/Color/Status/Blue Dark` | `#165D77` | — | Info ink and hairline on Blue Light |
+| `DS/Color/Status/Blue Mid` | `#3E87BC` | — | Info mark on a surface: status dot, icon, chart series, progress fill. 3.69:1 on Neutral 100, 3.49:1 on Neutral 200 |
+| `DS/Color/Status/Blue Dark` | `#165D77` | — | Info ink: the label and icon on Blue Light, and the 1px hairline around an info tag on a card. 5.7:1 on Blue Light (AA, keep text 14px or larger), 6.9:1 on Neutral 100 |
 | `DS/Color/Status/Purple Light` | `#DFD3D9` | — | Spare category fill (no fixed meaning; label it). Dark ink on it 11.4:1 |
-| `DS/Color/Status/Purple Dark` | `#3D072D` | — | Ink and hairline on Purple Light |
+| `DS/Color/Status/Purple Mid` | `#B55F8A` | — | Spare-category mark: dot, icon or chart series for a fifth category with no fixed meaning; label it. 4.00:1 on Neutral 100, 3.79:1 on Neutral 200 |
+| `DS/Color/Status/Purple Dark` | `#3D072D` | — | Spare-category ink: the label and icon on Purple Light, and its 1px hairline on a card. 11.4:1 on Purple Light, 15.7:1 on Neutral 100 |
 
 ### Pantone matching — note
 
@@ -644,6 +649,24 @@ CSS: primitives `--ds-status-{green,yellow,red,blue,purple}-{light,dark}`; compo
 - **Blue is AA only** (5.7:1). Keep blue-ink text at 14px or larger.
 - **Purple has no fixed meaning.** Use it for a fifth category only, and label it.
 - **Light theme only.** The pairs are light-surface colours; there is no dark-mode mapping yet.
+
+**Mid tones (ruling 2026-10-09, Chris Provins).** Each status hue has a Mid between its light fill and dark ink, for marks that sit straight on a page or card with no tag around them: status dots, icons, chart series, meter and progress fills, map pins.
+
+| Mid | Hex | OKLCH | On Neutral 100 | On Neutral 200 | On white |
+|---|---|---|---|---|---|
+| Green Mid | `#43944F` | 0.60 0.130 | 3.56:1 | 3.37:1 | 3.76:1 |
+| Yellow Mid | `#9A7D04` | 0.60 0.122 | 3.75:1 | 3.55:1 | 3.96:1 |
+| Red Mid | `#E62C2D` | 0.60 0.220 | 4.18:1 | 3.96:1 | 4.41:1 |
+| Blue Mid | `#3E87BC` | 0.60 0.109 | 3.69:1 | 3.49:1 | 3.89:1 |
+| Purple Mid | `#B55F8A` | 0.60 0.122 | 4.00:1 | 3.79:1 | 4.23:1 |
+
+- **Marks, not text or fills.** Every Mid clears 3:1 for graphics on Neutral 100, Neutral 200 and white, but none reaches 4.5:1, so status words stay in the pair's dark ink. Never use a Mid as a tag fill (the light fill does that job) or as a page or card surface.
+- **Text on a Mid** (rare: a label on a swatch or a large figure, 14px or larger) uses the hue's own Light, or its Dark where the Light falls under 3:1. Green, yellow, red and blue take their Light (3.04–3.52:1); purple takes its Dark (3.92:1). AA Large only, so never body copy (ruling 2026-10-09).
+- **One lightness.** All five sit at OKLCH lightness 0.60, so no status shouts louder than another in a chart or a row of dots. If a sixth status hue is ever added, set it to the same lightness.
+- **Where they come from.** The hues are the product design system's `--{color}-base` tones (`shared/tokens/colors_and_type.css`: green `#64B56E`, yellow `#DFBB3A`, red `#E92F2F`, blue `#549CD3`, purple `#B7618C`), moved to one lightness so they pass on the brand's warm whites. Three of the product bases fail 3:1 on Neutral 100 (yellow 1.76:1, green 2.38:1, blue 2.81:1). Red Mid is the product red to within a hair. Product and brand Mids differ until product adopts these.
+- **Yellow Mid is a mustard, not chartreuse.** It sits near Chartreuse 700 in hue, so never place it next to a chartreuse accent or CTA in the same view, and never use chartreuse as a warning mark.
+- **Two reds, two jobs.** Signal/Error `#FF7575` stays the form-error colour (invalid ring, error glyph, error message). Red Mid is the error mark in data: an error dot in a list, an error series in a chart, a failed segment in a meter.
+- CSS: primitives `--ds-status-{hue}-mid`; component roles `--dsc-{success,warning,info,error}-mark`.
 
 **How the red pair relates to Signal/Error.** `Signal/Error` `#FF7575` stays the error colour for the invalid-field ring, error glyphs and form error text (ruling above). The red pair is the *tint* around an error: the fill of an error tag, alert, toast disc or invalid table cell (`--dsc-error-bg` `#FFD6BD`, which replaces the off-palette `#FFE3E3` tint the component kit used), with `#4A1404` for text set inside that fill. `#FF7575` on `#FFD6BD` is only 1.94:1, so never set error text in Signal/Error on the peach fill; the ring or icon can stay Signal/Error.
 
@@ -2264,7 +2287,7 @@ looks uneven, measure the ink extents before reaching for a per-icon transform.
   "sync_user": "provins",
   "sync_user_email": "chris.provins@docusketch.com",
   "last_figma_sync": "2026-10-07T22:27:05.802465+00:00",
-  "last_skill_sync": "2026-10-08T16:16:45.424732+00:00",
+  "last_skill_sync": "2026-10-09T15:04:29.596500+00:00",
   "figma_last_version": "2407744953440500267"
 }
 ```
